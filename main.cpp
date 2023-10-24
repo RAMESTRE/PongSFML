@@ -34,6 +34,9 @@ int main()
 
     mutex.unlock();
 
+
+
+
     RenderWindow window;
 
     window.displayWindow();

@@ -1,5 +1,5 @@
-#ifndef RENDER_WINDOW
-#define RENDER_WINDOW
+#ifndef RENDER_WINDOW_DEF
+#define RENDER_WINDOW_DEF
 
 class RenderWindow {
 public:
@@ -14,4 +14,4 @@ private:
 
 };
 
-#endif // !RENDER_WINDOW
+#endif // !RENDER_WINDOW_DEF
