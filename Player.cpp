@@ -1,16 +1,15 @@
 #include "Player.hpp"
 
 
-Player::Player() {
-	
+Player::Player():m_playerSprite(sf::Vector2f(10.f, 50.f)) {
+
+	m_playerSprite.setFillColor(sf::Color::White);
 }
 
 Player::~Player() {}
 
 sf::RectangleShape Player::drawPlayer() const {
-	sf::RectangleShape rectangle(sf::Vector2f(10.f, 50.f));
-	rectangle.setFillColor(sf::Color::White);
-	return rectangle;
+	return m_playerSprite;
 }
 
 void Player::movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow, sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) const {
@@ -28,3 +27,4 @@ void Player::movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow, 
 void Player::playerSetPosition(sf::Vector2f& playerPosition, sf::RectangleShape& player) const {
 	player.setPosition(playerPosition);
 }
+

@@ -3,6 +3,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Player {
 
@@ -16,7 +17,7 @@ public:
 	sf::RectangleShape drawPlayer() const;
 
 private:
-
+	sf::RectangleShape m_playerSprite;
 };
 
 #endif // !DEF_PLAYER
