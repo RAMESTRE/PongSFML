@@ -19,11 +19,16 @@ void RenderWindow::displayWindow() const{
 
     sf::Clock clock; //Set the clock
 
-    Player player;
+    Player player1, player2;
 
     sf::Vector2u sizeWindow = window.getSize();
 
-    sf::RectangleShape rectangle = player.drawPlayer();
+    sf::RectangleShape player1Sprite = player1.drawPlayer();
+    sf::RectangleShape player2Sprite = player2.drawPlayer();
+
+    sf::Vector2f positionPlayer2 ((sizeWindow.x - player2Sprite.getSize().x), 0);
+
+    player2.playerSetPosition(positionPlayer2, player2Sprite);
 
 
     while (window.isOpen()) //Create window loop
@@ -123,11 +128,16 @@ void RenderWindow::displayWindow() const{
             }
         }
 
-        player.movePlayer(rectangle, sizeWindow);
+        player1.movePlayer(player1Sprite, sizeWindow);
+        player2.movePlayer(player2Sprite, sizeWindow, sf::Keyboard::Key::Up, sf::Keyboard::Key::Down);
 
         window.clear();
-        window.draw(rectangle);
+        window.draw(player1Sprite);
+        window.draw(player2Sprite);
         //window.draw(shape);
         window.display();
+
+        std::cout << "Player 1:" << "x = " << player1Sprite.getPosition().x << ". y = " << player1Sprite.getPosition().y << std::endl;
+        std::cout << "Player 2:" << "x = " << player2Sprite.getPosition().x << ". y = " << player2Sprite.getPosition().y << std::endl;
     }
 }

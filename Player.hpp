@@ -11,7 +11,8 @@ public:
 	Player();
 	virtual ~Player();
 
-	void movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow = sf::Vector2u(800,600)) const;
+	void playerSetPosition(sf::Vector2f& playerPosition, sf::RectangleShape& rectangle) const;
+	void movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow = sf::Vector2u(800,600), sf::Keyboard::Key keyUp = sf::Keyboard::Key::Z, sf::Keyboard::Key keyDown = sf::Keyboard::Key::S) const;
 	sf::RectangleShape drawPlayer() const;
 
 private:

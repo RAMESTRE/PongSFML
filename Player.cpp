@@ -13,12 +13,18 @@ sf::RectangleShape Player::drawPlayer() const {
 	return rectangle;
 }
 
-void Player::movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow) const {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && rectangle.getPosition().y > 30) {
+void Player::movePlayer(sf::RectangleShape& rectangle, sf::Vector2u sizeWindow, sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) const {
+
+	if (sf::Keyboard::isKeyPressed(keyUp) && rectangle.getPosition().y > 30) {
 		rectangle.move(0.f, -1.f);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && rectangle.getPosition().y < sizeWindow.y - 30 - rectangle.getSize().y) 
+	else if (sf::Keyboard::isKeyPressed(keyDown) && rectangle.getPosition().y < sizeWindow.y - 30 - rectangle.getSize().y) 
 	{
 		rectangle.move(0.f, 1.f);
 	}
+
+}
+
+void Player::playerSetPosition(sf::Vector2f& playerPosition, sf::RectangleShape& player) const {
+	player.setPosition(playerPosition);
 }
