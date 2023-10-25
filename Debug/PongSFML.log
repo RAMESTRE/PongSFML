@@ -1,2 +1,20 @@
 ﻿  RenderWindow.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\RenderWindow.cpp(47,72): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\RenderWindow.cpp(47,54): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

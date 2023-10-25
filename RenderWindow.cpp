@@ -15,13 +15,13 @@ RenderWindow::~RenderWindow() {}
 void RenderWindow::displayWindow() const{
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "PongSFML");
 
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Blue);
-
     sf::Clock clock; //Set the clock
 
     sf::Vector2u sizeWindow = window.getSize();
 
+    window.setFramerateLimit(60);
+
+    double deltaTime = 0.f;
 
     //Create Players
 
@@ -30,21 +30,25 @@ void RenderWindow::displayWindow() const{
     sf::RectangleShape player1Sprite = player1.drawPlayer(); //Create Sprite p1
     sf::RectangleShape player2Sprite = player2.drawPlayer(); //Create Sprite p2
 
-    sf::Vector2f positionPlayer2 ((sizeWindow.x - player2Sprite.getSize().x), 0);
+    sf::Vector2f positionPlayer1(50, 80);
+    sf::Vector2f positionPlayer2 ((sizeWindow.x - 50 - player2Sprite.getSize().x), 80);
 
+    player2.playerSetPosition(positionPlayer1, player1Sprite);
     player2.playerSetPosition(positionPlayer2, player2Sprite);
 
     //Create Ball
 
     Ball ball;
 
-    sf::CircleShape ballSprite = ball.drawBall();
+    sf::RectangleShape ballSprite = ball.drawBall();
+    
+    ball.firstBallMovement();
 
-    //ball.firstBallMovement();
-
+    ballSprite.setPosition(sf::Vector2f(sizeWindow.x / 2, sizeWindow.y / 2));
 
     while (window.isOpen()) //Create window loop
     {
+        deltaTime = clock.restart().asSeconds();
 
         sf::Time timeElapsed = clock.getElapsedTime(); //Get elapsed time since the clock got created
         //std::cout << timeElapsed.asSeconds() << std::endl; //Display the time elapsed as seconds in the console
@@ -77,11 +81,6 @@ void RenderWindow::displayWindow() const{
                     std::cout << "delocalize: " << sf::Keyboard::delocalize(event.key.code) << std::endl;
                     std::cout << "Window has been closed with a button pushed" << std::endl << "Program has been running for " << timeElapsed.asSeconds() << " seconds" << std::endl;
                 } 
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scan::Right))
-                {
-                    // right key is pressed: move our character
-                    shape.move(1.f, 0.f);
-                }
                 std::cout << "description: " << sf::Keyboard::getDescription(event.key.scancode).toAnsiString() << std::endl;
                 break;
 
@@ -143,21 +142,28 @@ void RenderWindow::displayWindow() const{
 
         sf::FloatRect boundingBoxP1 = player1Sprite.getGlobalBounds();
         sf::FloatRect boundingBoxBall = ballSprite.getGlobalBounds();
+        sf::FloatRect boundingBoxP2 = player2Sprite.getGlobalBounds();
 
-        if (boundingBoxP1.intersects(boundingBoxBall))
+        if (boundingBoxBall.getPosition().x < 0 || boundingBoxBall.getPosition().x > sizeWindow.x - ballSprite.getSize().x) {
+            ball.ballWindowCollision(-1.f, 1.f);
+        }
+        else if (boundingBoxBall.getPosition().y < 0 || boundingBoxBall.getPosition().y > sizeWindow.y - ballSprite.getSize().y) {
+            ball.ballWindowCollision(1.f, -1.f);
+        }
+
+        if (boundingBoxP1.intersects(boundingBoxBall) || boundingBoxP2.intersects(boundingBoxBall))
         {
-            std::cout << "COLLISION" << std::endl;
+            ball.ballWindowCollision(-1.f, 1.f);
         }
         
-        player1.movePlayer(player1Sprite, sizeWindow);
-        player2.movePlayer(player2Sprite, sizeWindow, sf::Keyboard::Key::Up, sf::Keyboard::Key::Down);
-        ball.ballMove(ballSprite);
+        player1.movePlayer(player1Sprite, &deltaTime ,sizeWindow);
+        player2.movePlayer(player2Sprite, &deltaTime ,sizeWindow, sf::Keyboard::Key::Up, sf::Keyboard::Key::Down);
+        ball.ballMove(ballSprite, &deltaTime);
 
         window.clear();
         window.draw(ballSprite);
         window.draw(player1Sprite);
         window.draw(player2Sprite);
-        window.draw(shape);
         window.display();
 
         //std::cout << "Player 1:" << "x = " << player1Sprite.getPosition().x << ". y = " << player1Sprite.getPosition().y << std::endl;

@@ -1,15 +1,14 @@
 #include "Ball.hpp"
 
-Ball::Ball() : m_x(0), m_y(0), m_square(20,4){
+Ball::Ball() : m_x(0), m_y(0), m_square(sf::Vector2f(25, 25)) {
 
 	m_square.setFillColor(sf::Color::White);
-	m_square.setRotation(45.f);
 
 };
 
 Ball::~Ball() {};
 
-sf::CircleShape Ball::drawBall() const{
+sf::RectangleShape Ball::drawBall() const{
 	return m_square;
 }
 
@@ -19,8 +18,15 @@ void Ball::firstBallMovement() {
 	m_y = (double)rand() / RAND_MAX * 2 - 1;
 }
 
-void Ball::ballMove(sf::CircleShape& ball) {
-	ball.move(m_x, m_y);
+void Ball::ballMove(sf::RectangleShape& ball, double* deltaTime) {
+	ball.move(m_x* 2160.f * *deltaTime, m_y *  2160.f  * *deltaTime);
 }
 
-void Ball::setBallPosition() const{}
+void Ball::ballWindowCollision(double x, double y) {
+	m_x *= x;
+	m_y *= y;
+}
+
+void Ball::setBallPosition() const{
+	
+}

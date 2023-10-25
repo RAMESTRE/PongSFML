@@ -13,10 +13,11 @@ public:
 	Ball();
 	virtual ~Ball();
 
-	virtual sf::CircleShape drawBall() const;
+	virtual sf::RectangleShape drawBall() const;
 	virtual void setBallPosition() const;
 	virtual void firstBallMovement() ;
-	virtual void ballMove(sf::CircleShape& ball);
+	virtual void ballMove(sf::RectangleShape& ball, double* deltaTime);
+	virtual void ballWindowCollision(double x, double y);
 	//virtual void setPosition();
 	//virtual void collision();
 	
@@ -24,7 +25,7 @@ private:
 
 	double m_x;
 	double m_y;
-	sf::CircleShape m_square;
+	sf::RectangleShape m_square;
 
 };
 
