@@ -12,8 +12,9 @@ public:
 	Player();
 	Player(sf::Vector2u& sizeWindow);
 	~Player();
-	void setPosition(sf::Vector2f positionPlayer = sf::Vector2f(0.f, 30.f)) const;
+	void setPosition(sf::Vector2f positionPlayer = sf::Vector2f(100.f, 120.f)) const;
 	sf::RectangleShape& display();
+	void movePlayer(double& deltaTime) const;
 
 private:
 
