@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Player.hpp"
 
 class DisplayWindow {
 
