@@ -1,2 +1,26 @@
 ﻿  DisplayWindow.cpp
+  Player.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(9,87): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(9,68): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(27,37): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(31,36): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  main.cpp
+  Génération de code en cours...
+  LINK : C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

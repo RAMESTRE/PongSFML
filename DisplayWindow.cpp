@@ -1,6 +1,5 @@
 #include "DisplayWindow.hpp"
 
-
 DisplayWindow::DisplayWindow() 
 {
 	m_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "PongSFML");
