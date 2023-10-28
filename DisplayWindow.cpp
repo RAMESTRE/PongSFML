@@ -21,7 +21,10 @@ void DisplayWindow::runWindow() {
     sf::Vector2u sizeWindow = m_window->getSize();
 
     Player player1(sizeWindow);
+    Player player2(sizeWindow);
+
     player1.setPosition();
+    player2.setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
 
     while (m_window->isOpen())
     {
@@ -34,9 +37,11 @@ void DisplayWindow::runWindow() {
         }
 
         player1.movePlayer(deltaTime);
+        player2.movePlayer(deltaTime);
 
         m_window->clear();
         m_window->draw(player1.display());
+        m_window->draw(player2.display());
         m_window->display();
     }
 }
