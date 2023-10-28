@@ -146,6 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DisplayWindow.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="Hitbox.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>

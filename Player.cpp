@@ -1,6 +1,6 @@
 #include "Player.hpp"
 
-Player::Player() :m_speed(1080.f){
+Player::Player() :m_speed(1080.f), m_movement(0.f){
 	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f, 100.f));
 	m_playerShape->setFillColor(sf::Color::White);
 }
@@ -22,12 +22,18 @@ sf::RectangleShape& Player::display() {
 	return *m_playerShape;
 }
 
-void Player::movePlayer(double& deltaTime) const{
+void Player::movePlayer(double& deltaTime){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && m_playerShape->getPosition().y > 120) {
+		m_movement = -m_speed * deltaTime;
 		m_playerShape->move(0.f, -m_speed * deltaTime);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && m_playerShape->getPosition().y < m_sizeWindow.y - 120 - m_playerShape->getSize().y)
 	{
-		m_playerShape->move(0.f, m_speed * deltaTime);
+		m_movement = m_speed * deltaTime;
+		m_playerShape->move(0.f, m_movement);
 	}
+}
+
+double Player::getMovement() const{
+	return m_movement;
 }

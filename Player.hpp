@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "DisplayWindow.hpp"
 
 class Player {
 
@@ -14,13 +13,15 @@ public:
 	~Player();
 	void setPosition(sf::Vector2f positionPlayer = sf::Vector2f(100.f, 120.f)) const;
 	sf::RectangleShape& display();
-	void movePlayer(double& deltaTime) const; //To modify later for player 1 and 2 to have differents controls
+	void movePlayer(double& deltaTime); //To modify later for player 1 and 2 to have differents controls
+	double getMovement() const;
 
 private:
 
 	sf::RectangleShape *m_playerShape;
 	sf::Vector2u m_sizeWindow;
 	double m_speed;
+	double m_movement;
 
 };
 
