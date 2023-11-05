@@ -1,2 +1,16 @@
-﻿  DisplayWindow.cpp
+﻿  Button.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(5,57): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(5,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+          with
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(6,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(6,28): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(15,30): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(15,27): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

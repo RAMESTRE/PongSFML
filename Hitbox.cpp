@@ -17,8 +17,8 @@ void Hitbox::hitboxUpdate(Player& player) {
 
 sf::RectangleShape Hitbox::futureCollision(Hitbox& otherEntityHitbox) {
 	sf::RectangleShape collision(sf::Vector2f(m_boundingBox->getSize().x, m_boundingBox->getSize().y));
-	collision.setFillColor(sf::Color::Blue);
-	collision.setPosition((sf::Vector2f(m_boundingBox->getPosition().x, m_boundingBox->getPosition().y + m_movementEntity*2)));
+	collision.setFillColor(sf::Color::Green);
+	collision.setPosition((sf::Vector2f(m_boundingBox->getPosition().x, m_boundingBox->getPosition().y + m_movementEntity)));
 	std::cout << m_movementEntity << std::endl;
 
 	return collision;

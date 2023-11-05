@@ -2,9 +2,11 @@
 #define DEF_DISPLAY_WINDOW
 
 #include <iostream>
+#include <string>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Hitbox.hpp"
+#include "Button.hpp"
 
 class DisplayWindow {
 

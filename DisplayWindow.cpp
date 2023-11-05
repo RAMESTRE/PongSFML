@@ -4,7 +4,7 @@ DisplayWindow::DisplayWindow() : m_deltaTime(new double)
 {
     *m_deltaTime = 0.f;
 	m_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "PongSFML");
-    m_window->setFramerateLimit(60);
+    m_window->setFramerateLimit(15);
 }
 
 DisplayWindow::~DisplayWindow() {
@@ -32,6 +32,11 @@ void DisplayWindow::runWindow() {
     player1.setPosition();
     player2.setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
 
+   
+    Button but(200.0,200.0,50.0,25.0,0,"Button");
+
+    std::cout << but.isPressed() << std::endl;
+
     while (m_window->isOpen())
     {
         *m_deltaTime = clock.restart().asSeconds(); //func restart restart the clock AND the time elapsed since the clock was last started
@@ -44,7 +49,6 @@ void DisplayWindow::runWindow() {
 
         hitboxPlayer1.hitboxUpdate(player1);
         
-
         player1.movePlayer(*m_deltaTime);
         player2.movePlayer(*m_deltaTime);
 
@@ -52,6 +56,7 @@ void DisplayWindow::runWindow() {
         m_window->draw(hitboxPlayer1.futureCollision(hitboxPlayer2));
         m_window->draw(player1.display());
         m_window->draw(player2.display());
+        but.draw(m_window);
         m_window->display();
     }
 }
