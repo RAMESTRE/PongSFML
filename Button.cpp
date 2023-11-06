@@ -4,7 +4,7 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 {
 	m_shapeButton = sf::RectangleShape(sf::Vector2f(width, height));
 	m_hitboxButton = m_shapeButton.getGlobalBounds();
-	m_shapeButton.setPosition(x, y);
+	m_shapeButton.setPosition(x - width/2, y - height/2); //Here use also a setOrigin for better understanding code
 
 	if (!m_font.loadFromFile("arial.ttf"))
 	{
@@ -17,7 +17,7 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 	m_hitboxText = m_textButton.getGlobalBounds();
 	
 	m_textButton.setOrigin(m_hitboxText.left + m_hitboxText.width / 2, m_hitboxText.top + m_hitboxText.height / 2 );
-	m_textButton.setPosition(x+width/2, y+height/2);
+	m_textButton.setPosition(x, y);
 	m_id = id;
 	m_buttonState = BTN_INACTIVE;
 }
@@ -60,7 +60,7 @@ void Button::update(sf::Vector2i& mousePosition)
 
 	case (BTN_HOVER):
 		m_textButton.setStyle(sf::Text::Bold);
-		m_shapeButton.setFillColor(sf::Color::White);
+		m_shapeButton.setFillColor(sf::Color::Black);
 		m_shapeButton.setOutlineThickness(2.0f);
 		break;
 

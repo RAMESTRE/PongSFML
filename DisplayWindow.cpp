@@ -11,6 +11,9 @@ DisplayWindow::~DisplayWindow() {
 	delete m_window;
     delete m_deltaTime;
     m_window = 0;
+    m_deltaTime = 0;
+
+    std::cout << "Window has been deleted in the displaywindow destructor" << std::endl;
 }
 
 double DisplayWindow::getDeltaTime() const {
@@ -40,6 +43,7 @@ void DisplayWindow::runWindow() {
 
     while (m_window->isOpen())
     {
+
         *m_deltaTime = clock.restart().asSeconds(); //func restart restart the clock AND the time elapsed since the clock was last started
         
         mousePosition = sf::Mouse::getPosition(*m_window);
