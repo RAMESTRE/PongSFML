@@ -36,6 +36,8 @@ void DisplayWindow::runWindow() {
    
     Button but(200.0,200.0,100.0,50.0,0,"Options");
 
+    Render render;
+
     while (m_window->isOpen())
     {
         *m_deltaTime = clock.restart().asSeconds(); //func restart restart the clock AND the time elapsed since the clock was last started
@@ -48,17 +50,20 @@ void DisplayWindow::runWindow() {
                 m_window->close();
         }
 
-        hitboxPlayer1.hitboxUpdate(player1);
+
+        /*hitboxPlayer1.hitboxUpdate(player1);
         
         player1.movePlayer(*m_deltaTime);
-        player2.movePlayer(*m_deltaTime);
+        player2.movePlayer(*m_deltaTime);*/
 
         m_window->clear();
-        m_window->draw(hitboxPlayer1.futureCollision(hitboxPlayer2));
+
+        render.startMenu(m_window);
+        /*m_window->draw(hitboxPlayer1.futureCollision(hitboxPlayer2));
         m_window->draw(player1.display());
         m_window->draw(player2.display());
         but.update(mousePosition);
-        but.draw(m_window);
+        but.draw(m_window);*/
         m_window->display();
     }
 }
