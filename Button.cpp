@@ -3,6 +3,7 @@
 Button::Button(double x, double y, double width, double height, int id, std::string textButton)
 {
 	m_shapeButton = sf::RectangleShape(sf::Vector2f(width, height));
+	m_hitboxButton = m_shapeButton.getGlobalBounds();
 	m_shapeButton.setPosition(x, y);
 
 	if (!m_font.loadFromFile("arial.ttf"))
@@ -10,9 +11,10 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 		std::cout << "ERROR" << std::endl;
 	}
 	m_textButton.setFont(m_font);
-	m_textButton.setCharacterSize(8);
+	m_textButton.setCharacterSize(16);
 	m_textButton.setString(textButton);
-	m_textButton.setPosition(x, y);
+	m_textButton.setPosition(x+width/2- m_textButton.getGlobalBounds().getSize().x/2, y+(height- m_textButton.getGlobalBounds().getSize().y)/2);
+
 	m_textButton.setFillColor(sf::Color::Black);
 	m_id = id;
 	m_buttonState = BTN_INACTIVE;
@@ -28,18 +30,44 @@ bool Button::isPressed() const
 	return false;
 }
 
-void Button::update() 
+void Button::update(sf::Vector2i& mousePosition)
 {
-	switch (m_buttonState) {
+	m_buttonState = BTN_INACTIVE;
+
+	m_hitboxButton = m_shapeButton.getGlobalBounds();
+
+	if (m_hitboxButton.contains(sf::Vector2f(mousePosition))) {
+
+		m_buttonState = BTN_HOVER;
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			m_buttonState = BTN_PRESSED;
+		}
+		
+	}
+
+	switch (m_buttonState) 
+	{
 	case (BTN_INACTIVE):
-		//Color, Font color, color text
+		m_shapeButton.setFillColor(sf::Color::White);
+		m_textButton.setFillColor(sf::Color::Black);
+		m_textButton.setString("Button");
+		m_textButton.setStyle(sf::Text::Regular);
+		m_shapeButton.setOutlineColor(sf::Color::White);
 		break;
+
 	case (BTN_HOVER):
-
+		m_shapeButton.setFillColor(sf::Color::Yellow);
+		m_textButton.setString("ButtonHovered");
+		m_textButton.setStyle(sf::Text::Bold);
+		m_shapeButton.setOutlineColor(sf::Color::White);
 		break;
+
 	case (BTN_PRESSED):
-
+		m_shapeButton.setOutlineThickness(2.0f);
+		m_shapeButton.setOutlineColor(sf::Color::Black);
 		break;
+
 	default:
 
 		break;

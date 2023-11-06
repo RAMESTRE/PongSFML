@@ -15,7 +15,7 @@ public:
 	~Button();
 
 	bool isPressed() const;
-	void update();
+	void update(sf::Vector2i& mousePosition);
 	void draw(sf::RenderWindow* window) const;
 
 private:
@@ -23,8 +23,9 @@ private:
 	sf::RectangleShape m_shapeButton;
 	sf::Text m_textButton;
 	sf::Font m_font;
-	int m_id;
+	sf::FloatRect m_hitboxButton;
 	states m_buttonState;
+	int m_id;
 
 };
 
