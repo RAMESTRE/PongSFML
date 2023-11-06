@@ -24,6 +24,7 @@ private:
 	sf::Text m_textButton;
 	sf::Font m_font;
 	sf::FloatRect m_hitboxButton;
+	sf::FloatRect m_hitboxText;
 	states m_buttonState;
 	int m_id;
 

@@ -10,12 +10,14 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 	{
 		std::cout << "ERROR" << std::endl;
 	}
+
 	m_textButton.setFont(m_font);
 	m_textButton.setCharacterSize(16);
 	m_textButton.setString(textButton);
-	m_textButton.setPosition(x+width/2- m_textButton.getGlobalBounds().getSize().x/2, y+(height- m_textButton.getGlobalBounds().getSize().y)/2);
-
-	m_textButton.setFillColor(sf::Color::Black);
+	m_hitboxText = m_textButton.getGlobalBounds();
+	
+	m_textButton.setOrigin(m_hitboxText.left + m_hitboxText.width / 2, m_hitboxText.top + m_hitboxText.height / 2 );
+	m_textButton.setPosition(x+width/2, y+height/2);
 	m_id = id;
 	m_buttonState = BTN_INACTIVE;
 }
@@ -51,21 +53,21 @@ void Button::update(sf::Vector2i& mousePosition)
 	case (BTN_INACTIVE):
 		m_shapeButton.setFillColor(sf::Color::White);
 		m_textButton.setFillColor(sf::Color::Black);
-		m_textButton.setString("Button");
 		m_textButton.setStyle(sf::Text::Regular);
+		m_shapeButton.setOutlineThickness(2.0f);
 		m_shapeButton.setOutlineColor(sf::Color::White);
 		break;
 
 	case (BTN_HOVER):
-		m_shapeButton.setFillColor(sf::Color::Yellow);
-		m_textButton.setString("ButtonHovered");
 		m_textButton.setStyle(sf::Text::Bold);
-		m_shapeButton.setOutlineColor(sf::Color::White);
+		m_shapeButton.setFillColor(sf::Color::White);
+		m_shapeButton.setOutlineThickness(2.0f);
 		break;
 
 	case (BTN_PRESSED):
+		m_shapeButton.setFillColor(sf::Color(128, 128, 128));
 		m_shapeButton.setOutlineThickness(2.0f);
-		m_shapeButton.setOutlineColor(sf::Color::Black);
+		m_shapeButton.setOutlineColor(sf::Color::White);
 		break;
 
 	default:
