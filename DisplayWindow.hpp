@@ -4,9 +4,6 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
-#include "Hitbox.hpp"
-#include "Button.hpp"
 #include "Render.hpp"
 
 class DisplayWindow {

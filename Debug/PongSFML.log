@@ -1,6 +1,4 @@
-﻿  DisplayWindow.cpp
-  Render.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(34,46): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(34,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-  Génération de code en cours...
+﻿  Render.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(35,46): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(35,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe
