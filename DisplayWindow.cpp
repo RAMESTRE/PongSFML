@@ -3,7 +3,7 @@
 DisplayWindow::DisplayWindow() : m_deltaTime(new double)
 {
     *m_deltaTime = 0.f;
-	m_window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "PongSFML");
+	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "PongSFML");
     m_window->setFramerateLimit(60);
 }
 
@@ -34,6 +34,11 @@ void DisplayWindow::runWindow() {
         {
             if (m_event.type == sf::Event::Closed)
                 m_window->close();
+
+            if (m_event.type == sf::Event::Resized) {
+                m_window->setView(sf::View(sf::FloatRect(0, 0, m_event.size.width, m_event.size.height)));
+                std::cout << "Window Resized" << std::endl;
+            }
         }
 
         m_window->clear();

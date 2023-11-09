@@ -1,10 +1,18 @@
 #include "Hitbox.hpp"
 
+// For hitbox might be better to do a template for both constructor ? 
+
 Hitbox::Hitbox(Player& player)
 {
 	m_boundingBox = new sf::FloatRect(player.display().getGlobalBounds());
 	m_movementEntity = player.getMovement();
 }
+
+/*Hitbox::Hitbox(Ball& ball)
+{
+	m_boundingBox = new sf::FloatRect(ball.getBallShape().getGlobalBounds());
+	m_movementEntity = 0.f;
+}*/
 
 Hitbox::~Hitbox() {
 	delete m_boundingBox;

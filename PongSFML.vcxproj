@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DisplayWindow.cpp" />
     <ClCompile Include="Hitbox.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Render.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="DisplayWindow.hpp" />
     <ClInclude Include="Player.hpp" />

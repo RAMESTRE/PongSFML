@@ -98,6 +98,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
 		m_tabPlayers[0]->setPosition();
 		m_tabPlayers[1]->setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
+		m_ball.setPosition(window);
+		m_ball.firstMove();
 		m_pongState = CURRENT_GAME;
 		break;
 
@@ -105,6 +107,11 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		break;
 
 	case(CURRENT_GAME):
+
+		m_ballHitbox = m_ball.getBallShape().getGlobalBounds();
+
+
+
 		m_tabPlayers[0]->movePlayer(*dt);
 		m_tabPlayers[1]->movePlayer(*dt);
 
@@ -116,6 +123,9 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 			m_pongState = END_GAME;
 		}
 
+		m_ball.move(*dt);
+
+		m_ball.draw(window);
 		window->draw(m_tabHitboxPlayers[0]->futureCollision(*m_tabHitboxPlayers[1]));
 		window->draw(m_tabPlayers[0]->display());
 		window->draw(m_tabPlayers[1]->display());

@@ -8,6 +8,7 @@
 #include "Button.hpp"
 #include "Player.hpp"
 #include "Hitbox.hpp"
+#include "Ball.hpp"
 
 enum statesGame { STARTUP_MENU = 0, PLAYERS_MENU = 1, PONG_WINDOW = 2, REPLAY_MENU = 3, PARAMETERS_MENU = 4, QUIT_GAME = 5 }; //Describe the current state of the whole game(menus, pong game,...)
 
@@ -35,6 +36,9 @@ private:
 
 	std::vector<Player*> m_tabPlayers;
 	std::vector<Hitbox*> m_tabHitboxPlayers;
+
+	Ball m_ball;
+	sf::FloatRect m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
 };
 
