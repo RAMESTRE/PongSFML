@@ -67,7 +67,7 @@ void Render::playerMenu(sf::RenderWindow* window) {
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
 
-	Button pvp(xWindowSize / 2, yWindowSize / 2.5, 100.f, 50.f, 0, "Player vs Player"), pvcpu(xWindowSize / 2, yWindowSize / 3.5, 100.f, 50.f, 0, "Player vs Computer");
+	Button pvp(xWindowSize / 2, yWindowSize / 2.5, 100.f, 50.f, 0, "Player vs Player"), pvcpu(xWindowSize / 2, yWindowSize / 1.5, 100.f, 50.f, 0, "Player vs Computer");
 
 	pvp.update(mousePosition);
 	if (pvp.isPressed()) {
@@ -89,20 +89,55 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	sf::Vector2u sizeWindow = window->getSize();
 
-	Player player1(sizeWindow);
-	Player player2(sizeWindow);
+	switch (m_pongState)
+	{
+	case(INIT_PVP):
+		m_tabPlayers.push_back(new Player(sizeWindow));
+		m_tabPlayers.push_back(new Player(sizeWindow));
+		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[0]));
+		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
+		m_tabPlayers[0]->setPosition();
+		m_tabPlayers[1]->setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
+		m_pongState = CURRENT_GAME;
+		break;
 
-	Hitbox hitboxPlayer1(player1);
-	Hitbox hitboxPlayer2(player2);
+	case(INIT_PVCPU):
+		break;
 
-	player1.setPosition();
-	player2.setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
+	case(CURRENT_GAME):
+		m_tabPlayers[0]->movePlayer(*dt);
+		m_tabPlayers[1]->movePlayer(*dt);
 
-	hitboxPlayer1.hitboxUpdate(player1);
+		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);
+		m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);
 
-	player1.movePlayer(*dt);
-	player2.movePlayer(*dt);
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+			m_pongState = END_GAME;
+		}
+
+		window->draw(m_tabHitboxPlayers[0]->futureCollision(*m_tabHitboxPlayers[1]));
+		window->draw(m_tabPlayers[0]->display());
+		window->draw(m_tabPlayers[1]->display());
+		break;
+
+	case(END_GAME):
+
+		for (int i(0); i < m_tabPlayers.size(); i++) {
+			delete m_tabPlayers[i];
+			m_tabPlayers[i] = 0;
+		}
+		for (int i(0); i < m_tabHitboxPlayers.size(); i++) {
+			delete m_tabHitboxPlayers[i];
+			m_tabHitboxPlayers[i] = 0;
+		}
+		m_tabPlayers.clear();
+		m_tabHitboxPlayers.clear();
+
+		m_gameState = STARTUP_MENU;
+		break;
+
+	}
 }
 
 void Render::parametersMenu() {

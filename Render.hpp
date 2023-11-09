@@ -33,6 +33,9 @@ private:
 	statesGame m_gameState;
 	statesPong m_pongState;
 
+	std::vector<Player*> m_tabPlayers;
+	std::vector<Hitbox*> m_tabHitboxPlayers;
+
 };
 
 #endif // !DEF_RENDER
