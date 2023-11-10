@@ -32,7 +32,7 @@ void Render::startMenu(sf::RenderWindow* window) {
 
 	sf::FloatRect titleBox = title.getGlobalBounds();
 	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
-	title.setPosition(xWindowSize/2, yWindowSize/10);
+	title.setPosition(1920/2, 1080/10);
 
 	Button startGame(xWindowSize / 2, yWindowSize/4, 100.f, 50.f, 0, "Start Game"), parametersMenu(xWindowSize / 2, yWindowSize / 3, 100.f, 50.f, 0, "Parameters") ,quitGame(xWindowSize / 2, yWindowSize / 2, 100.f, 50.f, 0, "Quit Game");
 
@@ -112,8 +112,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 
 
-		m_tabPlayers[0]->movePlayer(*dt);
-		m_tabPlayers[1]->movePlayer(*dt);
+		m_tabPlayers[0]->movePlayer(*dt, sizeWindow);
+		m_tabPlayers[1]->movePlayer(*dt, sizeWindow);
 
 		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);
 		m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);

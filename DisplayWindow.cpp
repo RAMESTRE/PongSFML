@@ -30,14 +30,23 @@ void DisplayWindow::runWindow() {
     {
         *m_deltaTime = clock.restart().asSeconds(); //func restart restart the clock AND the time elapsed since the clock was last started
 
+        
         while (m_window->pollEvent(m_event))
         {
             if (m_event.type == sf::Event::Closed)
                 m_window->close();
 
             if (m_event.type == sf::Event::Resized) {
-                m_window->setView(sf::View(sf::FloatRect(0, 0, m_event.size.width, m_event.size.height)));
-                std::cout << "Window Resized" << std::endl;
+                std::cout << "Window Resized: x = " << m_window->getSize().x << " y = " << m_window->getSize().y << std::endl;
+                std::cout << m_event.size.width << " " << m_event.size.height << std::endl;
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T)) {
+                m_window->setSize(sf::Vector2u(800, 600));
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+                m_window->setSize(sf::Vector2u(1920, 1080));
             }
         }
 
