@@ -11,7 +11,7 @@ public:
 	Player();
 	Player(sf::Vector2u& sizeWindow);
 	~Player();
-	void setPosition(sf::Vector2f positionPlayer = sf::Vector2f(100.f, 120.f)) const;
+	void setPosition(sf::Vector2f positionPlayer) const;
 	sf::RectangleShape& display();
 	void movePlayer(double& deltaTime,sf::Vector2u& sizeWindow); //To modify later for player 1 and 2 to have differents controls
 	double getMovement() const;

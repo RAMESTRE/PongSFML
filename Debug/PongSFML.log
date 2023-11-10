@@ -1,2 +1,5 @@
-﻿  DisplayWindow.cpp
+﻿  Player.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(30,37): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(35,28): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+Debug\Hitbox.obj : warning LNK4042: objet spécifié plus d'une fois ; définitions supplémentaires ignorées
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

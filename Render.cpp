@@ -96,7 +96,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		m_tabPlayers.push_back(new Player(sizeWindow));
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[0]));
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
-		m_tabPlayers[0]->setPosition();
+		m_tabPlayers[0]->setPosition(sf::Vector2f(100.f,120.f));
 		m_tabPlayers[1]->setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
 		m_ball.setPosition(window);
 		m_ball.firstMove();

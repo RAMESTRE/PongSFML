@@ -1,6 +1,6 @@
 #include "Player.hpp"
 
-Player::Player() :m_speed(1080.f), m_movement(0.f){
+Player::Player() :m_speed(1080.f), m_movement(0.f){ //Unused Constructor
 	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f, 100.f));
 	m_playerShape->setFillColor(sf::Color::White);
 	
@@ -16,7 +16,7 @@ Player::~Player() {
 }
 
 void Player::setPosition(sf::Vector2f positionPlayer) const {
-	m_playerShape->setPosition(positionPlayer);
+	m_playerShape->setPosition(sf::Vector2f(positionPlayer.x*m_sizeWindow.x/1920, positionPlayer.y*m_sizeWindow.y/1080));
 }
 
 sf::RectangleShape& Player::display() {
