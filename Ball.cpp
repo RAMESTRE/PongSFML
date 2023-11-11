@@ -1,7 +1,8 @@
 #include "Ball.hpp"
 
-Ball::Ball() {
-	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
+Ball::Ball(sf::Vector2u& sizeWindow) {
+	m_sizeWindow = sizeWindow;
+	m_ballShape = new sf::RectangleShape(sf::Vector2f(m_sizeWindow.x*20.f/1920, m_sizeWindow.y*20.f/1080));
 }
 
 Ball::~Ball() {

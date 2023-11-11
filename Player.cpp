@@ -6,8 +6,8 @@ Player::Player() :m_speed(1080.f), m_movement(0.f){ //Unused Constructor
 	
 }
 
-Player::Player(sf::Vector2u& sizeWindow) : m_sizeWindow(sizeWindow), m_speed(sizeWindow.y), m_movement(0.f) {
-	m_playerShape = new sf::RectangleShape(sf::Vector2f((m_sizeWindow.x*20.f) / 1920, (m_sizeWindow.y * 100.f) / 1080));
+Player::Player(sf::Vector2u& sizeWindow) : m_sizeWindow(sizeWindow), m_speed(sizeWindow.y), m_movement(0.f) { // Problem when change size before the actual game ==> Need to only get the first time the window size is initialized
+	m_playerShape = new sf::RectangleShape(sf::Vector2f((m_sizeWindow.x * 20.f) / 1920, (m_sizeWindow.y * 100.f) / 1080));
 }
 
 Player::~Player() {
@@ -16,20 +16,20 @@ Player::~Player() {
 }
 
 void Player::setPosition(sf::Vector2f positionPlayer) const {
-	m_playerShape->setPosition(sf::Vector2f(positionPlayer.x*m_sizeWindow.x/1920, positionPlayer.y*m_sizeWindow.y/1080));
+	m_playerShape->setPosition(sf::Vector2f(positionPlayer.x, positionPlayer.y));
 }
 
 sf::RectangleShape& Player::display() {
 	return *m_playerShape;
 }
 
-void Player::movePlayer(double& deltaTime,sf::Vector2u& sizeWindow){
+void Player::movePlayer(double& deltaTime){
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && m_playerShape->getPosition().y > (m_sizeWindow.y*120/1080)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && m_playerShape->getPosition().y > (120)) {
 		m_movement = -m_speed * deltaTime;
 		m_playerShape->move(0.f, -m_speed * deltaTime);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && m_playerShape->getPosition().y < m_sizeWindow.y - (m_sizeWindow.y *120/1080) - m_playerShape->getSize().y)
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && m_playerShape->getPosition().y < 1080 - 120 - m_playerShape->getSize().y)
 	{
 		m_movement = m_speed * deltaTime;
 		m_playerShape->move(0.f, m_movement);

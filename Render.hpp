@@ -37,7 +37,7 @@ private:
 	std::vector<Player*> m_tabPlayers;
 	std::vector<Hitbox*> m_tabHitboxPlayers;
 
-	Ball m_ball;
+	Ball* m_ball;
 	sf::FloatRect m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
 };

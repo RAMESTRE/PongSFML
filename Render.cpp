@@ -32,9 +32,10 @@ void Render::startMenu(sf::RenderWindow* window) {
 
 	sf::FloatRect titleBox = title.getGlobalBounds();
 	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
-	title.setPosition(1920/2, 1080/10);
+	title.setPosition(xWindowSize/2, yWindowSize/10);
 
-	Button startGame(xWindowSize / 2, yWindowSize/4, 100.f, 50.f, 0, "Start Game"), parametersMenu(xWindowSize / 2, yWindowSize / 3, 100.f, 50.f, 0, "Parameters") ,quitGame(xWindowSize / 2, yWindowSize / 2, 100.f, 50.f, 0, "Quit Game");
+	Button startGame(xWindowSize / 2, yWindowSize/4, xWindowSize*100.f/1920, yWindowSize*50.f/1080, 0, "Start Game"),
+		parametersMenu(xWindowSize / 2, yWindowSize / 3, xWindowSize * 100.f / 1920, yWindowSize * 50.f / 1080, 0, "Parameters") ,quitGame(xWindowSize / 2, yWindowSize / 2, xWindowSize * 100.f / 1920, yWindowSize * 50.f / 1080, 0, "Quit Game");
 
 	startGame.update(mousePosition);
 	if (startGame.isPressed()) {
@@ -89,17 +90,27 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	sf::Vector2u sizeWindow = window->getSize();
 
+	sf::RenderTexture texture;
+	if (!texture.create(1920, 1080))
+	{
+		// error...
+	}
+
+	sf::Sprite ssprite;
+	const sf::Texture& ttexture = texture.getTexture();
+
 	switch (m_pongState)
 	{
 	case(INIT_PVP):
-		m_tabPlayers.push_back(new Player(sizeWindow));
-		m_tabPlayers.push_back(new Player(sizeWindow));
+		//m_ball = new Ball(sizeWindow);
+		m_tabPlayers.push_back(new Player());
+		m_tabPlayers.push_back(new Player());
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[0]));
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
 		m_tabPlayers[0]->setPosition(sf::Vector2f(100.f,120.f));
-		m_tabPlayers[1]->setPosition(sf::Vector2f(sizeWindow.x - 100.f, 120.f));
-		m_ball.setPosition(window);
-		m_ball.firstMove();
+		m_tabPlayers[1]->setPosition(sf::Vector2f(texture.getSize().x - 100.f, 120.f));
+		//m_ball->setPosition(window);
+		//m_ball->firstMove();
 		m_pongState = CURRENT_GAME;
 		break;
 
@@ -108,12 +119,10 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	case(CURRENT_GAME):
 
-		m_ballHitbox = m_ball.getBallShape().getGlobalBounds();
+		//m_ballHitbox = m_ball->getBallShape().getGlobalBounds();
 
-
-
-		m_tabPlayers[0]->movePlayer(*dt, sizeWindow);
-		m_tabPlayers[1]->movePlayer(*dt, sizeWindow);
+		m_tabPlayers[0]->movePlayer(*dt);
+		m_tabPlayers[1]->movePlayer(*dt);
 
 		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);
 		m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);
@@ -123,13 +132,26 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 			m_pongState = END_GAME;
 		}
 
-		m_ball.move(*dt);
+		texture.clear();
 
-		m_ball.draw(window);
-		window->draw(m_tabHitboxPlayers[0]->futureCollision(*m_tabHitboxPlayers[1]));
-		window->draw(m_tabPlayers[0]->display());
-		window->draw(m_tabPlayers[1]->display());
+		//m_ball->move(*dt);
+
+		//m_ball->draw(window);
+
+		texture.draw(m_tabHitboxPlayers[0]->futureCollision(*m_tabHitboxPlayers[1]));
+		texture.draw(m_tabPlayers[0]->display());
+		texture.draw(m_tabPlayers[1]->display());
+
+		
+		texture.display();
+
+		//ttexture = texture.getTexture();
+		ssprite = sf::Sprite(ttexture);
+		ssprite.setScale(sf::Vector2f(sizeWindow.x / 1920.f, sizeWindow.y / 1080.f));
+
+		window->draw(ssprite);
 		break;
+
 
 	case(END_GAME):
 
