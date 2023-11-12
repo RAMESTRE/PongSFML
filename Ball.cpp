@@ -1,8 +1,7 @@
 #include "Ball.hpp"
 
-Ball::Ball(sf::Vector2u& sizeWindow) {
-	m_sizeWindow = sizeWindow;
-	m_ballShape = new sf::RectangleShape(sf::Vector2f(m_sizeWindow.x*20.f/1920, m_sizeWindow.y*20.f/1080));
+Ball::Ball() {
+	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
 }
 
 Ball::~Ball() {
@@ -10,12 +9,12 @@ Ball::~Ball() {
 	m_ballShape = 0;
 }
 
-void Ball::draw(sf::RenderWindow* window) const {
-	window->draw(*m_ballShape);
+void Ball::draw(sf::RenderTarget* target) const {
+	target->draw(*m_ballShape);
 }
 
-void Ball::setPosition(sf::RenderWindow* window) {
-	m_ballShape->setPosition((window->getSize().x - m_ballShape->getSize().x)/2, (window->getSize().y - m_ballShape->getSize().y) / 2);
+void Ball::setPosition(sf::RenderTarget* target) {
+	m_ballShape->setPosition((target->getSize().x - m_ballShape->getSize().x)/2, (target->getSize().y - m_ballShape->getSize().y) / 2);
 }
 
 sf::RectangleShape Ball::getBallShape() const {

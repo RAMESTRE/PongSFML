@@ -102,15 +102,15 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 	switch (m_pongState)
 	{
 	case(INIT_PVP):
-		//m_ball = new Ball(sizeWindow);
+		m_ball = new Ball();
 		m_tabPlayers.push_back(new Player());
 		m_tabPlayers.push_back(new Player());
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[0]));
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
 		m_tabPlayers[0]->setPosition(sf::Vector2f(100.f,120.f));
 		m_tabPlayers[1]->setPosition(sf::Vector2f(texture.getSize().x - 100.f, 120.f));
-		//m_ball->setPosition(window);
-		//m_ball->firstMove();
+		m_ball->setPosition(&texture);
+		m_ball->firstMove();
 		m_pongState = CURRENT_GAME;
 		break;
 
@@ -119,7 +119,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	case(CURRENT_GAME):
 
-		//m_ballHitbox = m_ball->getBallShape().getGlobalBounds();
+		m_ballHitbox = m_ball->getBallShape().getGlobalBounds();
 
 		m_tabPlayers[0]->movePlayer(*dt);
 		m_tabPlayers[1]->movePlayer(*dt);
@@ -136,8 +136,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 		//m_ball->move(*dt);
 
-		//m_ball->draw(window);
-
+		m_ball->draw(&texture);
 		texture.draw(m_tabHitboxPlayers[0]->futureCollision(*m_tabHitboxPlayers[1]));
 		texture.draw(m_tabPlayers[0]->display());
 		texture.draw(m_tabPlayers[1]->display());

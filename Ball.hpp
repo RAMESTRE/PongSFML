@@ -9,16 +9,15 @@ class Ball {
 
 public:
 
-	Ball(sf::Vector2u& sizeWindow);
+	Ball();
 	~Ball();
-	void draw(sf::RenderWindow* window) const;
-	void setPosition(sf::RenderWindow* window);
+	void draw(sf::RenderTarget* target) const;
+	void setPosition(sf::RenderTarget* target);
 	sf::RectangleShape getBallShape() const;
 	void firstMove();
 	void move(double dt);
 
 private:
-	sf::Vector2u m_sizeWindow;
 
 	sf::RectangleShape* m_ballShape;
 	sf::Vector2f m_spawnMoveDirection;
