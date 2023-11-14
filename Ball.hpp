@@ -24,7 +24,10 @@ private:
 	sf::RectangleShape* m_ballShape;
 	double m_angle;
 	double m_speed;
+	double m_distanceVector; //Hypothenuse
 	sf::Vector2f m_movement;
+
+	double m_directionx, m_directiony;
 };
 
 #endif // !DEF_BALL

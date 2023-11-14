@@ -131,26 +131,37 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	case(CURRENT_GAME):
 
+		m_tabPlayers[0]->movePlayer(*dt);
+		m_tabPlayers[1]->movePlayer(*dt);
+		m_ball->move(*dt);
+
 		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);
 		m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);
 		m_ballHitbox->hitboxUpdate(*m_ball);
+
+		if (m_ballHitbox->futureCollision().x < 0 || m_ballHitbox->futureCollision().x > m_gamePlan->getSize().x- m_ball->getBallShape().getSize().x) {
+			m_ball->changeDirection(-1,1);
+		}
+		if (m_ballHitbox->futureCollision().y < 0 || m_ballHitbox->futureCollision().y > m_gamePlan->getSize().y-m_ball->getBallShape().getSize().y) {
+			m_ball->changeDirection(1, -1);
+		}
+
 
 		//For me to quit game before ending an actual game (will be replaced with a quit button)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 			m_pongState = END_GAME;
 		}
 
-		m_tabPlayers[0]->movePlayer(*dt);
-		m_tabPlayers[1]->movePlayer(*dt);
-		m_ball->move(*dt);
-
 		//Draw all sprite in gamePlan texture;
 		m_gamePlan->clear();
+
+		m_gamePlan->draw(m_tabHitboxPlayers[0]->futureMovement());
+		m_gamePlan->draw(m_ballHitbox->futureMovement());
+
 		m_ball->draw(&*m_gamePlan);
 		m_gamePlan->draw(m_tabPlayers[0]->display());
 		m_gamePlan->draw(m_tabPlayers[1]->display());
-		m_gamePlan->draw(m_tabHitboxPlayers[0]->futureMovement());
-		m_gamePlan->draw(m_ballHitbox->futureMovement());
+		
 
 		
 

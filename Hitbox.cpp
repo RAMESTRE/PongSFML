@@ -34,6 +34,9 @@ sf::RectangleShape Hitbox::futureMovement() {
 	collision.setOutlineThickness(1.0f);
 	collision.setFillColor(sf::Color::Transparent);
 	collision.setPosition((sf::Vector2f(m_boundingBox->getPosition().x + m_movementEntity.x, m_boundingBox->getPosition().y + m_movementEntity.y)));
-
 	return collision;
+}
+
+sf::Vector2f Hitbox::futureCollision() {
+	return sf::Vector2f(m_boundingBox->getPosition().x + m_movementEntity.x, m_boundingBox->getPosition().y + m_movementEntity.y);
 }

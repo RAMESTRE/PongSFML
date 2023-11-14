@@ -13,6 +13,7 @@ public:
 	void hitboxUpdate(Player& player);
 	void hitboxUpdate(Ball& ball);
 	sf::RectangleShape futureMovement();
+	sf::Vector2f futureCollision();
 
 private:
 
