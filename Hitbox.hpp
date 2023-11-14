@@ -8,15 +8,16 @@ class Hitbox {
 
 public:
 	Hitbox(Player& player);
-	//Hitbox(Ball& ball);
+	Hitbox(Ball& ball);
 	~Hitbox();
 	void hitboxUpdate(Player& player);
-	sf::RectangleShape futureCollision(Hitbox& otherEntityHitbox);
+	void hitboxUpdate(Ball& ball);
+	sf::RectangleShape futureMovement();
 
 private:
 
 	sf::FloatRect* m_boundingBox;
-	double m_movementEntity;
+	sf::Vector2f m_movementEntity;
 
 };
 

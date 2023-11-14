@@ -15,12 +15,16 @@ public:
 	void setPosition(sf::RenderTarget* target);
 	sf::RectangleShape getBallShape() const;
 	void firstMove();
-	void move(double dt);
+	void move(double& dt);
+	void changeDirection(int x, int y);
+	sf::Vector2f getMovement();
 
 private:
 
 	sf::RectangleShape* m_ballShape;
-	sf::Vector2f m_spawnMoveDirection;
+	double m_angle;
+	double m_speed;
+	sf::Vector2f m_movement;
 };
 
 #endif // !DEF_BALL

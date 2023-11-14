@@ -2,6 +2,7 @@
 
 Ball::Ball() {
 	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
+	m_speed = 1000.f;
 }
 
 Ball::~Ball() {
@@ -23,9 +24,29 @@ sf::RectangleShape Ball::getBallShape() const {
 
 void Ball::firstMove() {
 	srand(time(NULL));
-	m_spawnMoveDirection = sf::Vector2f((double)rand() / RAND_MAX * 2 - 1, (double)rand() / RAND_MAX * 2 - 1);
+	m_angle = rand() % 361;
 }
 
-void Ball::move(double dt) {
-	m_ballShape->move(m_spawnMoveDirection.x * 2160 * dt, m_spawnMoveDirection.y * 2160 * dt);
+void Ball::move(double& dt) {
+	//Point A = position balle ou 0 car pas important l'origine est la balle donc A(0,0);
+	m_movement.x = m_speed * dt; //Point xB Vecteur AB
+	m_movement.y = m_speed * dt; //Point yB Vecteur AB
+	//std::cout << m_angle << std::endl;
+	double hypothenuse = sqrt(m_movement.x * m_movement.x + m_movement.y * m_movement.y);
+	//std::cout << hypothenuse << std::endl;
+	//std::cout << cos(m_angle) << std::endl;
+	//std::cout << sin(m_angle) << std::endl;
+	//std::cout << cos(m_angle) * hypothenuse << std::endl;
+	//std::cout << sin(m_angle) * hypothenuse << std::endl;
+	//std::cout << m_movement.x << std::endl;
+	//std::cout << m_movement.y << std::endl;
+	m_ballShape->move(cos(m_angle) * hypothenuse, sin(m_angle) * hypothenuse); //speed = 2160
+}
+
+void Ball::changeDirection(int x, int y){
+	m_angle = 0;
+}
+
+sf::Vector2f Ball::getMovement() {
+	return sf::Vector2f(m_movement.x, m_movement.y);
 }

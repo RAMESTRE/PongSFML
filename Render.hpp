@@ -22,7 +22,10 @@ public:
 	~Render();
 	void startMenu(sf::RenderWindow* window);
 	void playerMenu(sf::RenderWindow* window);
+
+
 	void pongWindow(sf::RenderWindow* window, double* dt);
+
 	void parametersMenu();
 	void replayMenu();
 
@@ -30,7 +33,14 @@ public:
 
 private:
 
+	//Create Plan in the game will be created (help with get a good resize of window)
+	sf::RenderTexture* m_gamePlan;
+
+	//Render
+	sf::Sprite* m_gameSprites;
+
 	sf::Font m_font;
+
 	statesGame m_gameState;
 	statesPong m_pongState;
 
@@ -38,7 +48,7 @@ private:
 	std::vector<Hitbox*> m_tabHitboxPlayers;
 
 	Ball* m_ball;
-	sf::FloatRect m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
+	Hitbox* m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
 };
 

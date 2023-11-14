@@ -8,11 +8,11 @@ Hitbox::Hitbox(Player& player)
 	m_movementEntity = player.getMovement();
 }
 
-/*Hitbox::Hitbox(Ball& ball)
+Hitbox::Hitbox(Ball& ball)
 {
 	m_boundingBox = new sf::FloatRect(ball.getBallShape().getGlobalBounds());
-	m_movementEntity = 0.f;
-}*/
+	m_movementEntity = ball.getMovement();
+}
 
 Hitbox::~Hitbox() {
 	delete m_boundingBox;
@@ -23,10 +23,17 @@ void Hitbox::hitboxUpdate(Player& player) {
 	m_movementEntity = player.getMovement();
 }
 
-sf::RectangleShape Hitbox::futureCollision(Hitbox& otherEntityHitbox) {
+void Hitbox::hitboxUpdate(Ball& ball) {
+	*m_boundingBox = ball.getBallShape().getGlobalBounds();
+	m_movementEntity = ball.getMovement();
+}
+
+sf::RectangleShape Hitbox::futureMovement() {
 	sf::RectangleShape collision(sf::Vector2f(m_boundingBox->getSize().x, m_boundingBox->getSize().y));
-	collision.setFillColor(sf::Color::Green);
-	collision.setPosition((sf::Vector2f(m_boundingBox->getPosition().x, m_boundingBox->getPosition().y + m_movementEntity)));
+	collision.setOutlineColor(sf::Color::Green);
+	collision.setOutlineThickness(1.0f);
+	collision.setFillColor(sf::Color::Transparent);
+	collision.setPosition((sf::Vector2f(m_boundingBox->getPosition().x + m_movementEntity.x, m_boundingBox->getPosition().y + m_movementEntity.y)));
 
 	return collision;
 }

@@ -14,14 +14,14 @@ public:
 	void setPosition(sf::Vector2f positionPlayer) const;
 	sf::RectangleShape& display();
 	void movePlayer(double& deltaTime); //To modify later for player 1 and 2 to have differents controls
-	double getMovement() const;
+	sf::Vector2f getMovement() const;
 
 private:
 
 	sf::RectangleShape *m_playerShape;
 	sf::Vector2u m_sizeWindow;
 	double m_speed;
-	double m_movement;
+	sf::Vector2f m_movement;
 
 };
 
