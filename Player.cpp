@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-Player::Player() :m_speed(1080.f), m_movement(sf::Vector2f(0.f,0.f)){ //Unused Constructor
-	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f, 100.f));
+Player::Player() :m_speed(2160.f), m_movement(sf::Vector2f(0.f,0.f)){ //Unused Constructor
+	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f,100.f));
 	m_playerShape->setFillColor(sf::Color::White);
 	
 }
@@ -33,6 +33,9 @@ void Player::movePlayer(double& deltaTime){
 	{
 		m_movement.y = m_speed * deltaTime;
 		m_playerShape->move(0.f, m_movement.y);
+	}
+	else {
+		m_movement.y = 0;
 	}
 }
 

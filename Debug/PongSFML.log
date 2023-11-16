@@ -1,23 +1,10 @@
-﻿  Ball.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(29,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(35,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+﻿  DisplayWindow.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\DisplayWindow.cpp(40,85): warning C4244: 'argument' : conversion de 'unsigned int' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(36,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(40,96): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(40,48): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(49,98): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(49,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\DisplayWindow.cpp(40,65): warning C4244: 'argument' : conversion de 'unsigned int' en 'T', perte possible de données
           with
           [
               T=float

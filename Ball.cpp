@@ -2,7 +2,7 @@
 
 Ball::Ball() {
 	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
-	m_speed = 1000.f;
+	m_speed = 1080.f;
 	m_distanceVector = 0.f;
 	m_directionx = 1.f;
 	m_directiony = 1.f;

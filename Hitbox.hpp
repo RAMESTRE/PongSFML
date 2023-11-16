@@ -14,6 +14,7 @@ public:
 	void hitboxUpdate(Ball& ball);
 	sf::RectangleShape futureMovement();
 	sf::Vector2f futureCollision();
+	sf::FloatRect* getHitbox() const;
 
 private:
 

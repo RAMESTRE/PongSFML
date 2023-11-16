@@ -104,17 +104,20 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 	const sf::Texture& gamePlanUpdate = m_gamePlan->getTexture();
 
+	sf::RectangleShape topP1;
+	sf::RectangleShape botP1;
+
 	switch (m_pongState)
 	{
 	case(INIT_PVP):
 
 		//Players Init
 		m_tabPlayers.push_back(new Player());
-		m_tabPlayers.push_back(new Player());
+		//m_tabPlayers.push_back(new Player());
 		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[0]));
-		m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
+		//m_tabHitboxPlayers.push_back(new Hitbox(*m_tabPlayers[1]));
 		m_tabPlayers[0]->setPosition(sf::Vector2f(100.f,120.f));
-		m_tabPlayers[1]->setPosition(sf::Vector2f(m_gamePlan->getSize().x - 100.f, 120.f));
+		//m_tabPlayers[1]->setPosition(sf::Vector2f(m_gamePlan->getSize().x - 100.f, 120.f));
 
 		//Ball Init
 		m_ball = new Ball();
@@ -132,11 +135,11 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 	case(CURRENT_GAME):
 
 		m_tabPlayers[0]->movePlayer(*dt);
-		m_tabPlayers[1]->movePlayer(*dt);
+		//m_tabPlayers[1]->movePlayer(*dt);
 		m_ball->move(*dt);
 
 		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);
-		m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);
+		//m_tabHitboxPlayers[1]->hitboxUpdate(*m_tabPlayers[1]);
 		m_ballHitbox->hitboxUpdate(*m_ball);
 
 		if (m_ballHitbox->futureCollision().x < 0 || m_ballHitbox->futureCollision().x > m_gamePlan->getSize().x- m_ball->getBallShape().getSize().x) {
@@ -146,7 +149,26 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 			m_ball->changeDirection(1, -1);
 		}
 
+		topP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
+		topP1.setPosition(m_tabPlayers[0]->display().getPosition());
 
+		botP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
+		botP1.setPosition(sf::Vector2f(m_tabPlayers[0]->display().getPosition().x, m_tabPlayers[0]->display().getSize().y+1));
+		
+
+		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[0]->getHitbox())) {
+
+			if (m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
+				m_ball->changeDirection(-1, -1);
+			}
+			else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
+				m_ball->changeDirection(-1, -1);
+			}
+			else {
+				m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds()) ? m_ball->changeDirection(1, -1) : m_ball->changeDirection(-1, 1);
+			}
+		}
+		
 		//For me to quit game before ending an actual game (will be replaced with a quit button)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 			m_pongState = END_GAME;
@@ -155,12 +177,12 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		//Draw all sprite in gamePlan texture;
 		m_gamePlan->clear();
 
-		m_gamePlan->draw(m_tabHitboxPlayers[0]->futureMovement());
-		m_gamePlan->draw(m_ballHitbox->futureMovement());
+		//m_gamePlan->draw(m_tabHitboxPlayers[0]->futureMovement());
+		//m_gamePlan->draw(m_ballHitbox->futureMovement());
 
 		m_ball->draw(&*m_gamePlan);
 		m_gamePlan->draw(m_tabPlayers[0]->display());
-		m_gamePlan->draw(m_tabPlayers[1]->display());
+		//m_gamePlan->draw(m_tabPlayers[1]->display());
 		
 
 		
@@ -187,6 +209,11 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 			delete m_tabHitboxPlayers[i];
 			m_tabHitboxPlayers[i] = 0;
 		}
+		delete m_ball;
+		delete m_ballHitbox;
+		m_ballHitbox = 0;
+		m_ball = 0;
+
 		m_tabPlayers.clear();
 		m_tabHitboxPlayers.clear();
 
