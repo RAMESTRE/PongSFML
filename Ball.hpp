@@ -14,7 +14,7 @@ public:
 	void draw(sf::RenderTarget* target) const;
 	void setPosition(sf::RenderTarget* target);
 	sf::RectangleShape getBallShape() const;
-	void firstMove();
+	void firstMove(int angle);
 	void move(double& dt);
 	void changeDirection(int x, int y);
 	sf::Vector2f getMovement();

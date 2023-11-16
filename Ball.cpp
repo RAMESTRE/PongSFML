@@ -2,7 +2,7 @@
 
 Ball::Ball() {
 	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
-	m_speed = 1080.f;
+	m_speed = 300.f;
 	m_distanceVector = 0.f;
 	m_directionx = 1.f;
 	m_directiony = 1.f;
@@ -25,7 +25,7 @@ sf::RectangleShape Ball::getBallShape() const {
 	return *m_ballShape;
 }
 
-void Ball::firstMove() {
+void Ball::firstMove(int angle) {
 	srand(time(NULL));
 	m_angle = rand() % 361;
 }

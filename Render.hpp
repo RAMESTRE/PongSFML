@@ -50,6 +50,8 @@ private:
 	Ball* m_ball;
 	Hitbox* m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
+
+	int m_score[2];
 };
 
 #endif // !DEF_RENDER
