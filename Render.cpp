@@ -252,12 +252,15 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[0]->getHitbox())) {
 
 			if (m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
+				m_ball->setPositionBall(sf::Vector2f(100.f+20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, -1);
 			}
 			else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
+				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, -1);
 			}
 			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())){
+				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(1, -1);
 			}
 			else {
@@ -290,7 +293,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		m_gamePlan->draw(scoreText);
 		m_ball->draw(&*m_gamePlan);
 		m_gamePlan->draw(m_tabPlayers[0]->display());
-		//m_gamePlan->draw(m_tabPlayers[1]->display());
+		m_gamePlan->draw(m_tabPlayers[1]->display());
 
 		m_gamePlan->display();
 

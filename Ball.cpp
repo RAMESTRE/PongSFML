@@ -2,7 +2,7 @@
 
 Ball::Ball() {
 	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
-	m_speed = 300.f;
+	m_speed = 1080.f;
 	m_distanceVector = 0.f;
 	m_directionx = 1.f;
 	m_directiony = 1.f;
@@ -19,6 +19,10 @@ void Ball::draw(sf::RenderTarget* target) const {
 
 void Ball::setPosition(sf::RenderTarget* target) {
 	m_ballShape->setPosition((target->getSize().x - m_ballShape->getSize().x)/2, (target->getSize().y - m_ballShape->getSize().y) / 2);
+}
+
+void Ball::setPositionBall(sf::Vector2f positionAfterCollision) {
+	m_ballShape->setPosition(positionAfterCollision);
 }
 
 sf::RectangleShape Ball::getBallShape() const {

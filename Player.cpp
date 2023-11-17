@@ -1,9 +1,8 @@
 #include "Player.hpp"
 
 Player::Player() :m_speed(2160.f), m_movement(sf::Vector2f(0.f,0.f)){ //Unused Constructor
-	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f,400.f));
+	m_playerShape = new sf::RectangleShape(sf::Vector2f(20.f,100.f));
 	m_playerShape->setFillColor(sf::Color::White);
-	
 }
 
 Player::Player(sf::Vector2u& sizeWindow) : m_sizeWindow(sizeWindow), m_speed(sizeWindow.y), m_movement(sf::Vector2f(0.f, 0.f)) { // Problem when change size before the actual game ==> Need to only get the first time the window size is initialized

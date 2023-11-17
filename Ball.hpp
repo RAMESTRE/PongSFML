@@ -13,6 +13,7 @@ public:
 	~Ball();
 	void draw(sf::RenderTarget* target) const;
 	void setPosition(sf::RenderTarget* target);
+	void setPositionBall(sf::Vector2f positionAfterCollision);
 	sf::RectangleShape getBallShape() const;
 	void firstMove(int angle);
 	void move(double& dt);
