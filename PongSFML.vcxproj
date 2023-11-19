@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Configuration.cpp" />
     <ClCompile Include="DisplayWindow.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Hitbox.hpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Ball.hpp" />
     <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="DisplayWindow.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Render.hpp" />

@@ -3,8 +3,11 @@
 
 #include <iostream>
 #include <string>
+
 #include <SFML/Graphics.hpp>
+
 #include "Render.hpp"
+#include "Configuration.hpp"
 
 class DisplayWindow {
 

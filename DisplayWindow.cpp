@@ -39,8 +39,6 @@ void DisplayWindow::runWindow() {
             if (m_event.type == sf::Event::Resized) {
                 sf::FloatRect visibleArea(0.f, 0.f, m_event.size.width, m_event.size.height);
                 m_window->setView(sf::View(visibleArea));
-                std::cout << "Window Resized: x = " << m_window->getSize().x << " y = " << m_window->getSize().y << std::endl;
-                std::cout << m_event.size.width << " " << m_event.size.height << std::endl;
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T)) {

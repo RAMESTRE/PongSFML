@@ -1,13 +1,18 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "DisplayWindow.hpp"
+//#include "DisplayWindow.hpp"
+#include "Configuration.hpp"
 
 int main()
 {
-    DisplayWindow window;
+    //DisplayWindow window;
+    //window.runWindow();
 
-    window.runWindow();
+    Configuration config;
+    config.loadFromFileGraphic("Config/Graphic.ini");
+
+    
 
     return 0;
 }
