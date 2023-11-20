@@ -77,7 +77,7 @@ void Button::update(sf::Vector2i& mousePosition)
 	
 }
 
-void Button::draw(sf::RenderWindow* window) const {
+void Button::draw(sf::RenderTarget* window) const {
 	window->draw(m_shapeButton);
 	window->draw(m_textButton);
 }

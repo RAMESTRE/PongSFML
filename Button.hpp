@@ -16,7 +16,7 @@ public:
 
 	bool isPressed() const;
 	void update(sf::Vector2i& mousePosition);
-	void draw(sf::RenderWindow* window) const;
+	void draw(sf::RenderTarget* window) const;
 
 private:
 

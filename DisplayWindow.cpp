@@ -3,17 +3,32 @@
 DisplayWindow::DisplayWindow() : m_deltaTime(new double)
 {
     *m_deltaTime = 0.f;
-	m_window = new sf::RenderWindow(sf::VideoMode(1920,1080), "PongSFML");
-    m_window->setFramerateLimit(60);
+
+    configFile.loadFromFileGraphic("Config/Graphic.ini");
+    getNewSettings();
+
+	m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML");
+    m_window->setFramerateLimit(m_framerate);
+    m_window->setVerticalSyncEnabled(m_vsync);
 }
 
 DisplayWindow::~DisplayWindow() {
+
 	delete m_window;
     delete m_deltaTime;
     m_window = 0;
     m_deltaTime = 0;
 
     std::cout << "Window has been deleted in the displaywindow destructor" << std::endl;
+}
+
+void DisplayWindow::getNewSettings() {
+
+    m_sizeWindow = configFile.getSizeWindow();
+    m_framerate = configFile.getFramerate();
+    m_fullscreen = configFile.getFullscreen();
+    m_vsync = configFile.getVSync();
+
 }
 
 double DisplayWindow::getDeltaTime() const {
@@ -71,6 +86,7 @@ void DisplayWindow::runWindow() {
             render.pongWindow(m_window, m_deltaTime);
             break;
         case(PARAMETERS_MENU):
+            render.parametersMenu(m_window);
             break;
         }
 

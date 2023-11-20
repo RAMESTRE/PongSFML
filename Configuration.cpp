@@ -4,7 +4,9 @@ Configuration::Configuration() {
 	defaultGraphicParameters();
 }
 
-Configuration::~Configuration() {}
+Configuration::~Configuration() {
+	std::cout << "Config deleted" << std::endl;
+}
 
 void Configuration::saveToFileGraphic(std::string path) {
 
@@ -49,19 +51,34 @@ void Configuration::loadFromFileGraphic(std::string path) {
 				m_fullscreen == (settings == "true");
 			}
 		}
-		
 	}
 	else {
 		std::cout << "Cannot open config file" << std::endl;
 	}
 }
 
+sf::VideoMode Configuration::getSizeWindow() const {
+	return sf::VideoMode(m_widthWindow, m_heightWindow);
+}
+
+int Configuration::getFramerate() const {
+	return m_framerate;
+}
+
+bool Configuration::getFullscreen() const {
+	return m_framerate;
+}
+
+bool Configuration::getVSync() const {
+	return m_vsync;
+}
+
 void Configuration::defaultGraphicParameters() {
 
-	m_widthWindow = 1920;
-	m_heightWindow = 1080;
+	m_widthWindow = sf::VideoMode::getDesktopMode().width;
+	m_heightWindow = sf::VideoMode::getDesktopMode().height;
 	m_framerate = 60;
 	m_fullscreen = false;
 	m_vsync = false;
-	
+
 }

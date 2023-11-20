@@ -17,10 +17,21 @@ public:
 	void runWindow();
 	double getDeltaTime() const;
 
+	void getNewSettings();
+
 private:
+
 	sf::RenderWindow *m_window;
 	sf::Event m_event;
 	double* m_deltaTime;
+
+	//Property Window
+	Configuration configFile;
+
+	sf::VideoMode m_sizeWindow;
+	int m_framerate;
+	bool m_vsync, m_fullscreen;
+
 };
 
 

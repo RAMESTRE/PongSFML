@@ -1,3 +1,3 @@
-﻿  Configuration.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Configuration.cpp(40,18): warning C4553: '==' : résultat de l'expression non utilisé ; souhaitiez-vous utiliser '=' ?
+﻿  MenuParameters.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(51,21): warning C4018: '<' : incompatibilité signed/unsigned
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

@@ -152,6 +152,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Hitbox.hpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuParameters.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Render.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Configuration.hpp" />
     <ClInclude Include="DisplayWindow.hpp" />
+    <ClInclude Include="MenuParameters.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Render.hpp" />
   </ItemGroup>

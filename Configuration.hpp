@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <SFML/Graphics.hpp>
 
 class Configuration {
 
@@ -14,6 +15,11 @@ public:
 
 	void saveToFileGraphic(std::string path);
 	void loadFromFileGraphic(std::string path);
+
+	sf::VideoMode getSizeWindow() const;
+	int getFramerate() const;
+	bool getVSync() const;
+	bool getFullscreen() const;
 
 	//void saveToFileKeys(std::string path);
 	//void loadFromFileKeys(std::string path);

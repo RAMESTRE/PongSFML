@@ -260,7 +260,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 				m_ball->changeDirection(-1, -1);
 			}
 			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())){
-				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->setPositionBall(sf::Vector2f(100.f - 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(1, -1);
 			}
 			else {
@@ -336,7 +336,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 	}
 }
 
-void Render::parametersMenu() {
+void Render::parametersMenu(sf::RenderWindow* window) {
+	parameters.displayMenu(window, m_font);
 
 }
 
