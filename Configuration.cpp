@@ -82,3 +82,12 @@ void Configuration::defaultGraphicParameters() {
 	m_vsync = false;
 
 }
+
+void Configuration::saveChange(int width, int height, int framerate, bool vsync, bool fullscreen) {
+	m_widthWindow = width;
+	m_heightWindow = height;
+	m_framerate = framerate;
+	m_vsync = vsync;
+	m_fullscreen = fullscreen;
+	saveToFileGraphic("Config/Graphic.ini");
+}

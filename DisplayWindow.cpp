@@ -7,7 +7,7 @@ DisplayWindow::DisplayWindow() : m_deltaTime(new double)
     configFile.loadFromFileGraphic("Config/Graphic.ini");
     getNewSettings();
 
-	m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML");
+	m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Close | sf::Style::Titlebar);
     m_window->setFramerateLimit(m_framerate);
     m_window->setVerticalSyncEnabled(m_vsync);
 }

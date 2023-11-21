@@ -21,6 +21,8 @@ public:
 	bool getVSync() const;
 	bool getFullscreen() const;
 
+	void saveChange(int width, int height, int framerate, bool vsync, bool fullscreen);
+
 	//void saveToFileKeys(std::string path);
 	//void loadFromFileKeys(std::string path);
 
