@@ -87,6 +87,7 @@ void DisplayWindow::runWindow() {
             break;
         case(PARAMETERS_MENU):
             render.parametersMenu(m_window);
+            //Here call loadFromFileGraphic when menu parameters is quitted to load new window settings
             break;
         }
 

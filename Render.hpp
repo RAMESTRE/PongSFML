@@ -58,6 +58,8 @@ private:
 	//MenuParameters
 	MenuParameters parameters;
 
+	//Add map with keybinds to move the players. Is modified with func parametersMenu
+
 };
 
 #endif // !DEF_RENDER
