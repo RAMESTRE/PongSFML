@@ -6,10 +6,12 @@ MenuParameters::MenuParameters() {
 	m_menuPlan->create(1920, 1080);
 	m_menuSprite = new sf::Sprite;
 
-	m_tabResolution = { "854x480", "960x540", "1024x576", "1280x720", "1366x768", 
+	m_tabStringText = { "Size", "Framerate", "V-Sync", "Fullscreen" };
+
+	m_tabPossibleResolution = { "854x480", "960x540", "1024x576", "1280x720", "1366x768",
 		"1600x900", "1920x1080", "2048x1152", "2560x1440", "3200x1800", "3840x2160"};
 
-	m_tabFramerate = { "30", "60", "120", "Illimited" };
+	m_tabPossibleFramerate = { "30", "60", "120", "Illimited" };
 
 	m_indexTabRes = 0;
 
@@ -79,8 +81,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
 
-	sf::Text resolution;
-	sf::FloatRect titleBox = resolution.getGlobalBounds();
+	
 
 	std::map<std::string, std::vector<Button*>>::iterator it;
 
@@ -88,11 +89,21 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 	case(INIT_GRAPHICS): //Create own rendertexture that initialized only one time (static)
 
-		m_tabStringText = { "Size", "Framerate", "V-Sync", "Fullscreen" };
-
 		createStaticTitlePlan(font);
 		createStaticGraphicPlan(font);
 		createStaticKeybindPlan(font);
+
+		for (int i(0); i < m_tabStringText.size(); i++) {
+			if (m_tabStringText[i] == "Size") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabPossibleResolution[m_indexTabRes]);
+			else if (m_tabStringText[i] == "Framerate") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabPossibleFramerate[m_indexTabFrame]);
+			else if (m_tabStringText[i] == "V-Sync") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
+			else if (m_tabStringText[i] == "Fullscreen") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
+
+			m_tabTextSettingsBoxs[m_tabStringText[i]] = m_tabChosenSettings[m_tabStringText[i]].getGlobalBounds();
+			
+			m_tabChosenSettings[m_tabStringText[i]].setOrigin(m_tabTextSettingsBoxs[m_tabStringText[i]].width / 2, m_tabTextSettingsBoxs[m_tabStringText[i]].top + m_tabTextSettingsBoxs[m_tabStringText[i]].height / 2);
+			m_tabChosenSettings[m_tabStringText[i]].setPosition(1920 / 2 / 4 * 3, 300 + (116 * (1 + i)));
+		}
 
 		m_parametersState = GRAPHICS;
 
@@ -100,11 +111,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 	case(GRAPHICS):
 
-		textOptions(&resolution, font, 50, sf::Color::White, m_tabResolution[m_indexTabRes]);
-
-		titleBox = resolution.getGlobalBounds();
-		resolution.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
-		resolution.setPosition(1920 / 2 / 4 * 3, 416);
+		
 
 		m_menuPlan->clear();
 
@@ -114,10 +121,15 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 			if (it->second[0]->isPressed()) {
 				if (it->first == "Size" && m_indexTabRes > 0) {
 					m_indexTabRes -= 1;
-					resolution.setString(m_tabResolution[m_indexTabRes]);
+					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
+					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
 				}
-				else if (it->first == "FRAMERATE" && m_indexTabFrame > 0) {
-					m_indexTabRes -= 1;
+				else if (it->first == "Framerate" && m_indexTabFrame > 0) {
+					m_indexTabFrame -= 1;
+					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
+					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
 					
 				} 
 				else if (it->first == "V-Sync") {
@@ -129,12 +141,19 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 			}
 			it->second[1]->update(mousePosition);
 			if (it->second[1]->isPressed()) {
-				if (it->first == "Size" && m_indexTabRes < m_tabResolution.size() - 1) {
+				if (it->first == "Size" && m_indexTabRes < m_tabPossibleResolution.size() - 1) {
 					m_indexTabRes += 1;
-					resolution.setString(m_tabResolution[m_indexTabRes]);
+					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
+					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
 				}
-				else if (it->first == "FRAMERATE") {
-					//List with 30,60,120, no limit fps
+				else if (it->first == "Framerate" && m_indexTabFrame < m_tabPossibleFramerate.size() - 1) {
+					m_indexTabFrame += 1;
+					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
+					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
+					
+					std::cout << m_tabChosenSettings[it->first].getPosition().x << std::endl;
 				}
 				else if (it->first == "V-Sync") {
 					m_localVsync = !(m_localVsync);
@@ -143,6 +162,11 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 					m_localFullscreen = !(m_localFullscreen);
 				}
 			}
+
+			
+
+
+			m_menuPlan->draw(m_tabChosenSettings[it->first]);
 			it->second[0]->draw(m_menuPlan);
 			it->second[1]->draw(m_menuPlan);
 			it++;
@@ -150,7 +174,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		m_menuPlan->draw(*m_staticTitlesSprite);
 		m_menuPlan->draw(*m_staticGraphicSprite);
 		m_menuPlan->draw(*m_staticKeybindsSprite);
-		m_menuPlan->draw(resolution);
 		m_menuPlan->display();
 		
 		break;
@@ -200,7 +223,7 @@ void MenuParameters::createStaticTitlePlan(sf::Font font) {
 	title.setPosition((m_staticTitlesPlan->getSize().x / 4) * 3, 150);
 	m_staticTitlesPlan->draw(title);
 
-	m_staticTitlesPlan->draw(outlineTitles);
+	m_staticTitlesPlan->draw(outlineTitles);////////////////////////
 
 	m_staticTitlesPlan->display();
 
@@ -218,16 +241,16 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 	outline.setOutlineColor(sf::Color::Blue);
 	///////////
 
+	sf::FloatRect titleBox;
+
 	m_staticGraphicPlan->clear();
 
-	//titlesInit(m_staticPlan, font); Create own rendertexture
 	for (int i(0); i < m_tabStringText.size(); i++) {
 
 		textOptions(&m_tabTextSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabStringText[i]);
 
-
-		m_tabTextSettingsBoxs[m_tabStringText[i]] = m_tabTextSettings[m_tabStringText[i]].getGlobalBounds();
-		m_tabTextSettings[m_tabStringText[i]].setOrigin(m_tabTextSettingsBoxs[m_tabStringText[i]].left + m_tabTextSettingsBoxs[m_tabStringText[i]].width / 2, m_tabTextSettingsBoxs[m_tabStringText[i]].top + m_tabTextSettingsBoxs[m_tabStringText[i]].height / 2);
+		titleBox = m_tabTextSettings[m_tabStringText[i]].getGlobalBounds();
+		m_tabTextSettings[m_tabStringText[i]].setOrigin(titleBox.width / 2, titleBox.top + titleBox.height / 2);
 		m_tabTextSettings[m_tabStringText[i]].setPosition(240, 116 * (1 + i));
 
 		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, ">") };

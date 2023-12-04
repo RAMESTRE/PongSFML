@@ -1,15 +1,18 @@
 ﻿  MenuParameters.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(132,46): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(198,52): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(96,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(105,78): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(144,46): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(150,58): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(216,52): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(205,58): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(223,58): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(229,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(236,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(248,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(254,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

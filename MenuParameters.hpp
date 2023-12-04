@@ -40,8 +40,8 @@ private:
 	//Vectors for stocking differents options (resolution, framerates,...)
 	//
 	//
-	std::vector<std::string> m_tabResolution;
-	std::vector<std::string> m_tabFramerate;
+	std::vector<std::string> m_tabPossibleResolution;
+	std::vector<std::string> m_tabPossibleFramerate;
 	int m_indexTabRes;
 	int m_indexTabFrame;
 
@@ -51,10 +51,11 @@ private:
 	int m_localWidthWindow, m_localHeightWindow, m_localFramerate;
 	bool m_localVsync, m_localFullscreen;
 
-	std::vector<std::string> m_tabStringText;
-	std::map<std::string, sf::Text> m_tabTextSettings;
-	std::map<std::string, sf::FloatRect> m_tabTextSettingsBoxs;
-	std::map <std::string, std::vector<Button*>> m_tabButtons;
+	std::vector<std::string> m_tabStringText; //Differents Graphics Options
+	std::map<std::string, sf::Text> m_tabChosenSettings; //To stock graphics settings to display on screen in text (ex:800x400, enabled,...) => Dynamic
+	std::map<std::string, sf::Text> m_tabTextSettings; //To stock Settings options to display on screen (size, framerate,...) => Static
+	std::map<std::string, sf::FloatRect> m_tabTextSettingsBoxs; ////////////////////////See if not better to delete cause can be done manually in func cause static
+	std::map <std::string, std::vector<Button*>> m_tabButtons; //To stock button that will change the chosen option => Dynamic (Maybe better to use button with id ?)
 
 	//Static Texture (only drawn in init)
 	sf::RenderTexture* m_staticGraphicPlan;
