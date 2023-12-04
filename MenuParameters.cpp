@@ -42,7 +42,6 @@ MenuParameters::MenuParameters() {
 }
 
 MenuParameters::~MenuParameters() {
-
 	delete m_menuPlan;
 	m_menuPlan = 0;
 	delete m_menuSprite;
@@ -88,7 +87,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	switch (m_parametersState) {
 
 	case(INIT_GRAPHICS): //Create own rendertexture that initialized only one time (static)
-
 		createStaticTitlePlan(font);
 		createStaticGraphicPlan(font);
 		createStaticKeybindPlan(font);
@@ -111,8 +109,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 	case(GRAPHICS):
 
-		
-
 		m_menuPlan->clear();
 
 		it = m_tabButtons.begin();
@@ -123,13 +119,13 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 					m_indexTabRes -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
 					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame > 0) {
 					m_indexTabFrame -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
 					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 					
 				} 
 				else if (it->first == "V-Sync") {
@@ -145,15 +141,14 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 					m_indexTabRes += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
 					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y);
+
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame < m_tabPossibleFramerate.size() - 1) {
 					m_indexTabFrame += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
 					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabTextSettingsBoxs[it->first].top + m_tabTextSettingsBoxs[it->first].height / 2);
-					
-					std::cout << m_tabChosenSettings[it->first].getPosition().x << std::endl;
+					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 				}
 				else if (it->first == "V-Sync") {
 					m_localVsync = !(m_localVsync);
@@ -162,9 +157,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 					m_localFullscreen = !(m_localFullscreen);
 				}
 			}
-
-			
-
 
 			m_menuPlan->draw(m_tabChosenSettings[it->first]);
 			it->second[0]->draw(m_menuPlan);

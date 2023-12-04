@@ -70,6 +70,7 @@ void DisplayWindow::runWindow() {
                 m_window = new sf::RenderWindow(sf::VideoMode(800, 450), "PongSFML", sf::Style::Fullscreen);
                 
             }
+
         }
 
         m_window->clear();
@@ -77,7 +78,8 @@ void DisplayWindow::runWindow() {
         switch (render.getStateGame())
         {
         case(STARTUP_MENU):
-            render.startMenu(m_window);
+            render.parametersMenu(m_window);
+            //render.startMenu(m_window);
             break;
         case(PLAYERS_MENU):
             render.playerMenu(m_window);

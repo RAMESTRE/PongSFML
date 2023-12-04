@@ -22,11 +22,12 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 	m_buttonState = BTN_INACTIVE;
 }
 
-Button::~Button() {}
+Button::~Button() {
+}
 
 bool Button::isPressed() const
 {
-	if (m_buttonState == BTN_PRESSED) {
+	if (m_buttonState == BTN_RELEASED) {
 		return true;
 	}
 	return false;
@@ -34,21 +35,29 @@ bool Button::isPressed() const
 
 void Button::update(sf::Vector2i& mousePosition)
 {
-	m_buttonState = BTN_INACTIVE;
-
-	m_hitboxButton = m_shapeButton.getGlobalBounds();
-
-	if (m_hitboxButton.contains(sf::Vector2f(mousePosition))) {
-
-		m_buttonState = BTN_HOVER;
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			m_buttonState = BTN_PRESSED;
+	if (m_buttonState == BTN_PRESSED) {
+		if (!(sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
+			m_buttonState = BTN_RELEASED;
 		}
-		
 	}
+	else {
+		m_buttonState = BTN_INACTIVE;
 
-	switch (m_buttonState) 
+		m_hitboxButton = m_shapeButton.getGlobalBounds();
+
+		if (m_hitboxButton.contains(sf::Vector2f(mousePosition))) {
+
+			m_buttonState = BTN_HOVER;
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				m_buttonState = BTN_PRESSED;
+			}
+
+		}
+	}
+	
+
+	switch (m_buttonState) // In here create differents style for settings and normal buttons
 	{
 	case (BTN_INACTIVE):
 		m_shapeButton.setFillColor(sf::Color::White);

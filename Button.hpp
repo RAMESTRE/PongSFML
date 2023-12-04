@@ -5,7 +5,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-enum states {BTN_INACTIVE = 0, BTN_HOVER = 1, BTN_PRESSED = 2};
+enum states {BTN_INACTIVE = 0, BTN_HOVER = 1, BTN_PRESSED = 2, BTN_RELEASED = 3};
 
 enum styles {BTN_HOOK = 0, BTN_BASIC = 1};
 

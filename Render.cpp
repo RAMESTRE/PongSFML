@@ -72,7 +72,7 @@ void Render::startMenu(sf::RenderWindow* window) {
 	quitGame.draw(window);
 
 	window->draw(title);
-}
+} //CREATE BUTTON TAB IN CLASS TO INITIALIZE BUTTONS ONLY ONCE
 
 void Render::playerMenu(sf::RenderWindow* window) {
 
