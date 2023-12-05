@@ -17,6 +17,7 @@ enum statesGame { STARTUP_MENU = 0, PLAYERS_MENU = 1, PONG_WINDOW = 2, REPLAY_ME
 
 enum statesPong {SLEEP = 0, INIT_PVP = 1, INIT_PVCPU = 2, CURRENT_GAME = 3, END_GAME = 4}; //Describe the current state of the PONG game
 
+
 class Render {
 
 public:
@@ -43,6 +44,7 @@ private:
 	//startMenu Attributes
 	//
 	//
+	std::vector<Button*> m_buttonsStartMenu;
 
 	//PongWindows Attributes
 	//
@@ -66,6 +68,7 @@ private:
 
 	//MenuParameters
 	MenuParameters parameters;
+
 
 	//Add map with keybinds to move the players. Is modified with func parametersMenu
 	std::map<std::string, sf::Keyboard> playerOneBinds;

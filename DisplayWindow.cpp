@@ -77,8 +77,8 @@ void DisplayWindow::runWindow() {
         switch (render.getStateGame())
         {
         case(STARTUP_MENU):
-            render.parametersMenu(m_window);
-            //render.startMenu(m_window);
+            //render.parametersMenu(m_window);
+            render.startMenu(m_window);
             break;
         case(PLAYERS_MENU):
             render.playerMenu(m_window);

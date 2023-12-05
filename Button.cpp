@@ -69,6 +69,7 @@ void Button::update(sf::Vector2i& mousePosition)
 
 	case (BTN_HOVER):
 		m_textButton.setStyle(sf::Text::Bold);
+		m_textButton.setFillColor(sf::Color::White);
 		m_shapeButton.setFillColor(sf::Color::Black);
 		m_shapeButton.setOutlineThickness(2.0f);
 		break;

@@ -21,6 +21,7 @@ public:
 	void getSettings();
 
 	bool getStateParametersMenu() const;
+	void setStateParametersMenu();
 
 private:
 

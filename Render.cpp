@@ -19,6 +19,12 @@ Render::Render() {
 
 	m_gameSprites = new sf::Sprite;
 
+	//CREATE BUTTON STARTMENU HERE, WILL NEED A FUNCTION FOR IT LATER ON
+	std::vector<std::string> tabOpt{ "Start Game", "Parameters", "Quit Game" };
+	for (int i(0); i < tabOpt.size(); i++) {
+		m_buttonsStartMenu.push_back(new Button(1920 / 2, 1080 / (4 - i), 100.f, 50.f, 0, tabOpt[i]));
+	}
+
 }
 
 Render::~Render() {
@@ -48,28 +54,27 @@ void Render::startMenu(sf::RenderWindow* window) {
 	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
 	title.setPosition(xWindowSize/2, yWindowSize/10);
 
-	Button startGame(xWindowSize / 2, yWindowSize/4, xWindowSize*100.f/1920, yWindowSize*50.f/1080, 0, "Start Game"),
-		parametersMenu(xWindowSize / 2, yWindowSize / 3, xWindowSize * 100.f / 1920, yWindowSize * 50.f / 1080, 0, "Parameters") ,quitGame(xWindowSize / 2, yWindowSize / 2, xWindowSize * 100.f / 1920, yWindowSize * 50.f / 1080, 0, "Quit Game");
+	for (int i(0); i < m_buttonsStartMenu.size(); i++) {
+		m_buttonsStartMenu[i]->update(mousePosition);
+		
+		if (m_buttonsStartMenu[i]->isPressed()) {
+			switch (i) {
+			case(0):
+				m_gameState = PLAYERS_MENU;
+				break;
+			case(1):
+				m_gameState = PARAMETERS_MENU;
+				break;
+			case(2):
+				m_gameState = QUIT_GAME;
+				window->close();
+				break;
+			}
+		}	
+		
+		m_buttonsStartMenu[i]->draw(window);
 
-	startGame.update(mousePosition);
-	if (startGame.isPressed()) {
-		m_gameState = PLAYERS_MENU;
 	}
-
-	parametersMenu.update(mousePosition);
-	if (parametersMenu.isPressed()) {
-		m_gameState = PARAMETERS_MENU;
-	}
-
-	quitGame.update(mousePosition);
-	if (quitGame.isPressed()) {
-		m_gameState = QUIT_GAME;
-		window->close();
-	}
-
-	startGame.draw(window);
-	parametersMenu.draw(window);
-	quitGame.draw(window);
 
 	window->draw(title);
 } //CREATE BUTTON TAB IN CLASS TO INITIALIZE BUTTONS ONLY ONCE
@@ -337,8 +342,12 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 }
 
 void Render::parametersMenu(sf::RenderWindow* window) {
+	
 	parameters.displayMenu(window, m_font);
-	if (parameters.getStateParametersMenu()) m_gameState = STARTUP_MENU;
+	if (parameters.getStateParametersMenu()) {
+		m_gameState = STARTUP_MENU;
+		parameters.setStateParametersMenu();
+	}
 }
 
 void Render::replayMenu() {

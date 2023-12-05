@@ -181,6 +181,9 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		for (std::map<std::string, Button*>::iterator itBottomLineButtons(m_bottomLineButtons.begin()); itBottomLineButtons != m_bottomLineButtons.end(); itBottomLineButtons++) {
 			itBottomLineButtons->second->update(mousePosition);
 			if (itBottomLineButtons->second->isPressed()) {
+
+				if (itBottomLineButtons->first == "Back") m_parametersState = BACK;
+
 				std::cout << itBottomLineButtons->first << " is pressed" << std::endl;
 			}
 
@@ -356,4 +359,8 @@ void MenuParameters::createButtons() {
 
 bool MenuParameters::getStateParametersMenu() const {
 	return m_parametersState == BACK;
+}
+
+void MenuParameters::setStateParametersMenu() {
+	m_parametersState = GRAPHICS;
 }
