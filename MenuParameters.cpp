@@ -38,6 +38,7 @@ MenuParameters::MenuParameters() {
 	//
 
 	m_configFile.loadFromFileGraphic("Config/Graphic.ini");
+	getSettings();
 
 }
 
@@ -80,16 +81,18 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
 
-	
-
 	std::map<std::string, std::vector<Button*>>::iterator it;
 
 	switch (m_parametersState) {
 
 	case(INIT_GRAPHICS): //Create own rendertexture that initialized only one time (static)
+
 		createStaticTitlePlan(font);
 		createStaticGraphicPlan(font);
 		createStaticKeybindPlan(font);
+
+		displayActualSettings();
+		createButtons();
 
 		for (int i(0); i < m_tabStringText.size(); i++) {
 			if (m_tabStringText[i] == "Size") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabPossibleResolution[m_indexTabRes]);
@@ -114,48 +117,59 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		it = m_tabButtons.begin();
 		while (it != m_tabButtons.end()) {
 			it->second[0]->update(mousePosition);
+
 			if (it->second[0]->isPressed()) {
 				if (it->first == "Size" && m_indexTabRes > 0) {
 					m_indexTabRes -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
-					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame > 0) {
 					m_indexTabFrame -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
-					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 					
 				} 
 				else if (it->first == "V-Sync") {
 					m_localVsync = !(m_localVsync);
+					if (m_localVsync) m_tabChosenSettings[it->first].setString("Enabled");
+					else m_tabChosenSettings[it->first].setString("Disabled");
 				}
 				else if (it->first == "Fullscreen") {
 					m_localFullscreen = !(m_localFullscreen);
+					if (m_localFullscreen) m_tabChosenSettings[it->first].setString("Enabled");
+					else m_tabChosenSettings[it->first].setString("Disabled");
 				}
+
+				m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+				m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y);
+
 			}
+
 			it->second[1]->update(mousePosition);
 			if (it->second[1]->isPressed()) {
+
 				if (it->first == "Size" && m_indexTabRes < m_tabPossibleResolution.size() - 1) {
 					m_indexTabRes += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
-					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y);
 
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame < m_tabPossibleFramerate.size() - 1) {
 					m_indexTabFrame += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
-					m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
-					m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y); //Using getOrigin cause top function is too heavy for an update each frame
 				}
 				else if (it->first == "V-Sync") {
 					m_localVsync = !(m_localVsync);
+					if (m_localVsync) m_tabChosenSettings[it->first].setString("Enabled");
+					else m_tabChosenSettings[it->first].setString("Disabled");
 				}
 				else if (it->first == "Fullscreen") {
 					m_localFullscreen = !(m_localFullscreen);
+					if (m_localFullscreen) m_tabChosenSettings[it->first].setString("Enabled");
+					else m_tabChosenSettings[it->first].setString("Disabled");
 				}
+
+				m_tabTextSettingsBoxs[it->first] = m_tabChosenSettings[it->first].getGlobalBounds();
+				m_tabChosenSettings[it->first].setOrigin(m_tabTextSettingsBoxs[it->first].width / 2, m_tabChosenSettings[it->first].getOrigin().y);
+
 			}
 
 			m_menuPlan->draw(m_tabChosenSettings[it->first]);
@@ -163,6 +177,16 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 			it->second[1]->draw(m_menuPlan);
 			it++;
 		}
+
+		for (std::map<std::string, Button*>::iterator itBottomLineButtons(m_bottomLineButtons.begin()); itBottomLineButtons != m_bottomLineButtons.end(); itBottomLineButtons++) {
+			itBottomLineButtons->second->update(mousePosition);
+			if (itBottomLineButtons->second->isPressed()) {
+				std::cout << itBottomLineButtons->first << " is pressed" << std::endl;
+			}
+
+			itBottomLineButtons->second->draw(m_menuPlan);
+		}
+
 		m_menuPlan->draw(*m_staticTitlesSprite);
 		m_menuPlan->draw(*m_staticGraphicSprite);
 		m_menuPlan->draw(*m_staticKeybindsSprite);
@@ -170,8 +194,16 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		
 		break;
 
+
+	case(BACK):
+
+		break;
+
 	case(SAVE):
 		m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
+		break;
+
+	case(DEFAULT):
 		break;
 	}
 
@@ -245,8 +277,6 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 		m_tabTextSettings[m_tabStringText[i]].setOrigin(titleBox.width / 2, titleBox.top + titleBox.height / 2);
 		m_tabTextSettings[m_tabStringText[i]].setPosition(240, 116 * (1 + i));
 
-		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, ">") };
-
 		m_staticGraphicPlan->draw(m_tabTextSettings[m_tabStringText[i]]);
 
 		m_staticGraphicPlan->draw(outline);/////////////////////////////////////////////
@@ -277,6 +307,23 @@ void MenuParameters::createStaticKeybindPlan(sf::Font font) {
 
 }
 
+void MenuParameters::displayActualSettings() {
+
+	for (int i(0); i < m_tabPossibleResolution.size(); i++) {
+		if (m_tabPossibleResolution[i].compare((std::to_string(m_localWidthWindow) + "x" + std::to_string(m_localHeightWindow))) == 0) {
+			m_indexTabRes = i;
+			i = m_tabPossibleResolution.size();
+		}
+	}
+
+	for (int i(0); i < m_tabPossibleFramerate.size(); i++) {
+		if (m_tabPossibleFramerate[i].compare(std::to_string(m_localFramerate)) == 0) {
+			m_indexTabFrame = i;
+			i = m_tabPossibleFramerate.size();
+		}
+	}
+}
+
 void MenuParameters::getSettings() {
 
 	m_localWidthWindow = m_configFile.getSizeWindow().width;
@@ -285,4 +332,28 @@ void MenuParameters::getSettings() {
 	m_localFullscreen = m_configFile.getFullscreen();
 	m_localVsync = m_configFile.getVSync();
 
+}
+
+void MenuParameters::createButtons() {
+
+	//Creation Buttons Graphics Settings
+	for (int i(0); i < m_tabStringText.size(); i++) {
+		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, ">") };
+	}
+
+	//Creation Buttons Keybinds Settings
+
+	//Creation Button Bottom Line Settings (save, default, back)
+	std::string tabOptions[3] ;
+	tabOptions[0] = "Back";
+	tabOptions[1] = "Default";
+	tabOptions[2] = "Save";
+
+	for (int i(0); i < 3; i++) {
+		m_bottomLineButtons[tabOptions[i]] = new Button(480 * (i + 1), 980, 200.f, 100.f, 0, tabOptions[i]);
+	}
+}
+
+bool MenuParameters::getStateParametersMenu() const {
+	return m_parametersState == BACK;
 }

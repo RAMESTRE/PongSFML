@@ -44,7 +44,6 @@ void DisplayWindow::runWindow() {
     while (m_window->isOpen())
     {
         *m_deltaTime = clock.restart().asSeconds(); //func restart restart the clock AND the time elapsed since the clock was last started
-
         
         while (m_window->pollEvent(m_event))
         {

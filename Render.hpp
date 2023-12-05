@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "Button.hpp"
 #include "Player.hpp"
@@ -22,6 +23,7 @@ public:
 
 	Render();
 	~Render();
+
 	void startMenu(sf::RenderWindow* window);
 	void playerMenu(sf::RenderWindow* window);
 
@@ -35,13 +37,21 @@ public:
 
 private:
 
+
+	sf::Font m_font;
+
+	//startMenu Attributes
+	//
+	//
+
+	//PongWindows Attributes
+	//
+	// 
 	//Create Plan in the game will be created (help with get a good resize of window)
 	sf::RenderTexture* m_gamePlan;
 
 	//Render
 	sf::Sprite* m_gameSprites;
-
-	sf::Font m_font;
 
 	statesGame m_gameState;
 	statesPong m_pongState;
@@ -52,13 +62,14 @@ private:
 	Ball* m_ball;
 	Hitbox* m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
-
 	int m_score[2];
 
 	//MenuParameters
 	MenuParameters parameters;
 
 	//Add map with keybinds to move the players. Is modified with func parametersMenu
+	std::map<std::string, sf::Keyboard> playerOneBinds;
+	std::map<std::string, sf::Keyboard> playerTwoBinds;
 
 };
 

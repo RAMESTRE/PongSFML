@@ -338,7 +338,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 
 void Render::parametersMenu(sf::RenderWindow* window) {
 	parameters.displayMenu(window, m_font);
-
+	if (parameters.getStateParametersMenu()) m_gameState = STARTUP_MENU;
 }
 
 void Render::replayMenu() {

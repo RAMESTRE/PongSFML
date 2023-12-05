@@ -20,12 +20,18 @@ public:
 	
 	void getSettings();
 
+	bool getStateParametersMenu() const;
+
 private:
 
 	void textOptions(sf::Text* text, sf::Font& font, int size, sf::Color color, std::string string);
 	void createStaticTitlePlan(sf::Font font);
 	void createStaticGraphicPlan(sf::Font font);
 	void createStaticKeybindPlan(sf::Font font);
+
+	void createButtons();
+
+	void displayActualSettings();
 
 
 	stateParameters m_parametersState;
@@ -54,8 +60,10 @@ private:
 	std::vector<std::string> m_tabStringText; //Differents Graphics Options
 	std::map<std::string, sf::Text> m_tabChosenSettings; //To stock graphics settings to display on screen in text (ex:800x400, enabled,...) => Dynamic
 	std::map<std::string, sf::Text> m_tabTextSettings; //To stock Settings options to display on screen (size, framerate,...) => Static
-	std::map<std::string, sf::FloatRect> m_tabTextSettingsBoxs; ////////////////////////See if not better to delete cause can be done manually in func cause static
-	std::map <std::string, std::vector<Button*>> m_tabButtons; //To stock button that will change the chosen option => Dynamic (Maybe better to use button with id ?)
+	std::map<std::string, sf::FloatRect> m_tabTextSettingsBoxs; //Stock FloatRect tabChosenSettings Text
+	std::map<std::string, std::vector<Button*>> m_tabButtons; //To stock button that will change the chosen option => Dynamic 
+
+	std::map<std::string, Button*> m_bottomLineButtons; 
 
 	//Static Texture (only drawn in init)
 	sf::RenderTexture* m_staticGraphicPlan;
