@@ -32,6 +32,8 @@ public:
 	void pongWindow(sf::RenderWindow* window, double* dt);
 
 	void parametersMenu(sf::RenderWindow* window);
+	bool parametersSaved();
+
 	void replayMenu();
 
 	statesGame getStateGame() const;

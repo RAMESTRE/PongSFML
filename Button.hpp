@@ -18,12 +18,14 @@ public:
 
 	bool isPressed() const;
 	void update(sf::Vector2i& mousePosition);
+	void update(sf::Vector2f& mousePosition);
 	void draw(sf::RenderTarget* window) const;
 
 private:
 
 	sf::RectangleShape m_shapeButton;
 	sf::Text m_textButton;
+	std::string m_textButtonString;
 	sf::Font m_font;
 	sf::FloatRect m_hitboxButton;
 	sf::FloatRect m_hitboxText;

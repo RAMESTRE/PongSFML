@@ -28,6 +28,7 @@ public:
 
 	void defaultGraphicParameters();
 
+
 private:
 	int m_widthWindow, m_heightWindow, m_framerate;
 	bool m_vsync, m_fullscreen; 

@@ -7,7 +7,10 @@ DisplayWindow::DisplayWindow() : m_deltaTime(new double)
     configFile.loadFromFileGraphic("Config/Graphic.ini");
     getNewSettings();
 
-	m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Close | sf::Style::Titlebar);
+    std::cout << m_fullscreen << std::endl;
+    if (m_fullscreen) m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Fullscreen | sf::Style::Close | sf::Style::Titlebar);
+    else m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Close | sf::Style::Titlebar);
+
     m_window->setFramerateLimit(m_framerate);
     m_window->setVerticalSyncEnabled(m_vsync);
 }
@@ -53,23 +56,8 @@ void DisplayWindow::runWindow() {
             if (m_event.type == sf::Event::Resized) {
                 sf::FloatRect visibleArea(0.f, 0.f, m_event.size.width, m_event.size.height);
                 m_window->setView(sf::View(visibleArea));
-            }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::T)) {
-                m_window->setSize(sf::Vector2u(800, 450));
             }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
-                m_window->setSize(sf::Vector2u(1920, 1080));
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Y)) {
-                delete m_window;
-                m_window = 0;
-                m_window = new sf::RenderWindow(sf::VideoMode(800, 450), "PongSFML", sf::Style::Fullscreen);
-                
-            }
-
         }
 
         m_window->clear();
@@ -88,6 +76,25 @@ void DisplayWindow::runWindow() {
             break;
         case(PARAMETERS_MENU):
             render.parametersMenu(m_window);
+            if (render.parametersSaved()) {
+                configFile.loadFromFileGraphic("Config/Graphic.ini");
+                getNewSettings();
+
+                if (m_fullscreen) {
+                    delete m_window;
+                    m_window = 0;
+                    m_window = new sf::RenderWindow(sf::VideoMode(m_sizeWindow), "PongSFML", sf::Style::Close | sf::Style::Fullscreen | sf::Style::Titlebar);
+                }
+                else {
+                    delete m_window;
+                    m_window = 0;
+                    m_window = new sf::RenderWindow(sf::VideoMode(m_sizeWindow), "PongSFML", sf::Style::Close | sf::Style::Titlebar);
+                }
+
+                m_window->setFramerateLimit(m_framerate);
+                m_window->setVerticalSyncEnabled(m_vsync);
+
+            }
             //Here call loadFromFileGraphic when menu parameters is quitted to load new window settings
             break;
         }

@@ -2,6 +2,8 @@
 
 Button::Button(double x, double y, double width, double height, int id, std::string textButton)
 {
+	m_textButtonString = textButton;
+
 	m_shapeButton = sf::RectangleShape(sf::Vector2f(width, height));
 	m_hitboxButton = m_shapeButton.getGlobalBounds();
 	m_shapeButton.setPosition(x - width/2, y - height/2); //Here use also a setOrigin for better understanding code
@@ -60,31 +62,103 @@ void Button::update(sf::Vector2i& mousePosition)
 	switch (m_buttonState) // In here create differents style for settings and normal buttons
 	{
 	case (BTN_INACTIVE):
-		m_shapeButton.setFillColor(sf::Color::White);
-		m_textButton.setFillColor(sf::Color::Black);
+		m_shapeButton.setFillColor(sf::Color::Transparent);
+		m_textButton.setFillColor(sf::Color::White);
 		m_textButton.setStyle(sf::Text::Regular);
-		m_shapeButton.setOutlineThickness(2.0f);
-		m_shapeButton.setOutlineColor(sf::Color::White);
+
+		m_textButton.setString(m_textButtonString);
+
 		break;
 
 	case (BTN_HOVER):
-		m_textButton.setStyle(sf::Text::Bold);
+		//m_textButton.setStyle(sf::Text::Bold);
 		m_textButton.setFillColor(sf::Color::White);
-		m_shapeButton.setFillColor(sf::Color::Black);
-		m_shapeButton.setOutlineThickness(2.0f);
+		m_textButton.setString("> " + m_textButtonString + " <");
+
 		break;
 
 	case (BTN_PRESSED):
-		m_shapeButton.setFillColor(sf::Color(128, 128, 128));
-		m_shapeButton.setOutlineThickness(2.0f);
-		m_shapeButton.setOutlineColor(sf::Color::White);
+		m_textButton.setStyle(sf::Text::Bold);
+		//m_shapeButton.setFillColor(sf::Color(128, 128, 128));
+		//m_shapeButton.setOutlineThickness(2.0f);
+		//m_shapeButton.setOutlineColor(sf::Color::White);
 		break;
 
+	case (BTN_RELEASED):
+		m_textButton.setStyle(sf::Text::Regular);
+		break;
 	default:
 
 		break;
 	}
+
+	m_hitboxText = m_textButton.getGlobalBounds();
+
+	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
 	
+}
+
+void Button::update(sf::Vector2f& mousePosition)
+{
+	if (m_buttonState == BTN_PRESSED) {
+		if (!(sf::Mouse::isButtonPressed(sf::Mouse::Left))) {
+			m_buttonState = BTN_RELEASED;
+		}
+	}
+	else {
+		m_buttonState = BTN_INACTIVE;
+
+		m_hitboxButton = m_shapeButton.getGlobalBounds();
+
+		if (m_hitboxButton.contains(sf::Vector2f(mousePosition))) {
+
+			m_buttonState = BTN_HOVER;
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				m_buttonState = BTN_PRESSED;
+			}
+
+		}
+	}
+
+
+	switch (m_buttonState) // In here create differents style for settings and normal buttons
+	{
+	case (BTN_INACTIVE):
+		m_shapeButton.setFillColor(sf::Color::Transparent);
+		m_textButton.setFillColor(sf::Color::White);
+		m_textButton.setStyle(sf::Text::Regular);
+
+		m_textButton.setString(m_textButtonString);
+
+		break;
+
+	case (BTN_HOVER):
+		//m_textButton.setStyle(sf::Text::Bold);
+		m_textButton.setFillColor(sf::Color::White);
+		m_textButton.setString("> " + m_textButtonString + " <");
+
+		break;
+
+	case (BTN_PRESSED):
+		m_textButton.setStyle(sf::Text::Bold);
+		//m_shapeButton.setFillColor(sf::Color(128, 128, 128));
+		//m_shapeButton.setOutlineThickness(2.0f);
+		//m_shapeButton.setOutlineColor(sf::Color::White);
+		break;
+
+	case (BTN_RELEASED):
+		m_textButton.setStyle(sf::Text::Regular);
+		break;
+	default:
+
+		break;
+	}
+
+	m_hitboxText = m_textButton.getGlobalBounds();
+
+	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
+
 }
 
 void Button::draw(sf::RenderTarget* window) const {

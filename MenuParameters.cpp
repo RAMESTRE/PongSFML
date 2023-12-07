@@ -80,6 +80,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
+	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_menuPlan->getView());
 
 	std::map<std::string, std::vector<Button*>>::iterator it;
 
@@ -97,14 +98,22 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		for (int i(0); i < m_tabStringText.size(); i++) {
 			if (m_tabStringText[i] == "Size") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabPossibleResolution[m_indexTabRes]);
 			else if (m_tabStringText[i] == "Framerate") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, m_tabPossibleFramerate[m_indexTabFrame]);
-			else if (m_tabStringText[i] == "V-Sync") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
-			else if (m_tabStringText[i] == "Fullscreen") textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
+			else if (m_tabStringText[i] == "V-Sync") {
+				if (m_localVsync) textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
+				else textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Disabled");
+			}
+			else if (m_tabStringText[i] == "Fullscreen") {
+				if (m_localFullscreen) textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Enabled");
+				else textOptions(&m_tabChosenSettings[m_tabStringText[i]], font, 50, sf::Color::White, "Disabled");
+			}
 
 			m_tabTextSettingsBoxs[m_tabStringText[i]] = m_tabChosenSettings[m_tabStringText[i]].getGlobalBounds();
 			
 			m_tabChosenSettings[m_tabStringText[i]].setOrigin(m_tabTextSettingsBoxs[m_tabStringText[i]].width / 2, m_tabTextSettingsBoxs[m_tabStringText[i]].top + m_tabTextSettingsBoxs[m_tabStringText[i]].height / 2);
 			m_tabChosenSettings[m_tabStringText[i]].setPosition(1920 / 2 / 4 * 3, 300 + (116 * (1 + i)));
 		}
+
+		
 
 		m_parametersState = GRAPHICS;
 
@@ -116,16 +125,22 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 		it = m_tabButtons.begin();
 		while (it != m_tabButtons.end()) {
-			it->second[0]->update(mousePosition);
+			it->second[0]->update(worldPos);
 
 			if (it->second[0]->isPressed()) {
 				if (it->first == "Size" && m_indexTabRes > 0) {
 					m_indexTabRes -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
+
+					m_localWidthWindow = std::stoi(m_tabChosenSettings[it->first].getString().toAnsiString().substr(0, m_tabChosenSettings[it->first].getString().toAnsiString().find('x')));
+					m_localHeightWindow = std::stoi(m_tabChosenSettings[it->first].getString().toAnsiString().substr(m_tabChosenSettings[it->first].getString().toAnsiString().find('x')+1));
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame > 0) {
 					m_indexTabFrame -= 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
+
+					if (m_tabChosenSettings[it->first].getString().toAnsiString() == "Illimited") m_localFramerate = 0;
+					else m_localFramerate = std::stoi((m_tabChosenSettings[it->first].getString().toAnsiString()));
 					
 				} 
 				else if (it->first == "V-Sync") {
@@ -144,17 +159,24 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 			}
 
-			it->second[1]->update(mousePosition);
+			it->second[1]->update(worldPos);
 			if (it->second[1]->isPressed()) {
 
 				if (it->first == "Size" && m_indexTabRes < m_tabPossibleResolution.size() - 1) {
 					m_indexTabRes += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
 
+					m_localWidthWindow = std::stoi(m_tabChosenSettings[it->first].getString().toAnsiString().substr(0, m_tabChosenSettings[it->first].getString().toAnsiString().find('x')));
+					m_localHeightWindow = std::stoi(m_tabChosenSettings[it->first].getString().toAnsiString().substr(m_tabChosenSettings[it->first].getString().toAnsiString().find('x') + 1));
+
 				}
 				else if (it->first == "Framerate" && m_indexTabFrame < m_tabPossibleFramerate.size() - 1) {
 					m_indexTabFrame += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleFramerate[m_indexTabFrame]);
+
+					if (m_tabChosenSettings[it->first].getString().toAnsiString() == "Illimited") m_localFramerate = 0;
+					else m_localFramerate = std::stoi((m_tabChosenSettings[it->first].getString().toAnsiString()));
+
 				}
 				else if (it->first == "V-Sync") {
 					m_localVsync = !(m_localVsync);
@@ -179,10 +201,15 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		}
 
 		for (std::map<std::string, Button*>::iterator itBottomLineButtons(m_bottomLineButtons.begin()); itBottomLineButtons != m_bottomLineButtons.end(); itBottomLineButtons++) {
-			itBottomLineButtons->second->update(mousePosition);
+			itBottomLineButtons->second->update(worldPos);
 			if (itBottomLineButtons->second->isPressed()) {
 
 				if (itBottomLineButtons->first == "Back") m_parametersState = BACK;
+				if (itBottomLineButtons->first == "Save") {
+					m_parametersState = SAVE;
+					m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
+				}
+				if (itBottomLineButtons->first == "Default") m_parametersState = DEFAULT;
 
 				std::cout << itBottomLineButtons->first << " is pressed" << std::endl;
 			}
@@ -197,16 +224,33 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		
 		break;
 
-
-	case(BACK):
-
-		break;
-
 	case(SAVE):
-		m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
+
+		//m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
+
+		/*if (m_localFullscreen) {
+			delete window;
+			window = 0;
+			window = new sf::RenderWindow(sf::VideoMode(m_localWidthWindow, m_localHeightWindow), "PongSFML", sf::Style::Close | sf::Style::Fullscreen | sf::Style::Titlebar);
+		}
+		else {
+			delete window;
+			window = 0;
+			window = new sf::RenderWindow(sf::VideoMode(m_localWidthWindow, m_localHeightWindow), "PongSFML", sf::Style::Close | sf::Style::Titlebar);
+		}
+		
+		window->setFramerateLimit(m_localFramerate);
+		window->setVerticalSyncEnabled(m_localVsync);*/
+
+		//m_parametersState = BACK;
+
 		break;
 
 	case(DEFAULT):
+		m_configFile.defaultGraphicParameters();
+		getSettings();
+		displayActualSettings();
+		m_parametersState = GRAPHICS;
 		break;
 	}
 
@@ -315,6 +359,13 @@ void MenuParameters::displayActualSettings() {
 	for (int i(0); i < m_tabPossibleResolution.size(); i++) {
 		if (m_tabPossibleResolution[i].compare((std::to_string(m_localWidthWindow) + "x" + std::to_string(m_localHeightWindow))) == 0) {
 			m_indexTabRes = i;
+			if (m_parametersState == DEFAULT) {
+
+				m_tabChosenSettings["Size"].setString(m_tabPossibleResolution[i]);
+				m_tabTextSettingsBoxs["Size"] = m_tabChosenSettings["Size"].getGlobalBounds();
+				m_tabChosenSettings["Size"].setOrigin(m_tabTextSettingsBoxs["Size"].width / 2, m_tabChosenSettings["Size"].getOrigin().y);
+
+			}
 			i = m_tabPossibleResolution.size();
 		}
 	}
@@ -322,9 +373,28 @@ void MenuParameters::displayActualSettings() {
 	for (int i(0); i < m_tabPossibleFramerate.size(); i++) {
 		if (m_tabPossibleFramerate[i].compare(std::to_string(m_localFramerate)) == 0) {
 			m_indexTabFrame = i;
+			if (m_parametersState == DEFAULT) {
+
+				m_tabChosenSettings["Framerate"].setString(m_tabPossibleFramerate[i]);
+				m_tabTextSettingsBoxs["Framerate"] = m_tabChosenSettings["Framerate"].getGlobalBounds();
+				m_tabChosenSettings["Framerate"].setOrigin(m_tabTextSettingsBoxs["Framerate"].width / 2, m_tabChosenSettings["Framerate"].getOrigin().y);
+
+			}
+
 			i = m_tabPossibleFramerate.size();
 		}
 	}
+
+	if (m_parametersState == DEFAULT) {
+		if (m_localFullscreen) m_tabChosenSettings["Fullscreen"].setString("Enabled");
+		else m_tabChosenSettings["Fullscreen"].setString("Disabled");
+
+		if (m_localVsync) m_tabChosenSettings["V-Sync"].setString("Enabled");
+		else m_tabChosenSettings["V-Sync"].setString("Disabled");
+
+	}
+
+
 }
 
 void MenuParameters::getSettings() {
@@ -359,6 +429,10 @@ void MenuParameters::createButtons() {
 
 bool MenuParameters::getStateParametersMenu() const {
 	return m_parametersState == BACK;
+}
+
+bool MenuParameters::getSaved() const {
+	return m_parametersState == SAVE;
 }
 
 void MenuParameters::setStateParametersMenu() {

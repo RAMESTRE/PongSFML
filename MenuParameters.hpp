@@ -23,6 +23,8 @@ public:
 	bool getStateParametersMenu() const;
 	void setStateParametersMenu();
 
+	bool getSaved() const;
+
 private:
 
 	void textOptions(sf::Text* text, sf::Font& font, int size, sf::Color color, std::string string);
@@ -65,6 +67,14 @@ private:
 	std::map<std::string, std::vector<Button*>> m_tabButtons; //To stock button that will change the chosen option => Dynamic 
 
 	std::map<std::string, Button*> m_bottomLineButtons; 
+
+	//Keybinds
+
+	std::map<std::string, Button*> m_keybindsButtons;
+
+
+	std::map<std::string, sf::Keyboard> m_keybindsButton; //Stock keybinds players
+
 
 	//Static Texture (only drawn in init)
 	sf::RenderTexture* m_staticGraphicPlan;

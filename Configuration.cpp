@@ -13,14 +13,20 @@ void Configuration::saveToFileGraphic(std::string path) {
 	std::ofstream file(path);
 
 	if (file.is_open()) {
-		file << "SIZE=" << m_widthWindow << "x" << m_heightWindow;
-		file << "FRAMERATE=" << m_framerate;
-		file << "VSYNC=" << m_vsync;
-		file << "FULLSCREEN=" << m_fullscreen;
+		file << "SIZE=" << m_widthWindow << "x" << m_heightWindow <<"\n";
+		file << "FRAMERATE=" << m_framerate << "\n";
+
+		if (m_vsync) file << "VSYNC=" << "true" << "\n";
+		else file << "VSYNC=" << "false" << "\n";
+
+		if (m_fullscreen) file << "FULLSCREEN=" << "true";
+		else file << "FULLSCREEN=" << "false";
 	}
 	else {
 		std::cout << "Cannot open config file" << std::endl;
 	}
+
+	file.close();
 }
 
 void Configuration::loadFromFileGraphic(std::string path) {
@@ -44,17 +50,20 @@ void Configuration::loadFromFileGraphic(std::string path) {
 			else if (line.substr(0, line.find('=')) == "FRAMERATE") {
 				m_framerate = std::stoi(settings);
 			}
+			else if (line.substr(0, line.find('=')) == "FULLSCREEN") {
+				m_fullscreen = (settings == "true");
+			}
 			else if (line.substr(0, line.find('=')) == "VSYNC") {
-				m_vsync = (settings=="true");
+				m_vsync = (settings == "true");
 			}
-			else if (line.substr(0, line.find('=')) == "FULLSCREEN"){
-				m_fullscreen == (settings == "true");
-			}
+			
 		}
 	}
 	else {
 		std::cout << "Cannot open config file" << std::endl;
 	}
+
+	flux.close();
 }
 
 sf::VideoMode Configuration::getSizeWindow() const {
@@ -66,7 +75,7 @@ int Configuration::getFramerate() const {
 }
 
 bool Configuration::getFullscreen() const {
-	return m_framerate;
+	return m_fullscreen;
 }
 
 bool Configuration::getVSync() const {
@@ -75,8 +84,8 @@ bool Configuration::getVSync() const {
 
 void Configuration::defaultGraphicParameters() {
 
-	m_widthWindow = sf::VideoMode::getDesktopMode().width;
-	m_heightWindow = sf::VideoMode::getDesktopMode().height;
+	m_widthWindow = 1920;
+	m_heightWindow = 1080;
 	m_framerate = 60;
 	m_fullscreen = false;
 	m_vsync = false;

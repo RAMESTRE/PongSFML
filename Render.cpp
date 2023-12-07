@@ -350,6 +350,16 @@ void Render::parametersMenu(sf::RenderWindow* window) {
 	}
 }
 
+bool Render::parametersSaved(){
+	if (parameters.getSaved()) {
+		m_gameState = STARTUP_MENU;
+		parameters.setStateParametersMenu();
+		std::cout << "JE PASSE" << std::endl;
+		return true;
+	}
+	return false;
+}
+
 void Render::replayMenu() {
 
 }
