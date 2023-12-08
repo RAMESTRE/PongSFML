@@ -27,7 +27,7 @@ MenuParameters::MenuParameters() {
 	m_staticGraphicSprite = new sf::Sprite;
 
 	m_staticKeybindsPlan = new sf::RenderTexture;
-	m_staticKeybindsPlan->create(1920 / 4, 580);
+	m_staticKeybindsPlan->create(1920 / 2, 580);
 	m_staticKeybindsSprite = new sf::Sprite;
 
 	m_staticTitlesPlan = new sf::RenderTexture;
@@ -83,6 +83,8 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_menuPlan->getView());
 
 	std::map<std::string, std::vector<Button*>>::iterator it;
+
+	sf::RectangleShape shape(sf::Vector2f(50.f, 50.f));
 
 	switch (m_parametersState) {
 
@@ -258,17 +260,18 @@ void MenuParameters::createStaticTitlePlan(sf::Font font) {
 	/////////////////////////
 
 	sf::Text title;
-	textOptions(&title, font, 50, sf::Color::White, "Graphics");
+	textOptions(&title, font, 100, sf::Color::White, "Graphics");
+	title.setStyle(sf::Text::Underlined);
 
 	sf::FloatRect titleBox = title.getGlobalBounds();
-	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
+	title.setOrigin(titleBox.width / 2, titleBox.top + titleBox.height / 2);
 	title.setPosition(m_staticTitlesPlan->getSize().x / 4, 150);
 
 	m_staticTitlesPlan->clear();
 
 	m_staticTitlesPlan->draw(title);
 
-	title.setString("Keybinds");
+	title.setString("Controls");
 	title.setPosition((m_staticTitlesPlan->getSize().x / 4) * 3, 150);
 	m_staticTitlesPlan->draw(title);
 
@@ -307,6 +310,7 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 		m_staticGraphicPlan->draw(outline);/////////////////////////////////////////////
 
 	}
+
 	m_staticGraphicPlan->display();
 
 	*m_staticGraphicSprite = sf::Sprite(m_staticGraphicPlan->getTexture());
@@ -316,14 +320,44 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 void MenuParameters::createStaticKeybindPlan(sf::Font font) {
 	///////////////////
 	sf::RectangleShape outlineKey;
-	outlineKey = sf::RectangleShape(sf::Vector2f(480 - 20, 580 - 20));
+	outlineKey = sf::RectangleShape(sf::Vector2f(960 - 20, 580 - 20));
 	outlineKey.setPosition(10, 10);
 	outlineKey.setFillColor(sf::Color::Transparent);
 	outlineKey.setOutlineThickness(10.f);
 	outlineKey.setOutlineColor(sf::Color::Red);
 	//////////////////
 
+	sf::Text staticText;
+	std::vector<std::string> tabTitles = { "Player1", "UP", "DOWN", "Player2", "UP", "DOWN" };
+
+	sf::FloatRect titleBox;
+
 	m_staticKeybindsPlan->clear();
+
+	for (int i(0); i < tabTitles.size(); i++) {
+
+		textOptions(&staticText, font, 50, sf::Color::White, tabTitles[i]);
+
+		titleBox = staticText.getGlobalBounds();
+		staticText.setOrigin(titleBox.width / 2, titleBox.height / 2);
+
+		if (i < 3) {
+			if (tabTitles[i] == "Player1") staticText.setPosition(240, 145 * (1 + i));
+			else staticText.setPosition(120, 145 * (1 + i));
+		}
+		else {
+			if (tabTitles[i] == "Player2") staticText.setPosition(960 / 4 * 3, 145 * (1 + i-3));
+			else { staticText.setPosition(600 , 145 * (1 + i - 3)); }
+		}
+
+		
+
+		
+
+		m_staticKeybindsPlan->draw(staticText);
+	}
+
+	
 	m_staticKeybindsPlan->draw(outlineKey);
 	m_staticKeybindsPlan->display();
 
@@ -383,13 +417,20 @@ void MenuParameters::getSettings() {
 	m_localFullscreen = m_configFile.getFullscreen();
 	m_localVsync = m_configFile.getVSync();
 
+	
+	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Key>{ m_configFile.getControl(1) };
+	for (std::map<std::string, sf::Keyboard::Key>::iterator it2(m_localPlayerOneControl->begin()); it2 != m_localPlayerOneControl->end(); it2++) {
+		std::cout << it2->second << std::endl;
+	}
+	//m_localPlayerTwoControl = &m_configFile.getControl(2);
+
 }
 
 void MenuParameters::createButtons() {
 
 	//Creation Buttons Graphics Settings
 	for (int i(0); i < m_tabStringText.size(); i++) {
-		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1, ">") };
+		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1,30, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1,30, ">") };
 	}
 
 	//Creation Buttons Keybinds Settings
@@ -401,7 +442,7 @@ void MenuParameters::createButtons() {
 	tabOptions[2] = "Save";
 
 	for (int i(0); i < 3; i++) {
-		m_bottomLineButtons[tabOptions[i]] = new Button(480 * (i + 1), 980, 200.f, 100.f, 0, tabOptions[i]);
+		m_bottomLineButtons[tabOptions[i]] = new Button(480 * (i + 1), 980, 200.f, 100.f, 0, 40, tabOptions[i]);
 	}
 }
 

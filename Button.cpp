@@ -1,6 +1,6 @@
 #include "Button.hpp"
 
-Button::Button(double x, double y, double width, double height, int id, std::string textButton)
+Button::Button(double x, double y, double width, double height, int id, int size, std::string textButton)
 {
 	m_textButtonString = textButton;
 
@@ -14,7 +14,7 @@ Button::Button(double x, double y, double width, double height, int id, std::str
 	}
 
 	m_textButton.setFont(m_font);
-	m_textButton.setCharacterSize(16);
+	m_textButton.setCharacterSize(size);
 	m_textButton.setString(textButton);
 	m_hitboxText = m_textButton.getGlobalBounds();
 	

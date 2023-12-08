@@ -11,7 +11,7 @@ class Button {
 
 public:
 
-	Button(double x, double y, double width, double height,int id, std::string textButton);
+	Button(double x, double y, double width, double height,int id, int size, std::string textButton);
 	~Button();
 
 	bool isPressed() const;

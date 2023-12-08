@@ -22,11 +22,11 @@ Render::Render() {
 	//CREATE BUTTON STARTMENU HERE, WILL NEED A FUNCTION FOR IT LATER ON
 	std::vector<std::string> tabOpt{ "Start Game", "Parameters", "Quit Game" };
 	for (int i(0); i < tabOpt.size(); i++) {
-		m_buttonsStartMenu.push_back(new Button(1920 / 2, 1080 / (4 - i), 100.f, 50.f, 0, tabOpt[i]));
+		m_buttonsStartMenu.push_back(new Button(1920 / 2, 1080 / (4 - i), 100.f, 50.f, 0, 30, tabOpt[i]));
 	}
 
-	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 2.5, 100.f, 50.f, 0, "Player vs Player"));
-	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 1.5, 100.f, 50.f, 0, "Player vs Computer"));
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 2.5, 100.f, 50.f, 0, 30, "Player vs Player"));
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 1.5, 100.f, 50.f, 0, 30, "Player vs Computer"));
 
 }
 
@@ -356,7 +356,6 @@ bool Render::parametersSaved(){
 	if (parameters.getSaved()) {
 		m_gameState = STARTUP_MENU;
 		parameters.setStateParametersMenu();
-		std::cout << "JE PASSE" << std::endl;
 		return true;
 	}
 	return false;

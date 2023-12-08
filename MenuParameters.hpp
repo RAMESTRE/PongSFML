@@ -70,10 +70,12 @@ private:
 
 	//Keybinds
 
+
+
 	std::map<std::string, Button*> m_keybindsButtons;
 
-
-	std::map<std::string, sf::Keyboard> m_keybindsButton; //Stock keybinds players
+	std::map<std::string, sf::Keyboard::Key>* m_localPlayerOneControl; //Stock keybinds players
+	std::map<std::string, sf::Keyboard::Key>* m_localPlayerTwoControl;
 
 
 	//Static Texture (only drawn in init)

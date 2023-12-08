@@ -1,12 +1,8 @@
-﻿  Player.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(28,27): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(33,26): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
+﻿  Render.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(24,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(58,46): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(58,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(60,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(322,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(326,20): warning C4018: '<' : incompatibilité signed/unsigned
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe
