@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 
@@ -31,6 +32,9 @@ private:
 	sf::VideoMode m_sizeWindow;
 	int m_framerate;
 	bool m_vsync, m_fullscreen;
+
+	std::map<std::string, sf::Keyboard::Key> m_playerOneControls;
+	std::map<std::string, sf::Keyboard::Key> m_playerTwoControls;
 
 };
 

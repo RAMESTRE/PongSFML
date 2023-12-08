@@ -22,13 +22,13 @@ sf::RectangleShape& Player::display() {
 	return *m_playerShape;
 }
 
-void Player::movePlayer(double& deltaTime){
+void Player::movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::Key>& controls){
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && m_playerShape->getPosition().y > (120)) {
+	if (sf::Keyboard::isKeyPressed(controls["UP"]) && m_playerShape->getPosition().y > (120)) {
 		m_movement.y = -m_speed * deltaTime;
 		m_playerShape->move(0.f, m_movement.y);
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && m_playerShape->getPosition().y < 1080 - 120 - m_playerShape->getSize().y)
+	else if (sf::Keyboard::isKeyPressed(controls["DOWN"]) && m_playerShape->getPosition().y < 1080 - 120 - m_playerShape->getSize().y)
 	{
 		m_movement.y = m_speed * deltaTime;
 		m_playerShape->move(0.f, m_movement.y);

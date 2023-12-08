@@ -25,6 +25,9 @@ Render::Render() {
 		m_buttonsStartMenu.push_back(new Button(1920 / 2, 1080 / (4 - i), 100.f, 50.f, 0, tabOpt[i]));
 	}
 
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 2.5, 100.f, 50.f, 0, "Player vs Player"));
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 1.5, 100.f, 50.f, 0, "Player vs Computer"));
+
 }
 
 Render::~Render() {
@@ -87,25 +90,24 @@ void Render::playerMenu(sf::RenderWindow* window) {
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
 
-	Button pvp(xWindowSize / 2, yWindowSize / 2.5, 100.f, 50.f, 0, "Player vs Player"), pvcpu(xWindowSize / 2, yWindowSize / 1.5, 100.f, 50.f, 0, "Player vs Computer");
 
-	pvp.update(mousePosition);
-	if (pvp.isPressed()) {
+	m_buttonsPlayersMenu[0]->update(mousePosition);
+	if (m_buttonsPlayersMenu[0]->isPressed()) {
 		m_gameState = PONG_WINDOW;
 		m_pongState = INIT_PVP;
 	}
 
-	pvcpu.update(mousePosition);
-	if (pvcpu.isPressed()) {
+	m_buttonsPlayersMenu[1]->update(mousePosition);
+	if (m_buttonsPlayersMenu[1]->isPressed()) {
 		m_gameState = PONG_WINDOW;
 		m_pongState = INIT_PVCPU;
 	}
 
-	pvp.draw(window);
-	pvcpu.draw(window);
+	m_buttonsPlayersMenu[0]->draw(window);
+	m_buttonsPlayersMenu[1]->draw(window);
 }
 
-void Render::pongWindow(sf::RenderWindow* window, double* dt) {
+void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Key>& pOneControls, std::map<std::string, sf::Keyboard::Key>& pTwoControls) {
 
 	//Get window size to actualize scale gamePlan
 	//
@@ -184,8 +186,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt) {
 		//
 		//
 
-		m_tabPlayers[0]->movePlayer(*dt); //Use func deltaTime of displayWindow class ?
-		m_tabPlayers[1]->movePlayer(*dt);
+		m_tabPlayers[0]->movePlayer(*dt, pOneControls); //Use func deltaTime of displayWindow class ?
+		m_tabPlayers[1]->movePlayer(*dt, pTwoControls);
 		m_ball->move(*dt);
 
 		m_tabHitboxPlayers[0]->hitboxUpdate(*m_tabPlayers[0]);

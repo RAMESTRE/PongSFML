@@ -7,7 +7,6 @@ DisplayWindow::DisplayWindow() : m_deltaTime(new double)
     configFile.loadFromFileGraphic("Config/Graphic.ini");
     getNewSettings();
 
-    std::cout << m_fullscreen << std::endl;
     if (m_fullscreen) m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Fullscreen | sf::Style::Close | sf::Style::Titlebar);
     else m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Close | sf::Style::Titlebar);
 
@@ -31,6 +30,9 @@ void DisplayWindow::getNewSettings() {
     m_framerate = configFile.getFramerate();
     m_fullscreen = configFile.getFullscreen();
     m_vsync = configFile.getVSync();
+
+    m_playerOneControls = configFile.getControl(1);
+    m_playerTwoControls = configFile.getControl(2);
 
 }
 
@@ -56,7 +58,11 @@ void DisplayWindow::runWindow() {
             if (m_event.type == sf::Event::Resized) {
                 sf::FloatRect visibleArea(0.f, 0.f, m_event.size.width, m_event.size.height);
                 m_window->setView(sf::View(visibleArea));
+            }
 
+            if (m_event.type == sf::Event::KeyPressed)
+            {
+                std::cout << "scancode: " << m_event.key.scancode << std::endl;
             }
         }
 
@@ -72,7 +78,7 @@ void DisplayWindow::runWindow() {
             render.playerMenu(m_window);
             break;
         case(PONG_WINDOW):
-            render.pongWindow(m_window, m_deltaTime);
+            render.pongWindow(m_window, m_deltaTime, m_playerOneControls, m_playerTwoControls);
             break;
         case(PARAMETERS_MENU):
             render.parametersMenu(m_window);

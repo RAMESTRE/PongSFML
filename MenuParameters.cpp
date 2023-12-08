@@ -224,28 +224,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 		
 		break;
 
-	case(SAVE):
-
-		//m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
-
-		/*if (m_localFullscreen) {
-			delete window;
-			window = 0;
-			window = new sf::RenderWindow(sf::VideoMode(m_localWidthWindow, m_localHeightWindow), "PongSFML", sf::Style::Close | sf::Style::Fullscreen | sf::Style::Titlebar);
-		}
-		else {
-			delete window;
-			window = 0;
-			window = new sf::RenderWindow(sf::VideoMode(m_localWidthWindow, m_localHeightWindow), "PongSFML", sf::Style::Close | sf::Style::Titlebar);
-		}
-		
-		window->setFramerateLimit(m_localFramerate);
-		window->setVerticalSyncEnabled(m_localVsync);*/
-
-		//m_parametersState = BACK;
-
-		break;
-
 	case(DEFAULT):
 		m_configFile.defaultGraphicParameters();
 		getSettings();
@@ -411,7 +389,7 @@ void MenuParameters::createButtons() {
 
 	//Creation Buttons Graphics Settings
 	for (int i(0); i < m_tabStringText.size(); i++) {
-		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 0, ">") };
+		m_tabButtons[m_tabStringText[i]] = { new Button(1920 / 2 / 4 * 3 - 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1, "<"), new Button(1920 / 2 / 4 * 3 + 150, 300 + (116 * (1 + i)), 10.f, 40.f, 1, ">") };
 	}
 
 	//Creation Buttons Keybinds Settings

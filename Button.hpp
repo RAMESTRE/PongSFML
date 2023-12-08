@@ -7,8 +7,6 @@
 
 enum states {BTN_INACTIVE = 0, BTN_HOVER = 1, BTN_PRESSED = 2, BTN_RELEASED = 3};
 
-enum styles {BTN_HOOK = 0, BTN_BASIC = 1};
-
 class Button {
 
 public:
@@ -18,10 +16,12 @@ public:
 
 	bool isPressed() const;
 	void update(sf::Vector2i& mousePosition);
-	void update(sf::Vector2f& mousePosition);
+	void update(sf::Vector2f& mousePosition); //To use with pixel to coord position
 	void draw(sf::RenderTarget* window) const;
 
 private:
+
+	void setStyle();
 
 	sf::RectangleShape m_shapeButton;
 	sf::Text m_textButton;

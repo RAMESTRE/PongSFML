@@ -2,6 +2,7 @@
 #define DEF_PLAYER
 
 #include <iostream>
+#include <map>
 #include <SFML/Graphics.hpp>
 
 class Player {
@@ -13,7 +14,7 @@ public:
 	~Player();
 	void setPosition(sf::Vector2f positionPlayer) const;
 	sf::RectangleShape& display();
-	void movePlayer(double& deltaTime); //To modify later for player 1 and 2 to have differents controls
+	void movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::Key>& controls); //To modify later for player 1 and 2 to have differents controls
 	sf::Vector2f getMovement() const;
 
 private:

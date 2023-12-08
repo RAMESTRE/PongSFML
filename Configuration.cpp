@@ -2,6 +2,7 @@
 
 Configuration::Configuration() {
 	defaultGraphicParameters();
+	defaultControlsParameters();
 }
 
 Configuration::~Configuration() {
@@ -99,4 +100,24 @@ void Configuration::saveChange(int width, int height, int framerate, bool vsync,
 	m_vsync = vsync;
 	m_fullscreen = fullscreen;
 	saveToFileGraphic("Config/Graphic.ini");
+}
+
+
+
+
+std::map<std::string, sf::Keyboard::Key> Configuration::getControl(int player) const {
+	if (player == 1) return m_playerOneControls;
+	return m_playerTwoControls;
+}
+
+void Configuration::defaultControlsParameters() {
+
+	m_playerActions = {"UP", "DOWN"};
+
+	m_playerOneControls["UP"] = sf::Keyboard::Key::Z;
+	m_playerOneControls["DOWN"] = sf::Keyboard::Key::S;
+
+	m_playerTwoControls["UP"] = sf::Keyboard::Key::Up;
+	m_playerTwoControls["DOWN"] = sf::Keyboard::Key::Down;
+
 }

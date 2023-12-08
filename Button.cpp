@@ -59,7 +59,21 @@ void Button::update(sf::Vector2i& mousePosition)
 	}
 	
 
-	switch (m_buttonState) // In here create differents style for settings and normal buttons
+	setStyle();
+
+	m_hitboxText = m_textButton.getGlobalBounds();
+
+	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
+	
+}
+
+void Button::setStyle() {
+
+	//ID 0 = Basic buttons like start game
+	//ID 1 = Settings buttons with hook as text
+	//ID 2 = Keybinds buttons
+
+	switch (m_buttonState)
 	{
 	case (BTN_INACTIVE):
 		m_shapeButton.setFillColor(sf::Color::Transparent);
@@ -68,33 +82,33 @@ void Button::update(sf::Vector2i& mousePosition)
 
 		m_textButton.setString(m_textButtonString);
 
+		if (m_id == 2) {
+			m_shapeButton.setOutlineColor(sf::Color::White);
+			m_shapeButton.setOutlineThickness(1.0f);
+		}
+
 		break;
 
 	case (BTN_HOVER):
-		//m_textButton.setStyle(sf::Text::Bold);
-		m_textButton.setFillColor(sf::Color::White);
-		m_textButton.setString("> " + m_textButtonString + " <");
 
+		if (m_id == 0) {
+			m_textButton.setString("> " + m_textButtonString + " <");
+		}
 		break;
 
 	case (BTN_PRESSED):
 		m_textButton.setStyle(sf::Text::Bold);
-		//m_shapeButton.setFillColor(sf::Color(128, 128, 128));
-		//m_shapeButton.setOutlineThickness(2.0f);
-		//m_shapeButton.setOutlineColor(sf::Color::White);
+
 		break;
 
 	case (BTN_RELEASED):
 		m_textButton.setStyle(sf::Text::Regular);
+
 		break;
 	default:
 
 		break;
 	}
-
-	m_hitboxText = m_textButton.getGlobalBounds();
-
-	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
 	
 }
 
@@ -122,38 +136,7 @@ void Button::update(sf::Vector2f& mousePosition)
 	}
 
 
-	switch (m_buttonState) // In here create differents style for settings and normal buttons
-	{
-	case (BTN_INACTIVE):
-		m_shapeButton.setFillColor(sf::Color::Transparent);
-		m_textButton.setFillColor(sf::Color::White);
-		m_textButton.setStyle(sf::Text::Regular);
-
-		m_textButton.setString(m_textButtonString);
-
-		break;
-
-	case (BTN_HOVER):
-		//m_textButton.setStyle(sf::Text::Bold);
-		m_textButton.setFillColor(sf::Color::White);
-		m_textButton.setString("> " + m_textButtonString + " <");
-
-		break;
-
-	case (BTN_PRESSED):
-		m_textButton.setStyle(sf::Text::Bold);
-		//m_shapeButton.setFillColor(sf::Color(128, 128, 128));
-		//m_shapeButton.setOutlineThickness(2.0f);
-		//m_shapeButton.setOutlineColor(sf::Color::White);
-		break;
-
-	case (BTN_RELEASED):
-		m_textButton.setStyle(sf::Text::Regular);
-		break;
-	default:
-
-		break;
-	}
+	setStyle();
 
 	m_hitboxText = m_textButton.getGlobalBounds();
 

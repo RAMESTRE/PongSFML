@@ -29,7 +29,7 @@ public:
 	void playerMenu(sf::RenderWindow* window);
 
 
-	void pongWindow(sf::RenderWindow* window, double* dt);
+	void pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Key>& pOneControls, std::map<std::string, sf::Keyboard::Key>& pTwoControls);
 
 	void parametersMenu(sf::RenderWindow* window);
 	bool parametersSaved();
@@ -47,6 +47,10 @@ private:
 	//
 	//
 	std::vector<Button*> m_buttonsStartMenu;
+
+	//PlayerMenu Attributes
+
+	std::vector<Button*> m_buttonsPlayersMenu;
 
 	//PongWindows Attributes
 	//
