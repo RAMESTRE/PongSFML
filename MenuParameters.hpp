@@ -7,7 +7,7 @@
 #include <vector>
 #include <map>
 
-enum stateParameters { INIT_GRAPHICS = 0, GRAPHICS = 1, APPLY = 2, DEFAULT = 3, SAVE = 4, BACK = 5 };
+enum stateParameters { INIT_GRAPHICS = 0, GRAPHICS = 1, APPLY = 2, DEFAULT = 3, SAVE = 4, BACK = 5, CHOOSING_KEY = 6};
 
 class MenuParameters {
 	
@@ -16,7 +16,7 @@ public:
 	MenuParameters();
 	~MenuParameters();
 
-	void displayMenu(sf::RenderWindow* window, sf::Font font);
+	void displayMenu(sf::RenderWindow* window, sf::Font font, sf::Event* evenmt);
 	
 	void getSettings();
 
@@ -70,9 +70,11 @@ private:
 
 	//Keybinds
 
+	std::map<std::string, Button*> m_keybindsButtonsPlayerOne;
+	std::map<std::string, Button*> m_keybindsButtonsPlayerTwo;
 
-
-	std::map<std::string, Button*> m_keybindsButtons;
+	Button* m_choosingKey; //Put in tuple string button* (to know which action will be modified)
+	sf::Keyboard::Key* m_newKey;
 
 	std::map<std::string, sf::Keyboard::Key>* m_localPlayerOneControl; //Stock keybinds players
 	std::map<std::string, sf::Keyboard::Key>* m_localPlayerTwoControl;

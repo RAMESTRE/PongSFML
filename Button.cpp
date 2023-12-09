@@ -6,7 +6,8 @@ Button::Button(double x, double y, double width, double height, int id, int size
 
 	m_shapeButton = sf::RectangleShape(sf::Vector2f(width, height));
 	m_hitboxButton = m_shapeButton.getGlobalBounds();
-	m_shapeButton.setPosition(x - width/2, y - height/2); //Here use also a setOrigin for better understanding code
+	m_shapeButton.setOrigin(m_hitboxButton.left + m_hitboxButton.width / 2, m_hitboxButton.top + m_hitboxButton.height / 2);
+	m_shapeButton.setPosition(x, y); 
 
 	if (!m_font.loadFromFile("arial.ttf"))
 	{
@@ -60,10 +61,6 @@ void Button::update(sf::Vector2i& mousePosition)
 	
 
 	setStyle();
-
-	m_hitboxText = m_textButton.getGlobalBounds();
-
-	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
 	
 }
 
@@ -109,6 +106,12 @@ void Button::setStyle() {
 
 		break;
 	}
+
+	if (m_id == 0 || m_id == 2) {
+		m_hitboxText = m_textButton.getGlobalBounds();
+
+		m_textButton.setOrigin(m_hitboxText.width / 2, m_textButton.getOrigin().y);
+	}
 	
 }
 
@@ -134,17 +137,15 @@ void Button::update(sf::Vector2f& mousePosition)
 
 		}
 	}
-
-
 	setStyle();
-
-	m_hitboxText = m_textButton.getGlobalBounds();
-
-	m_textButton.setOrigin(m_hitboxText.width / 2, m_hitboxText.height / 2);
-
 }
 
 void Button::draw(sf::RenderTarget* window) const {
 	window->draw(m_shapeButton);
 	window->draw(m_textButton);
+}
+
+void Button::changeText(std::string newString) {
+	m_textButton.setString(newString);
+	m_textButtonString = newString;
 }

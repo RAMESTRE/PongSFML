@@ -18,6 +18,7 @@ public:
 	void update(sf::Vector2i& mousePosition);
 	void update(sf::Vector2f& mousePosition); //To use with pixel to coord position
 	void draw(sf::RenderTarget* window) const;
+	void changeText(std::string newString);
 
 private:
 

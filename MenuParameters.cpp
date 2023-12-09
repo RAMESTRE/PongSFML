@@ -76,7 +76,7 @@ MenuParameters::~MenuParameters() {
 
 }
 
-void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
+void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Event* evenmt) {
 	
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
@@ -84,7 +84,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 
 	std::map<std::string, std::vector<Button*>>::iterator it;
 
-	sf::RectangleShape shape(sf::Vector2f(50.f, 50.f));
+	std::map<std::string, Button*>::iterator itControlsButtons = m_keybindsButtonsPlayerOne.begin();
 
 	switch (m_parametersState) {
 
@@ -124,6 +124,10 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 	case(GRAPHICS):
 
 		m_menuPlan->clear();
+
+		//Graphics Settings Buttons update and draw
+		//
+		//
 
 		it = m_tabButtons.begin();
 		while (it != m_tabButtons.end()) {
@@ -202,6 +206,26 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 			it++;
 		}
 
+		//Controls Settings Buttons update and draw
+		//
+		//
+
+		for (itControlsButtons; itControlsButtons != m_keybindsButtonsPlayerOne.end(); itControlsButtons++) { //DO THE SAME FOR P2
+			itControlsButtons->second->update(worldPos);
+			if (itControlsButtons->second->isPressed()) {
+				m_parametersState = CHOOSING_KEY;
+				m_choosingKey = itControlsButtons->second;
+				m_newKey = &(*m_localPlayerOneControl)[itControlsButtons->first];
+				break;
+			}
+			
+			itControlsButtons->second->draw(m_menuPlan);
+		}
+
+		//Bottom lines buttons update and draw
+		//
+		//
+
 		for (std::map<std::string, Button*>::iterator itBottomLineButtons(m_bottomLineButtons.begin()); itBottomLineButtons != m_bottomLineButtons.end(); itBottomLineButtons++) {
 			itBottomLineButtons->second->update(worldPos);
 			if (itBottomLineButtons->second->isPressed()) {
@@ -219,11 +243,27 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font) {
 			itBottomLineButtons->second->draw(m_menuPlan);
 		}
 
+
+
 		m_menuPlan->draw(*m_staticTitlesSprite);
 		m_menuPlan->draw(*m_staticGraphicSprite);
 		m_menuPlan->draw(*m_staticKeybindsSprite);
 		m_menuPlan->display();
 		
+		break;
+
+	case(CHOOSING_KEY):
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) m_parametersState = GRAPHICS;
+
+		
+		if (evenmt->type == sf::Event::KeyReleased)
+		{
+			m_choosingKey->changeText(sf::Keyboard::getDescription(evenmt->key.scancode).toAnsiString());
+			*m_newKey = evenmt->key.code;
+			m_parametersState = GRAPHICS;
+		}
+		
+		//if (sf::Keyboard::isKeyPressed)
 		break;
 
 	case(DEFAULT):
@@ -348,11 +388,7 @@ void MenuParameters::createStaticKeybindPlan(sf::Font font) {
 		else {
 			if (tabTitles[i] == "Player2") staticText.setPosition(960 / 4 * 3, 145 * (1 + i-3));
 			else { staticText.setPosition(600 , 145 * (1 + i - 3)); }
-		}
-
-		
-
-		
+		}		
 
 		m_staticKeybindsPlan->draw(staticText);
 	}
@@ -419,9 +455,6 @@ void MenuParameters::getSettings() {
 
 	
 	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Key>{ m_configFile.getControl(1) };
-	for (std::map<std::string, sf::Keyboard::Key>::iterator it2(m_localPlayerOneControl->begin()); it2 != m_localPlayerOneControl->end(); it2++) {
-		std::cout << it2->second << std::endl;
-	}
 	//m_localPlayerTwoControl = &m_configFile.getControl(2);
 
 }
@@ -435,6 +468,17 @@ void MenuParameters::createButtons() {
 
 	//Creation Buttons Keybinds Settings
 
+	std::map<std::string, sf::Keyboard::Key>::iterator itKeybind1 = m_localPlayerOneControl->begin();
+	int count = 0;
+
+
+	for (itKeybind1; itKeybind1 != m_localPlayerOneControl->end(); itKeybind1++) {
+		std::cout << sf::Keyboard::getDescription(sf::Keyboard::Scancode(itKeybind1->second)).toAnsiString() << " JE SUIS DANS CREATEBUTTON MENUPARAMETERS" << std::endl;
+		m_keybindsButtonsPlayerOne[itKeybind1->first] = new Button(840, 290*(count + 1), 30.f, 40.f, 2, 30, sf::Keyboard::getDescription(sf::Keyboard::Scancode(itKeybind1->second)).toAnsiString());
+		count += 1;
+	}
+
+
 	//Creation Button Bottom Line Settings (save, default, back)
 	std::string tabOptions[3] ;
 	tabOptions[0] = "Back";
@@ -442,7 +486,7 @@ void MenuParameters::createButtons() {
 	tabOptions[2] = "Save";
 
 	for (int i(0); i < 3; i++) {
-		m_bottomLineButtons[tabOptions[i]] = new Button(480 * (i + 1), 980, 200.f, 100.f, 0, 40, tabOptions[i]);
+		m_bottomLineButtons[tabOptions[i]] = new Button(480 * (i + 1), 980, 200.f, 100.f, 2, 40, tabOptions[i]);
 	}
 }
 

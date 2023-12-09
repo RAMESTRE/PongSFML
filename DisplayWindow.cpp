@@ -59,11 +59,6 @@ void DisplayWindow::runWindow() {
                 sf::FloatRect visibleArea(0.f, 0.f, m_event.size.width, m_event.size.height);
                 m_window->setView(sf::View(visibleArea));
             }
-
-            if (m_event.type == sf::Event::KeyPressed)
-            {
-                std::cout << "scancode: " << m_event.key.scancode << std::endl;
-            }
         }
 
         m_window->clear();
@@ -81,7 +76,7 @@ void DisplayWindow::runWindow() {
             render.pongWindow(m_window, m_deltaTime, m_playerOneControls, m_playerTwoControls);
             break;
         case(PARAMETERS_MENU):
-            render.parametersMenu(m_window);
+            render.parametersMenu(m_window, &m_event);
             if (render.parametersSaved()) {
                 configFile.loadFromFileGraphic("Config/Graphic.ini");
                 getNewSettings();

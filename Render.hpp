@@ -31,7 +31,7 @@ public:
 
 	void pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Key>& pOneControls, std::map<std::string, sf::Keyboard::Key>& pTwoControls);
 
-	void parametersMenu(sf::RenderWindow* window);
+	void parametersMenu(sf::RenderWindow* window, sf::Event* evenmt);
 	bool parametersSaved();
 
 	void replayMenu();

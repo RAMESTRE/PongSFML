@@ -343,9 +343,11 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 	}
 }
 
-void Render::parametersMenu(sf::RenderWindow* window) {
+//DELETE PARAMETERS IN RENDER AND DECLARES IT IN DISPLAY WINDOW INSTEAD
+
+void Render::parametersMenu(sf::RenderWindow* window, sf::Event* evenmt) {
 	
-	parameters.displayMenu(window, m_font);
+	parameters.displayMenu(window, m_font, evenmt);
 	if (parameters.getStateParametersMenu()) {
 		m_gameState = STARTUP_MENU;
 		parameters.setStateParametersMenu();

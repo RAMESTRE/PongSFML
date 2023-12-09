@@ -30,8 +30,8 @@ public:
 
 	//Controls Methods
 
-	//void saveToFileKeys(std::string path);
-	//void loadFromFileKeys(std::string path);
+	void saveToFileKeys(std::string path);
+	void loadFromFileKeys(std::string path);
 
 	std::map<std::string, sf::Keyboard::Key> getControl(int player) const;
 
