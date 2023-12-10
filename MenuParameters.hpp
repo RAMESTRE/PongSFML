@@ -7,6 +7,8 @@
 #include <vector>
 #include <map>
 
+///////////////////////////////PUT FONT AS AN ATTRIBUTE OF CONSTRUCTOR INSTEAD OF ALL THE METHODS
+
 enum stateParameters { INIT_GRAPHICS = 0, GRAPHICS = 1, APPLY = 2, DEFAULT = 3, SAVE = 4, BACK = 5, CHOOSING_KEY = 6};
 
 class MenuParameters {
@@ -31,6 +33,7 @@ private:
 	void createStaticTitlePlan(sf::Font font);
 	void createStaticGraphicPlan(sf::Font font);
 	void createStaticKeybindPlan(sf::Font font);
+	void createStaticChoosePlan(sf::Font font);
 
 	void createButtons();
 
@@ -74,21 +77,29 @@ private:
 	std::map<std::string, Button*> m_keybindsButtonsPlayerTwo;
 
 	Button* m_choosingKey; //Put in tuple string button* (to know which action will be modified)
-	sf::Keyboard::Key* m_newKey;
+	sf::Keyboard::Scancode* m_newKey;
 
-	std::map<std::string, sf::Keyboard::Key>* m_localPlayerOneControl; //Stock keybinds players
-	std::map<std::string, sf::Keyboard::Key>* m_localPlayerTwoControl;
+	std::map<std::string, sf::Keyboard::Scancode>* m_localPlayerOneControl; //Stock keybinds players
+	std::map<std::string, sf::Keyboard::Scancode>* m_localPlayerTwoControl;
 
 
 	//Static Texture (only drawn in init)
-	sf::RenderTexture* m_staticGraphicPlan;
 	sf::Sprite* m_staticGraphicSprite;
 
-	sf::RenderTexture* m_staticTitlesPlan;
 	sf::Sprite* m_staticTitlesSprite;
 
-	sf::RenderTexture* m_staticKeybindsPlan;
+
+	////For Controls part
+
 	sf::Sprite* m_staticKeybindsSprite;
+
+	sf::Sprite* m_staticActionSprite;
+
+	////Texture to display choose key pop up
+
+	sf::Sprite* m_staticChooseSprite;
+
+	std::map<std::string, sf::RenderTexture*> m_tabTextures;
 
 	//To save, load and put to default settings
 	Configuration m_configFile;

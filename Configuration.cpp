@@ -105,7 +105,7 @@ void Configuration::saveChange(int width, int height, int framerate, bool vsync,
 
 
 
-std::map<std::string, sf::Keyboard::Key> Configuration::getControl(int player) const {
+std::map<std::string, sf::Keyboard::Scancode> Configuration::getControl(int player) const {
 	if (player == 1) return m_playerOneControls;
 	return m_playerTwoControls;
 }
@@ -114,10 +114,15 @@ void Configuration::defaultControlsParameters() {
 
 	m_playerActions = {"UP", "DOWN"};
 
-	m_playerOneControls["UP"] = sf::Keyboard::Key::Z;
-	m_playerOneControls["DOWN"] = sf::Keyboard::Key::S;
-
-	m_playerTwoControls["UP"] = sf::Keyboard::Key::Up;
-	m_playerTwoControls["DOWN"] = sf::Keyboard::Key::Down;
+	for (int i(0); i < m_playerActions.size(); i++) {
+		if (m_playerActions[i] == "UP") {
+			m_playerOneControls[m_playerActions[i]] = sf::Keyboard::Scancode::W;
+			m_playerTwoControls[m_playerActions[i]] = sf::Keyboard::Scancode::Up;
+		}
+		else {
+			m_playerOneControls[m_playerActions[i]] = sf::Keyboard::Scancode::S;
+			m_playerTwoControls[m_playerActions[i]] = sf::Keyboard::Scancode::Down;
+		}
+	}
 
 }

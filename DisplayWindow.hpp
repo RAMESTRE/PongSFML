@@ -33,8 +33,8 @@ private:
 	int m_framerate;
 	bool m_vsync, m_fullscreen;
 
-	std::map<std::string, sf::Keyboard::Key> m_playerOneControls;
-	std::map<std::string, sf::Keyboard::Key> m_playerTwoControls;
+	std::map<std::string, sf::Keyboard::Scancode> m_playerOneControls;
+	std::map<std::string, sf::Keyboard::Scancode> m_playerTwoControls;
 
 };
 

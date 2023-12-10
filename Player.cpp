@@ -22,7 +22,7 @@ sf::RectangleShape& Player::display() {
 	return *m_playerShape;
 }
 
-void Player::movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::Key>& controls){
+void Player::movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::Scancode>& controls){
 
 	if (sf::Keyboard::isKeyPressed(controls["UP"]) && m_playerShape->getPosition().y > (120)) {
 		m_movement.y = -m_speed * deltaTime;

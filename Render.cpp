@@ -107,7 +107,7 @@ void Render::playerMenu(sf::RenderWindow* window) {
 	m_buttonsPlayersMenu[1]->draw(window);
 }
 
-void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Key>& pOneControls, std::map<std::string, sf::Keyboard::Key>& pTwoControls) {
+void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Scancode>& pOneControls, std::map<std::string, sf::Keyboard::Scancode>& pTwoControls) {
 
 	//Get window size to actualize scale gamePlan
 	//

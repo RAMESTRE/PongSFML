@@ -1,16 +1,70 @@
-﻿  Button.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(7,57): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+﻿  MenuParameters.cpp
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(26,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(81,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(116,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(131,78): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(185,46): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(193,58): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(348,57): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(358,63): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(389,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(395,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(440,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(448,100): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(450,86): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(450,35): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(471,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(479,71): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(498,123): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+          and
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(7,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(498,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
           with
+          [
+              T=unsigned int
+          ]
+          and
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(10,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(10,28): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(23,30): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(23,27): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(510,98): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(510,56): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(526,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(540,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(584,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(592,19): warning C4018: '<' : incompatibilité signed/unsigned
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

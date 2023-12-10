@@ -29,7 +29,7 @@ public:
 	void playerMenu(sf::RenderWindow* window);
 
 
-	void pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Key>& pOneControls, std::map<std::string, sf::Keyboard::Key>& pTwoControls);
+	void pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Scancode>& pOneControls, std::map<std::string, sf::Keyboard::Scancode>& pTwoControls);
 
 	void parametersMenu(sf::RenderWindow* window, sf::Event* evenmt);
 	bool parametersSaved();

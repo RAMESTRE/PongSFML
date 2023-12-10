@@ -2,10 +2,6 @@
 
 MenuParameters::MenuParameters() {
 
-	m_menuPlan = new sf::RenderTexture;
-	m_menuPlan->create(1920, 1080);
-	m_menuSprite = new sf::Sprite;
-
 	m_tabStringText = { "Size", "Framerate", "V-Sync", "Fullscreen" };
 
 	m_tabPossibleResolution = { "854x480", "960x540", "1024x576", "1280x720", "1366x768",
@@ -22,17 +18,20 @@ MenuParameters::MenuParameters() {
 	//Create Function for creating rendertextures
 	//
 	//
-	m_staticGraphicPlan = new sf::RenderTexture;
-	m_staticGraphicPlan->create(1920/4, 580);
+	m_menuPlan = new sf::RenderTexture;
+	m_menuPlan->create(1920, 1080);
+	m_menuSprite = new sf::Sprite;
+
+	std::vector<std::string> tabNameTextures{"Graphic", "Keybinds", "Actions", "Titles", "Choose"};
+	for (int i(0); i < tabNameTextures.size(); i++) {
+		m_tabTextures[tabNameTextures[i]] = new sf::RenderTexture;
+	}
+
 	m_staticGraphicSprite = new sf::Sprite;
-
-	m_staticKeybindsPlan = new sf::RenderTexture;
-	m_staticKeybindsPlan->create(1920 / 2, 580);
 	m_staticKeybindsSprite = new sf::Sprite;
-
-	m_staticTitlesPlan = new sf::RenderTexture;
-	m_staticTitlesPlan->create(1920, 300);
+	m_staticActionSprite = new sf::Sprite;
 	m_staticTitlesSprite = new sf::Sprite;
+	m_staticChooseSprite = new sf::Sprite;
 	//
 	//
 	//
@@ -59,32 +58,48 @@ MenuParameters::~MenuParameters() {
 	}
 	m_tabButtons.clear();
 
-	delete m_staticGraphicPlan;
-	m_staticGraphicPlan = 0;
+
+	//Create Function here too
+	//
+	//
 	delete m_staticGraphicSprite;
 	m_staticGraphicSprite = 0;
 
-	delete m_staticTitlesPlan;
-	m_staticTitlesPlan = 0;
 	delete m_staticTitlesSprite;
 	m_staticTitlesSprite = 0;
 
-	delete m_staticKeybindsPlan;
-	m_staticKeybindsPlan = 0;
 	delete m_staticKeybindsSprite;
 	m_staticKeybindsSprite = 0;
+
+	delete m_staticTitlesSprite;
+	m_staticTitlesSprite = 0;
+
+	delete m_staticChooseSprite;
+	m_staticChooseSprite = 0;
+
+	std::vector<std::string> tabNameTextures{ "Graphic", "Keybinds", "Actions", "Titles", "Choose" };
+	for (int i(0); i < tabNameTextures.size(); i++) {
+		delete m_tabTextures[tabNameTextures[i]];
+		m_tabTextures[tabNameTextures[i]] = 0;
+	}
+	m_tabTextures.clear();
+
+	//
+	//
+	//
 
 }
 
 void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Event* evenmt) {
 	
-	sf::Vector2i mousePosition;
+	sf::Vector2i mousePosition; //Put in hpp
 	mousePosition = sf::Mouse::getPosition(*window);
-	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_menuPlan->getView());
+	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_menuPlan->getView()); //Put in hpp
 
 	std::map<std::string, std::vector<Button*>>::iterator it;
 
 	std::map<std::string, Button*>::iterator itControlsButtons = m_keybindsButtonsPlayerOne.begin();
+	std::map<std::string, Button*>::iterator itControlsButtons2 = m_keybindsButtonsPlayerTwo.begin();
 
 	switch (m_parametersState) {
 
@@ -93,6 +108,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 		createStaticTitlePlan(font);
 		createStaticGraphicPlan(font);
 		createStaticKeybindPlan(font);
+		createStaticChoosePlan(font);
 
 		displayActualSettings();
 		createButtons();
@@ -114,8 +130,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 			m_tabChosenSettings[m_tabStringText[i]].setOrigin(m_tabTextSettingsBoxs[m_tabStringText[i]].width / 2, m_tabTextSettingsBoxs[m_tabStringText[i]].top + m_tabTextSettingsBoxs[m_tabStringText[i]].height / 2);
 			m_tabChosenSettings[m_tabStringText[i]].setPosition(1920 / 2 / 4 * 3, 300 + (116 * (1 + i)));
 		}
-
-		
 
 		m_parametersState = GRAPHICS;
 
@@ -206,7 +220,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 			it++;
 		}
 
-		//Controls Settings Buttons update and draw
+		//Controls Settings Buttons update and draw (Create a function for it)
 		//
 		//
 
@@ -220,6 +234,18 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 			}
 			
 			itControlsButtons->second->draw(m_menuPlan);
+		}
+
+		for (itControlsButtons2; itControlsButtons2 != m_keybindsButtonsPlayerTwo.end(); itControlsButtons2++) { //DO THE SAME FOR P2
+			itControlsButtons2->second->update(worldPos);
+			if (itControlsButtons2->second->isPressed()) {
+				m_parametersState = CHOOSING_KEY;
+				m_choosingKey = itControlsButtons2->second;
+				m_newKey = &(*m_localPlayerTwoControl)[itControlsButtons2->first];
+				break;
+			}
+
+			itControlsButtons2->second->draw(m_menuPlan);
 		}
 
 		//Bottom lines buttons update and draw
@@ -248,22 +274,33 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 		m_menuPlan->draw(*m_staticTitlesSprite);
 		m_menuPlan->draw(*m_staticGraphicSprite);
 		m_menuPlan->draw(*m_staticKeybindsSprite);
+		m_menuPlan->draw(*m_staticActionSprite);
 		m_menuPlan->display();
 		
 		break;
 
 	case(CHOOSING_KEY):
+
+		m_menuPlan->clear();
+
+		
+		m_menuPlan->draw(*m_staticTitlesSprite);
+		m_menuPlan->draw(*m_staticGraphicSprite);
+		m_menuPlan->draw(*m_staticKeybindsSprite);
+		m_menuPlan->draw(*m_staticActionSprite);
+		m_menuPlan->draw(*m_staticChooseSprite);
+		m_menuPlan->display();
+
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) m_parametersState = GRAPHICS;
 
 		
 		if (evenmt->type == sf::Event::KeyReleased)
 		{
 			m_choosingKey->changeText(sf::Keyboard::getDescription(evenmt->key.scancode).toAnsiString());
-			*m_newKey = evenmt->key.code;
+			*m_newKey = evenmt->key.scancode;
 			m_parametersState = GRAPHICS;
 		}
-		
-		//if (sf::Keyboard::isKeyPressed)
 		break;
 
 	case(DEFAULT):
@@ -299,27 +336,36 @@ void MenuParameters::createStaticTitlePlan(sf::Font font) {
 	outlineTitles.setOutlineColor(sf::Color::Green);
 	/////////////////////////
 
+	m_tabTextures["Titles"]->create(1920, 300);
+
 	sf::Text title;
 	textOptions(&title, font, 100, sf::Color::White, "Graphics");
 	title.setStyle(sf::Text::Underlined);
 
 	sf::FloatRect titleBox = title.getGlobalBounds();
 	title.setOrigin(titleBox.width / 2, titleBox.top + titleBox.height / 2);
-	title.setPosition(m_staticTitlesPlan->getSize().x / 4, 150);
+	//title.setPosition(m_staticTitlesPlan->getSize().x / 4, 150);
+	title.setPosition(m_tabTextures["Titles"]->getSize().x / 4, 150);
 
-	m_staticTitlesPlan->clear();
+	//m_staticTitlesPlan->clear();
+	m_tabTextures["Titles"]->clear();
 
-	m_staticTitlesPlan->draw(title);
+	//m_staticTitlesPlan->draw(title);
+	m_tabTextures["Titles"]->draw(title);
 
 	title.setString("Controls");
-	title.setPosition((m_staticTitlesPlan->getSize().x / 4) * 3, 150);
-	m_staticTitlesPlan->draw(title);
+	//title.setPosition((m_staticTitlesPlan->getSize().x / 4) * 3, 150);
+	title.setPosition((m_tabTextures["Titles"]->getSize().x / 4) * 3, 150);
+	//m_staticTitlesPlan->draw(title);
+	m_tabTextures["Titles"]->draw(title);
 
-	m_staticTitlesPlan->draw(outlineTitles);////////////////////////
+	//m_staticTitlesPlan->draw(outlineTitles);////////////////////////
 
-	m_staticTitlesPlan->display();
+	//m_staticTitlesPlan->display();
+	m_tabTextures["Titles"]->display();
 
-	*m_staticTitlesSprite = sf::Sprite(m_staticTitlesPlan->getTexture());
+	//*m_staticTitlesSprite = sf::Sprite(m_staticTitlesPlan->getTexture());
+	*m_staticTitlesSprite = sf::Sprite(m_tabTextures["Titles"]->getTexture());
 
 }
 
@@ -333,9 +379,12 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 	outline.setOutlineColor(sf::Color::Blue);
 	///////////
 
+	m_tabTextures["Graphic"]->create(1920 / 4, 580);////////////////////////////////////////////////////////////
+
 	sf::FloatRect titleBox;
 
-	m_staticGraphicPlan->clear();
+	//m_staticGraphicPlan->clear();
+	m_tabTextures["Graphic"]->clear();
 
 	for (int i(0); i < m_tabStringText.size(); i++) {
 
@@ -345,34 +394,48 @@ void MenuParameters::createStaticGraphicPlan(sf::Font font) {
 		m_tabTextSettings[m_tabStringText[i]].setOrigin(titleBox.width / 2, titleBox.top + titleBox.height / 2);
 		m_tabTextSettings[m_tabStringText[i]].setPosition(240, 116 * (1 + i));
 
-		m_staticGraphicPlan->draw(m_tabTextSettings[m_tabStringText[i]]);
+		//m_staticGraphicPlan->draw(m_tabTextSettings[m_tabStringText[i]]);
+		m_tabTextures["Graphic"]->draw(m_tabTextSettings[m_tabStringText[i]]);
 
-		m_staticGraphicPlan->draw(outline);/////////////////////////////////////////////
+		//m_staticGraphicPlan->draw(outline);/////////////////////////////////////////////
 
 	}
 
-	m_staticGraphicPlan->display();
+	//m_staticGraphicPlan->display();
+	m_tabTextures["Graphic"]->display();
 
-	*m_staticGraphicSprite = sf::Sprite(m_staticGraphicPlan->getTexture());
+	//*m_staticGraphicSprite = sf::Sprite(m_staticGraphicPlan->getTexture());
+	*m_staticGraphicSprite = sf::Sprite(m_tabTextures["Graphic"]->getTexture());
 	m_staticGraphicSprite->setPosition(0, 300);
 }
 
 void MenuParameters::createStaticKeybindPlan(sf::Font font) {
 	///////////////////
 	sf::RectangleShape outlineKey;
-	outlineKey = sf::RectangleShape(sf::Vector2f(960 - 20, 580 - 20));
+	outlineKey = sf::RectangleShape(sf::Vector2f(960 - 20, 220 - 20));
 	outlineKey.setPosition(10, 10);
 	outlineKey.setFillColor(sf::Color::Transparent);
 	outlineKey.setOutlineThickness(10.f);
 	outlineKey.setOutlineColor(sf::Color::Red);
+
+	sf::RectangleShape outlineAct;
+	outlineAct = sf::RectangleShape(sf::Vector2f(960/3 - 20, 360 - 20));
+	outlineAct.setPosition(10, 10);
+	outlineAct.setFillColor(sf::Color::Transparent);
+	outlineAct.setOutlineThickness(10.f);
+	outlineAct.setOutlineColor(sf::Color::Yellow);
 	//////////////////
 
+	m_tabTextures["Keybinds"]->create(1920 / 2, 220);
+	m_tabTextures["Actions"]->create(960 / 3, 360);
+
 	sf::Text staticText;
-	std::vector<std::string> tabTitles = { "Player1", "UP", "DOWN", "Player2", "UP", "DOWN" };
+	std::vector<std::string> tabTitles = { "Player", "1", "2"};
 
 	sf::FloatRect titleBox;
 
-	m_staticKeybindsPlan->clear();
+	//m_staticKeybindsPlan->clear();
+	m_tabTextures["Keybinds"]->clear();
 
 	for (int i(0); i < tabTitles.size(); i++) {
 
@@ -381,25 +444,81 @@ void MenuParameters::createStaticKeybindPlan(sf::Font font) {
 		titleBox = staticText.getGlobalBounds();
 		staticText.setOrigin(titleBox.width / 2, titleBox.height / 2);
 
-		if (i < 3) {
-			if (tabTitles[i] == "Player1") staticText.setPosition(240, 145 * (1 + i));
-			else staticText.setPosition(120, 145 * (1 + i));
-		}
-		else {
-			if (tabTitles[i] == "Player2") staticText.setPosition(960 / 4 * 3, 145 * (1 + i-3));
-			else { staticText.setPosition(600 , 145 * (1 + i - 3)); }
-		}		
+		//if (tabTitles[i] == "Player") staticText.setPosition(160, m_staticKeybindsPlan->getSize().y / 2);
+		if (tabTitles[i] == "Player") staticText.setPosition(160, m_tabTextures["Keybinds"]->getSize().y / 2);
+		//else staticText.setPosition(320 + (640/3*i), m_staticKeybindsPlan->getSize().y/2);
+		else staticText.setPosition(320 + (640/3*i), m_tabTextures["Keybinds"]->getSize().y/2);
 
-		m_staticKeybindsPlan->draw(staticText);
+		//m_staticKeybindsPlan->draw(staticText);
+		m_tabTextures["Keybinds"]->draw(staticText);
 	}
 
 	
-	m_staticKeybindsPlan->draw(outlineKey);
-	m_staticKeybindsPlan->display();
+	//m_staticKeybindsPlan->draw(outlineKey);
+	//m_staticKeybindsPlan->display();
+	m_tabTextures["Keybinds"]->display();
 
-	*m_staticKeybindsSprite = sf::Sprite(m_staticKeybindsPlan->getTexture());
+	*m_staticKeybindsSprite = sf::Sprite(m_tabTextures["Keybinds"]->getTexture());
+	//*m_staticKeybindsSprite = sf::Sprite(m_staticKeybindsPlan->getTexture());
 	m_staticKeybindsSprite->setPosition(1920 / 2, 300);
 
+
+	tabTitles = { "UP", "DOWN" };
+
+	//m_staticActionPlan->clear();
+	m_tabTextures["Actions"]->clear();
+
+	for (int i(0); i < tabTitles.size(); i++) {
+
+		textOptions(&staticText, font, 50, sf::Color::White, tabTitles[i]);
+
+		titleBox = staticText.getGlobalBounds();
+		staticText.setOrigin(titleBox.width / 2, titleBox.height / 2);
+
+		//staticText.setPosition(160, m_staticActionPlan->getSize().y/3 * (i+1));
+		staticText.setPosition(160, m_tabTextures["Actions"]->getSize().y/3 * (i+1));
+
+		//m_staticActionPlan->draw(staticText);
+		m_tabTextures["Actions"]->draw(staticText);
+	}
+
+	//m_staticActionPlan->draw(outlineAct);
+	//m_staticActionPlan->display();
+	m_tabTextures["Actions"]->display();
+
+	//*m_staticActionSprite = sf::Sprite(m_staticActionPlan->getTexture());
+	*m_staticActionSprite = sf::Sprite(m_tabTextures["Actions"]->getTexture());
+	m_staticActionSprite->setPosition(1920 / 2, 520);
+
+}
+
+void MenuParameters::createStaticChoosePlan(sf::Font font) {
+	m_tabTextures["Choose"]->create(1920, 400);
+
+	sf::RectangleShape outlines(sf::Vector2f(m_tabTextures["Choose"]->getSize().x - 20, m_tabTextures["Choose"]->getSize().y - 20));
+	outlines.setFillColor(sf::Color::Transparent);
+	outlines.setOutlineColor(sf::Color::White);
+	outlines.setOutlineThickness(2.f);
+	outlines.setPosition(10, 10);
+
+	sf::Text text;
+	sf::FloatRect textBox;
+
+	textOptions(&text, font, 50, sf::Color::White, "Press your new key to bind it or press ESCAPE to quit");
+	textBox = text.getGlobalBounds();
+	text.setOrigin(textBox.width / 2, textBox.height / 2);
+	text.setPosition(m_tabTextures["Choose"]->getSize().x / 2, m_tabTextures["Choose"]->getSize().y / 2);
+
+	m_tabTextures["Choose"]->clear();
+
+	m_tabTextures["Choose"]->draw(outlines);
+	m_tabTextures["Choose"]->draw(text);
+
+	m_tabTextures["Choose"]->display();
+
+
+	*m_staticChooseSprite = sf::Sprite(m_tabTextures["Choose"]->getTexture());
+	m_staticChooseSprite->setPosition(0, 1080/3);
 }
 
 void MenuParameters::displayActualSettings() {
@@ -454,8 +573,8 @@ void MenuParameters::getSettings() {
 	m_localVsync = m_configFile.getVSync();
 
 	
-	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Key>{ m_configFile.getControl(1) };
-	//m_localPlayerTwoControl = &m_configFile.getControl(2);
+	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Scancode>{ m_configFile.getControl(1) };
+	m_localPlayerTwoControl = new std::map<std::string, sf::Keyboard::Scancode>{ m_configFile.getControl(2) };
 
 }
 
@@ -468,16 +587,12 @@ void MenuParameters::createButtons() {
 
 	//Creation Buttons Keybinds Settings
 
-	std::map<std::string, sf::Keyboard::Key>::iterator itKeybind1 = m_localPlayerOneControl->begin();
-	int count = 0;
+	std::vector<std::string> tabAct{ "UP", "DOWN" };
 
-
-	for (itKeybind1; itKeybind1 != m_localPlayerOneControl->end(); itKeybind1++) {
-		std::cout << sf::Keyboard::getDescription(sf::Keyboard::Scancode(itKeybind1->second)).toAnsiString() << " JE SUIS DANS CREATEBUTTON MENUPARAMETERS" << std::endl;
-		m_keybindsButtonsPlayerOne[itKeybind1->first] = new Button(840, 290*(count + 1), 30.f, 40.f, 2, 30, sf::Keyboard::getDescription(sf::Keyboard::Scancode(itKeybind1->second)).toAnsiString());
-		count += 1;
+	for (int i(0); i < tabAct.size(); i++) {
+		m_keybindsButtonsPlayerOne[tabAct[i]] = new Button(1280 + 640 / 3, 530 + (360 / 3 * (i + 1)), 220, 40.f, 2, 30, sf::Keyboard::getDescription((*m_localPlayerOneControl)[tabAct[i]]).toAnsiString());
+		m_keybindsButtonsPlayerTwo[tabAct[i]] = new Button(1280 + 640 / 3 * 2.1, 530 + (360 / 3 * (i + 1)), 220, 40.f, 2, 30, sf::Keyboard::getDescription((*m_localPlayerTwoControl)[tabAct[i]]).toAnsiString());
 	}
-
 
 	//Creation Button Bottom Line Settings (save, default, back)
 	std::string tabOptions[3] ;

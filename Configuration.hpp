@@ -33,7 +33,7 @@ public:
 	void saveToFileKeys(std::string path);
 	void loadFromFileKeys(std::string path);
 
-	std::map<std::string, sf::Keyboard::Key> getControl(int player) const;
+	std::map<std::string, sf::Keyboard::Scancode> getControl(int player) const;
 
 	void defaultControlsParameters();
 
@@ -51,8 +51,8 @@ private:
 
 	std::vector<std::string> m_playerActions;
 
-	std::map<std::string, sf::Keyboard::Key> m_playerOneControls;
-	std::map<std::string, sf::Keyboard::Key> m_playerTwoControls;
+	std::map<std::string, sf::Keyboard::Scancode> m_playerOneControls;
+	std::map<std::string, sf::Keyboard::Scancode> m_playerTwoControls;
 
 
 };
