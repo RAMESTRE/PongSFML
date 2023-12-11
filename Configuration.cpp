@@ -85,8 +85,8 @@ bool Configuration::getVSync() const {
 
 void Configuration::defaultGraphicParameters() {
 
-	m_widthWindow = 1920;
-	m_heightWindow = 1080;
+	m_widthWindow = sf::VideoMode::getDesktopMode().width;
+	m_heightWindow = sf::VideoMode::getDesktopMode().height;
 	m_framerate = 60;
 	m_fullscreen = false;
 	m_vsync = false;

@@ -1,50 +1,40 @@
 ﻿  MenuParameters.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(26,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(81,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(116,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(131,78): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(185,46): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(193,58): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(348,57): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(28,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(83,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(118,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(133,78): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(195,58): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(350,57): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(358,63): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(360,63): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(389,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(395,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(440,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(448,100): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(391,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(397,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(442,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(450,100): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(450,86): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(452,86): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(450,35): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(471,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(479,71): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(452,35): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(473,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(481,71): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(498,123): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(498,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(500,123): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
           with
           [
               T=unsigned int
@@ -53,18 +43,27 @@ C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(498,80): war
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(510,98): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(500,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(510,56): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          and
+          [
+              T=float
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(512,98): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
           with
           [
               T=unsigned int
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(526,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(540,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(584,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(592,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(512,56): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(528,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(549,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(593,19): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(601,19): warning C4018: '<' : incompatibilité signed/unsigned
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

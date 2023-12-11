@@ -54,6 +54,7 @@ private:
 	//
 	std::vector<std::string> m_tabPossibleResolution;
 	std::vector<std::string> m_tabPossibleFramerate;
+	int m_maxIndexRes;
 	int m_indexTabRes;
 	int m_indexTabFrame;
 

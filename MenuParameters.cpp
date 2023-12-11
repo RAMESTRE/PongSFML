@@ -9,6 +9,8 @@ MenuParameters::MenuParameters() {
 
 	m_tabPossibleFramerate = { "30", "60", "120", "Illimited" };
 
+	m_maxIndexRes = m_tabPossibleResolution.size()-1;
+
 	m_indexTabRes = 0;
 
 	m_indexTabFrame = 0;
@@ -182,7 +184,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 			it->second[1]->update(worldPos);
 			if (it->second[1]->isPressed()) {
 
-				if (it->first == "Size" && m_indexTabRes < m_tabPossibleResolution.size() - 1) {
+				if (it->first == "Size" && m_indexTabRes < m_maxIndexRes) {
 					m_indexTabRes += 1;
 					m_tabChosenSettings[it->first].setString(m_tabPossibleResolution[m_indexTabRes]);
 
@@ -533,8 +535,8 @@ void MenuParameters::displayActualSettings() {
 				m_tabChosenSettings["Size"].setOrigin(m_tabTextSettingsBoxs["Size"].width / 2, m_tabChosenSettings["Size"].getOrigin().y);
 
 			}
-			i = m_tabPossibleResolution.size();
 		}
+		if (m_tabPossibleResolution[i].compare((std::to_string(sf::VideoMode::getDesktopMode().width) + "x" + std::to_string(sf::VideoMode::getDesktopMode().height))) == 0) m_maxIndexRes = i;
 	}
 
 	for (int i(0); i < m_tabPossibleFramerate.size(); i++) {
