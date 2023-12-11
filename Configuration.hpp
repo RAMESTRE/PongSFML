@@ -24,7 +24,7 @@ public:
 	bool getVSync() const;
 	bool getFullscreen() const;
 
-	void saveChange(int width, int height, int framerate, bool vsync, bool fullscreen);
+	void saveChange(int width, int height, int framerate, bool vsync, bool fullscreen, std::map<std::string, sf::Keyboard::Scancode> p1, std::map<std::string, sf::Keyboard::Scancode> p2);
 
 	void defaultGraphicParameters();
 
@@ -37,10 +37,8 @@ public:
 
 	void defaultControlsParameters();
 
-	
-
-
 private:
+
 
 	//Graphic Attributes
 

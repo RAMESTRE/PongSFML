@@ -7,6 +7,7 @@ Configuration::Configuration() {
 
 Configuration::~Configuration() {
 	std::cout << "Config deleted" << std::endl;
+	m_playerTwoControls.clear();
 }
 
 void Configuration::saveToFileGraphic(std::string path) {
@@ -93,19 +94,94 @@ void Configuration::defaultGraphicParameters() {
 
 }
 
-void Configuration::saveChange(int width, int height, int framerate, bool vsync, bool fullscreen) {
+void Configuration::saveChange(int width, int height, int framerate, bool vsync, bool fullscreen, std::map<std::string, sf::Keyboard::Scancode> p1, std::map<std::string, sf::Keyboard::Scancode> p2) {
 	m_widthWindow = width;
 	m_heightWindow = height;
 	m_framerate = framerate;
 	m_vsync = vsync;
 	m_fullscreen = fullscreen;
+	
+	m_playerOneControls = p1;
+
+	for (std::map<std::string, sf::Keyboard::Scancode>::iterator it(p2.begin()); it != p2.end(); it++) {
+		m_playerTwoControls[it->first] = it->second;
+	}
+
 	saveToFileGraphic("Config/Graphic.ini");
+	saveToFileKeys("Config/Keybinds.ini");
 }
 
 
+void Configuration::saveToFileKeys(std::string path) {
 
+	std::ofstream file(path);
+	std::vector<std::string> toSave{ "[Player 1]", "UP", "DOWN", "[Player 2]", "UP", "DOWN" };
+
+	if (file.is_open()) {
+		for (int i(0); i < toSave.size(); i++) {
+			if (i == 0 || i == 3) {
+				file << toSave[i] << "\n";
+			}
+			else if (i < 3) {
+				file << toSave[i]+ "=" << sf::Keyboard::getDescription(m_playerOneControls[toSave[i]]).toAnsiString() << "\n";
+			}
+			else if (i>3){
+				file << toSave[i] + "=" << sf::Keyboard::getDescription(m_playerTwoControls[toSave[i]]).toAnsiString() << "\n";
+			}
+		}
+	}
+	file.close();
+}
+
+void Configuration::loadFromFileKeys(std::string path) {
+
+	std::map<std::string, int> tab;
+	for (int i(1); i < sf::Keyboard::Scancode::ScancodeCount; i++) { //Start at i=1 because tab[settings] return 0 if element don't exist
+		tab[sf::Keyboard::getDescription(sf::Keyboard::Scancode(i-1)).toAnsiString()] = i;
+	}
+
+	std::ifstream flux(path);
+	std::string line;
+	std::string settings;
+	
+	bool p1 = false;
+	bool p2 = false;
+
+	if (flux.is_open()) {
+		while (std::getline(flux, line)) {
+			
+			if (line == "[Player 1]") p1 = true;
+			else if (line == "[Player 2]") {
+				p1 = false;
+				p2 = true;
+			}
+
+			settings = line.substr(line.find('=') + 1);
+
+			if (line.substr(0, line.find('=')) == "UP" || line.substr(0, line.find('=')) == "DOWN") {
+				if (!(sf::Keyboard::Scancode(tab[settings]))) {
+					defaultControlsParameters();
+					flux.close();
+					break;
+				}
+				if (p1) {
+					m_playerOneControls[line.substr(0, line.find('='))] = sf::Keyboard::Scancode(tab[settings]-1);
+				}
+				else if (p2) {
+					m_playerTwoControls[line.substr(0, line.find('='))] = sf::Keyboard::Scancode(tab[settings]-1);
+				}
+			}
+		}
+	}
+	else {
+		std::cout << "Cannot open config file" << std::endl;
+	}
+
+	flux.close();
+}
 
 std::map<std::string, sf::Keyboard::Scancode> Configuration::getControl(int player) const {
+
 	if (player == 1) return m_playerOneControls;
 	return m_playerTwoControls;
 }

@@ -5,6 +5,7 @@ DisplayWindow::DisplayWindow() : m_deltaTime(new double)
     *m_deltaTime = 0.f;
 
     configFile.loadFromFileGraphic("Config/Graphic.ini");
+    configFile.loadFromFileKeys("Config/Keybinds.ini");
     getNewSettings();
 
     if (m_fullscreen) m_window = new sf::RenderWindow(m_sizeWindow, "PongSFML", sf::Style::Fullscreen | sf::Style::Close | sf::Style::Titlebar);
@@ -22,6 +23,7 @@ DisplayWindow::~DisplayWindow() {
     m_deltaTime = 0;
 
     std::cout << "Window has been deleted in the displaywindow destructor" << std::endl;
+    //m_playerTwoControls.clear();
 }
 
 void DisplayWindow::getNewSettings() {
@@ -32,6 +34,7 @@ void DisplayWindow::getNewSettings() {
     m_vsync = configFile.getVSync();
 
     m_playerOneControls = configFile.getControl(1);
+    std::cout << sf::Keyboard::getDescription(m_playerOneControls["UP"]).toAnsiString() << std::endl;
     m_playerTwoControls = configFile.getControl(2);
 
 }
@@ -79,6 +82,7 @@ void DisplayWindow::runWindow() {
             render.parametersMenu(m_window, &m_event);
             if (render.parametersSaved()) {
                 configFile.loadFromFileGraphic("Config/Graphic.ini");
+                configFile.loadFromFileKeys("Config/Keybinds.ini");
                 getNewSettings();
 
                 if (m_fullscreen) {

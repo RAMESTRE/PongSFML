@@ -38,7 +38,8 @@ MenuParameters::MenuParameters() {
 	//
 	//
 
-	m_configFile.loadFromFileGraphic("Config/Graphic.ini");
+	m_configFile.loadFromFileGraphic("Config/Graphic.ini"); 
+	m_configFile.loadFromFileKeys("Config/Keybinds.ini");
 	getSettings();
 
 }
@@ -86,6 +87,9 @@ MenuParameters::~MenuParameters() {
 	}
 	m_tabTextures.clear();
 
+	//delete m_localPlayerTwoControl;
+	//m_localPlayerTwoControl->clear();
+	
 	//
 	//
 	//
@@ -261,7 +265,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 				if (itBottomLineButtons->first == "Back") m_parametersState = BACK;
 				if (itBottomLineButtons->first == "Save") {
 					m_parametersState = SAVE;
-					m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen);
+					m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen, *m_localPlayerOneControl, *m_localPlayerTwoControl);
 				}
 				if (itBottomLineButtons->first == "Default") m_parametersState = DEFAULT;
 
@@ -307,6 +311,7 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 
 	case(DEFAULT):
 		m_configFile.defaultGraphicParameters();
+		m_configFile.defaultControlsParameters();
 		getSettings();
 		displayActualSettings();
 		m_parametersState = GRAPHICS;
@@ -561,9 +566,13 @@ void MenuParameters::displayActualSettings() {
 		if (m_localVsync) m_tabChosenSettings["V-Sync"].setString("Enabled");
 		else m_tabChosenSettings["V-Sync"].setString("Disabled");
 
+		std::vector<std::string> tabAct{ "UP", "DOWN" };
+
+		for (int i(0); i < tabAct.size(); i++) {
+			m_keybindsButtonsPlayerOne[tabAct[i]]->changeText(sf::Keyboard::getDescription((*m_localPlayerOneControl)[tabAct[i]]).toAnsiString());
+			m_keybindsButtonsPlayerTwo[tabAct[i]]->changeText(sf::Keyboard::getDescription((*m_localPlayerTwoControl)[tabAct[i]]).toAnsiString());
+		}
 	}
-
-
 }
 
 void MenuParameters::getSettings() {
@@ -575,8 +584,10 @@ void MenuParameters::getSettings() {
 	m_localVsync = m_configFile.getVSync();
 
 	
-	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Scancode>{ m_configFile.getControl(1) };
-	m_localPlayerTwoControl = new std::map<std::string, sf::Keyboard::Scancode>{ m_configFile.getControl(2) };
+	m_localPlayerOneControl = new std::map<std::string, sf::Keyboard::Scancode>; 
+	*m_localPlayerOneControl = m_configFile.getControl(1);
+	m_localPlayerTwoControl = new std::map<std::string, sf::Keyboard::Scancode>;
+	*m_localPlayerTwoControl = m_configFile.getControl(2);
 
 }
 
