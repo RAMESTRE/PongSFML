@@ -44,7 +44,10 @@ void Render::startMenu(sf::RenderWindow* window) {
 
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
+	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_gamePlan->getView()); //Put in hpp
 
+
+	//Put a switch and case to be called only once////////////////
 	sf::Text title;
 	
 	title.setFont(m_font);
@@ -55,10 +58,13 @@ void Render::startMenu(sf::RenderWindow* window) {
 
 	sf::FloatRect titleBox = title.getGlobalBounds();
 	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
-	title.setPosition(xWindowSize/2, yWindowSize/10);
+	title.setPosition(m_gamePlan->getSize().x/2, m_gamePlan->getSize().x / 10);
+
+	/////////////////////////////////////////////////////////////////
+	m_gamePlan->clear();
 
 	for (int i(0); i < m_buttonsStartMenu.size(); i++) {
-		m_buttonsStartMenu[i]->update(mousePosition);
+		m_buttonsStartMenu[i]->update(worldPos);
 		
 		if (m_buttonsStartMenu[i]->isPressed()) {
 			switch (i) {
@@ -75,11 +81,16 @@ void Render::startMenu(sf::RenderWindow* window) {
 			}
 		}	
 		
-		m_buttonsStartMenu[i]->draw(window);
+		m_buttonsStartMenu[i]->draw(m_gamePlan);
 
 	}
+	m_gamePlan->draw(title);
+	m_gamePlan->display();
 
-	window->draw(title);
+	*m_gameSprites = sf::Sprite(m_gamePlan->getTexture());
+	m_gameSprites->setScale(sf::Vector2f(xWindowSize / 1920.f, yWindowSize / 1080.f));
+
+	window->draw(*m_gameSprites);
 } //CREATE BUTTON TAB IN CLASS TO INITIALIZE BUTTONS ONLY ONCE
 
 void Render::playerMenu(sf::RenderWindow* window) {

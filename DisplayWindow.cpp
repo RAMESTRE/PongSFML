@@ -23,7 +23,6 @@ DisplayWindow::~DisplayWindow() {
     m_deltaTime = 0;
 
     std::cout << "Window has been deleted in the displaywindow destructor" << std::endl;
-    //m_playerTwoControls.clear();
 }
 
 void DisplayWindow::getNewSettings() {
