@@ -36,6 +36,9 @@ void Player::movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::S
 	else {
 		m_movement.y = 0;
 	}
+
+	if (m_playerShape->getPosition().y < (120)) m_playerShape->setPosition(m_playerShape->getPosition().x, 120);
+	else if (m_playerShape->getPosition().y > 1080 - 120 - m_playerShape->getSize().y) m_playerShape->setPosition(m_playerShape->getPosition().x, 1080 - 120 - m_playerShape->getSize().y);
 }
 
 sf::Vector2f Player::getMovement() const{

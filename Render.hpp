@@ -40,6 +40,11 @@ public:
 
 private:
 
+	//Create Plan in the game will be created (help with get a good resize of window)
+	sf::RenderTexture* m_gamePlan;
+
+	//Render
+	sf::Sprite* m_gameSprites;
 
 	sf::Font m_font;
 
@@ -55,11 +60,8 @@ private:
 	//PongWindows Attributes
 	//
 	// 
-	//Create Plan in the game will be created (help with get a good resize of window)
-	sf::RenderTexture* m_gamePlan;
-
-	//Render
-	sf::Sprite* m_gameSprites;
+	sf::RenderTexture* m_line;
+	sf::Sprite* m_lineSprite;
 
 	statesGame m_gameState;
 	statesPong m_pongState;

@@ -15,7 +15,7 @@ public:
 	void setPosition(sf::RenderTarget* target);
 	void setPositionBall(sf::Vector2f positionAfterCollision);
 	sf::RectangleShape getBallShape() const;
-	void firstMove(int angle);
+	void firstMove(int minAngle, int maxAngle);
 	void move(double& dt);
 	void changeDirection(int x, int y);
 	sf::Vector2f getMovement();

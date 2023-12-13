@@ -1,167 +1,28 @@
 ﻿  Ball.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(33,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(39,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(43,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(40,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(44,25): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(44,96): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(44,48): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(53,98): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(47,96): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(47,48): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(56,98): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
           with
           [
               T=float
           ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(53,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
+C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Ball.cpp(56,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
           with
           [
               T=float
           ]
-  Button.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(7,57): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(7,50): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(10,31): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(10,28): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(23,30): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Button.cpp(23,27): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
-  Configuration.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Configuration.cpp(121,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Configuration.cpp(193,19): warning C4018: '<' : incompatibilité signed/unsigned
-  DisplayWindow.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\DisplayWindow.cpp(61,85): warning C4244: 'argument' : conversion de 'unsigned int' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\DisplayWindow.cpp(61,65): warning C4244: 'argument' : conversion de 'unsigned int' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-  Hitbox.cpp
-  Hitbox.hpp
-  main.cpp
-  MenuParameters.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(28,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(84,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(122,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(137,78): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(199,58): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(355,57): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(365,63): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(396,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(402,62): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(447,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(455,100): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(457,86): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(457,35): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(478,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(486,71): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(505,123): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(505,80): warning C4244: 'argument' : conversion de 'T' en 'T', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(517,98): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(517,56): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(533,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(547,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(571,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(597,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\MenuParameters.cpp(605,19): warning C4018: '<' : incompatibilité signed/unsigned
-  Player.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(28,27): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Player.cpp(33,26): warning C4244: '=' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-  Render.cpp
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(24,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(61,71): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(61,43): warning C4244: 'argument' : conversion de 'T' en 'float', perte possible de données
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(66,19): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(91,73): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(91,51): warning C4244: 'argument' : conversion de 'double' en 'T', perte possible de données
-          with
-          [
-              T=float
-          ]
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(333,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Render.cpp(337,20): warning C4018: '<' : incompatibilité signed/unsigned
-  Génération de code en cours...
 Debug\Hitbox.obj : warning LNK4042: objet spécifié plus d'une fois ; définitions supplémentaires ignorées
-sfml-graphics-s-d.lib(BlendMode.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sfml-graphics-s-d.lib(BlendMode.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+sfml-graphics-s-d.lib(BlendMode.obj) : warning LNK4099: PDB 'sfml-graphics-s.pdb' n'a pu être trouvé avec 'sfml-graphics-s-d.lib(BlendMode.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-graphics-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-graphics-s-d.lib(Color.obj) : warning LNK4099: PDB 'sfml-graphics-s.pdb' n'a pu être trouvé avec 'sfml-graphics-s-d.lib(Color.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-graphics-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-graphics-s-d.lib(Font.obj) : warning LNK4099: PDB 'sfml-graphics-s.pdb' n'a pu être trouvé avec 'sfml-graphics-s-d.lib(Font.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-graphics-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-graphics-s-d.lib(Glsl.obj) : warning LNK4099: PDB 'sfml-graphics-s.pdb' n'a pu être trouvé avec 'sfml-graphics-s-d.lib(Glsl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-graphics-s.pdb' ; l'objet sera lié sans informations de débogage
@@ -192,7 +53,7 @@ sfml-graphics-s-d.lib(RenderTextureImplDefault.obj) : warning LNK4099: PDB 'sfml
 sfml-window-s-d.lib(Context.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(Context.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(Cursor.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(Cursor.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(GlContext.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(GlContext.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
-sfml-window-s-d.lib(GlResource.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sfml-window-s-d.lib(GlResource.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+sfml-window-s-d.lib(GlResource.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(GlResource.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(Joystick.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(Joystick.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(JoystickManager.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(JoystickManager.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(Keyboard.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(Keyboard.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
@@ -206,7 +67,7 @@ sfml-window-s-d.lib(CursorImpl.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n
 sfml-window-s-d.lib(InputImpl.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(InputImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(JoystickImpl.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(JoystickImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(SensorImpl.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(SensorImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
-sfml-window-s-d.lib(VideoModeImpl.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sfml-window-s-d.lib(VideoModeImpl.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
+sfml-window-s-d.lib(VideoModeImpl.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(VideoModeImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(VulkanImplWin32.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(VulkanImplWin32.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(WindowImplWin32.obj) : warning LNK4099: PDB 'sfml-window-s.pdb' n'a pu être trouvé avec 'sfml-window-s-d.lib(WindowImplWin32.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-window-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-window-s-d.lib(WglContext.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sfml-window-s-d.lib(WglContext.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
@@ -220,6 +81,6 @@ sfml-system-s-d.lib(ThreadLocal.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' 
 sfml-system-s-d.lib(Time.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' n'a pu être trouvé avec 'sfml-system-s-d.lib(Time.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-system-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-system-s-d.lib(ClockImpl.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' n'a pu être trouvé avec 'sfml-system-s-d.lib(ClockImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-system-s.pdb' ; l'objet sera lié sans informations de débogage
 sfml-system-s-d.lib(MutexImpl.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' n'a pu être trouvé avec 'sfml-system-s-d.lib(MutexImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-system-s.pdb' ; l'objet sera lié sans informations de débogage
-sfml-system-s-d.lib(SleepImpl.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' n'a pu être trouvé avec 'sfml-system-s-d.lib(SleepImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-system-s.pdb' ; l'objet sera lié sans informations de débogage
+sfml-system-s-d.lib(SleepImpl.obj) : warning LNK4099: PDB '' n'a pu être trouvé avec 'sfml-system-s-d.lib(SleepImpl.obj)' ou sur '' ; l'objet sera lié sans informations de débogage
 sfml-system-s-d.lib(ThreadLocalImpl.obj) : warning LNK4099: PDB 'sfml-system-s.pdb' n'a pu être trouvé avec 'sfml-system-s-d.lib(ThreadLocalImpl.obj)' ou sur 'C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\sfml-system-s.pdb' ; l'objet sera lié sans informations de débogage
   PongSFML.vcxproj -> C:\Users\Rafael.M\Desktop\Programmation\PongSFML\Debug\PongSFML.exe

@@ -29,9 +29,13 @@ sf::RectangleShape Ball::getBallShape() const {
 	return *m_ballShape;
 }
 
-void Ball::firstMove(int angle) {
-	srand(time(NULL));
-	m_angle = rand() % 361;
+void Ball::firstMove(int minAngle, int maxAngle) {
+	m_angle = rand() % (maxAngle - minAngle + 1) + minAngle;
+
+	if (m_angle > 35 && m_angle < 145) m_angle += 110; // For min =0 and max = 361
+	if (m_angle > 215 && m_angle < 325) m_angle += 110;
+
+	m_angle *= 3.14 / 180; // Convert to degrees to radians
 }
 
 void Ball::move(double& dt) {
@@ -40,7 +44,6 @@ void Ball::move(double& dt) {
 	m_movement.y = m_speed * dt; //Point yB Vecteur AB
 ;
 	m_distanceVector = sqrt(m_movement.x * m_movement.x + m_movement.y * m_movement.y);
-	
 	m_ballShape->move(m_directionx * cos(m_angle) * m_distanceVector, m_directiony * sin(m_angle) * m_distanceVector);
 }
 

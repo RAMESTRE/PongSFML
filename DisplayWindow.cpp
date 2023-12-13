@@ -33,7 +33,6 @@ void DisplayWindow::getNewSettings() {
     m_vsync = configFile.getVSync();
 
     m_playerOneControls = configFile.getControl(1);
-    std::cout << sf::Keyboard::getDescription(m_playerOneControls["UP"]).toAnsiString() << std::endl;
     m_playerTwoControls = configFile.getControl(2);
 
 }

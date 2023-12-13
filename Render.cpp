@@ -22,11 +22,33 @@ Render::Render() {
 	//CREATE BUTTON STARTMENU HERE, WILL NEED A FUNCTION FOR IT LATER ON
 	std::vector<std::string> tabOpt{ "Start Game", "Parameters", "Quit Game" };
 	for (int i(0); i < tabOpt.size(); i++) {
-		m_buttonsStartMenu.push_back(new Button(1920 / 2, 1080 / (4 - i), 100.f, 50.f, 0, 30, tabOpt[i]));
+		if (i == 2) m_buttonsStartMenu.push_back(new Button(1920 / 2, 780, 100.f, 50.f, 0, 30, tabOpt[i]));
+		else m_buttonsStartMenu.push_back(new Button(1920 / 2, 380 + (100 * i), 100.f, 50.f, 0, 30, tabOpt[i]));
 	}
 
-	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 2.5, 100.f, 50.f, 0, 30, "Player vs Player"));
-	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 1080 / 1.5, 100.f, 50.f, 0, 30, "Player vs Computer"));
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 480, 100.f, 50.f, 0, 30, "Player vs Player"));
+	m_buttonsPlayersMenu.push_back(new Button(1920 / 2, 680, 100.f, 50.f, 0, 30, "Player vs Computer"));
+
+
+	/////////////////////CREATE FUNCTION STATIC/////////////////////////////////////////////
+	m_line = new sf::RenderTexture;
+	m_line->create(10, 1080);
+	m_lineSprite = new sf::Sprite;
+
+	sf::RectangleShape cutLine(sf::Vector2f(10.f, 50.f));
+	
+	m_line->clear();
+
+	for (int i(0); i < 15; i++) {
+		cutLine.setPosition(0, 72*(i));
+		m_line->draw(cutLine);
+	}
+
+	m_line->display();
+
+	*m_lineSprite = sf::Sprite(m_line->getTexture());
+	m_lineSprite->setPosition(1920/2-5, 10);
+	///////////////////////////////////////////////////////////////////////////////////////
 
 }
 
@@ -35,6 +57,10 @@ Render::~Render() {
 	m_gamePlan = 0;
 	delete m_gameSprites;
 	m_gameSprites = 0;
+	delete m_line;
+	m_line = 0;
+	delete m_lineSprite;
+	m_lineSprite = 0;
 }
 
 void Render::startMenu(sf::RenderWindow* window) {
@@ -52,7 +78,7 @@ void Render::startMenu(sf::RenderWindow* window) {
 	
 	title.setFont(m_font);
 	title.setString("PONG");
-	title.setCharacterSize(50);
+	title.setCharacterSize(80);
 	title.setFillColor(sf::Color::White);
 	title.setStyle(sf::Text::Bold);
 
@@ -100,22 +126,46 @@ void Render::playerMenu(sf::RenderWindow* window) {
 
 	sf::Vector2i mousePosition;
 	mousePosition = sf::Mouse::getPosition(*window);
+	sf::Vector2f worldPos = window->mapPixelToCoords(mousePosition, m_gamePlan->getView()); //Put in hpp
 
+	/////////////////////////////////////////////////////////////////
+	sf::Text title;
 
-	m_buttonsPlayersMenu[0]->update(mousePosition);
+	title.setFont(m_font);
+	title.setString("Choose a mode");
+	title.setCharacterSize(80);
+	title.setFillColor(sf::Color::White);
+	title.setStyle(sf::Text::Bold);
+
+	sf::FloatRect titleBox = title.getGlobalBounds();
+	title.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
+	title.setPosition(m_gamePlan->getSize().x / 2, m_gamePlan->getSize().x / 10);
+	/////////////////////////////////////////////////////////////////
+
+	m_gamePlan->clear();
+
+	m_buttonsPlayersMenu[0]->update(worldPos);
 	if (m_buttonsPlayersMenu[0]->isPressed()) {
 		m_gameState = PONG_WINDOW;
 		m_pongState = INIT_PVP;
 	}
 
-	m_buttonsPlayersMenu[1]->update(mousePosition);
+	m_buttonsPlayersMenu[1]->update(worldPos);
 	if (m_buttonsPlayersMenu[1]->isPressed()) {
 		m_gameState = PONG_WINDOW;
 		m_pongState = INIT_PVCPU;
 	}
 
-	m_buttonsPlayersMenu[0]->draw(window);
-	m_buttonsPlayersMenu[1]->draw(window);
+	m_buttonsPlayersMenu[0]->draw(m_gamePlan);
+	m_buttonsPlayersMenu[1]->draw(m_gamePlan);
+
+	m_gamePlan->draw(title);
+	m_gamePlan->display();
+
+	*m_gameSprites = sf::Sprite(m_gamePlan->getTexture());
+	m_gameSprites->setScale(sf::Vector2f(xWindowSize / 1920.f, yWindowSize / 1080.f));
+
+	window->draw(*m_gameSprites);
 }
 
 void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Scancode>& pOneControls, std::map<std::string, sf::Keyboard::Scancode>& pTwoControls) {
@@ -126,7 +176,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 	sf::Vector2u sizeWindow = window->getSize();
 
 
-	//Initialize scoreText to display score of 2 players
+	//Initialize scoreText to display score of 2 players////////////////////////////////////////////////////////////
 	//
 	//
 	sf::Text scoreText;
@@ -134,16 +184,12 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 	scoreText.setCharacterSize(50);
 	scoreText.setFillColor(sf::Color::White);
 	scoreText.setStyle(sf::Text::Bold);
-	scoreText.setString(std::to_string(m_score[0]) + " : " + std::to_string(m_score[1]));
+	scoreText.setString(std::to_string(m_score[0]) + "          " + std::to_string(m_score[1]));
 
 	sf::FloatRect titleBox = scoreText.getGlobalBounds();
 	scoreText.setOrigin(titleBox.left + titleBox.width / 2, titleBox.top + titleBox.height / 2);
 	scoreText.setPosition(960, 40);
-
-	//Get move that have been done last frame
-	//
-	//
-	const sf::Texture& gamePlanUpdate = m_gamePlan->getTexture();
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//Hitbox for top and bottom player 1 (need to add player 2)
 	//
@@ -172,10 +218,11 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 		m_ball = new Ball();
 		m_ballHitbox = new Hitbox(*m_ball);
 		m_ball->setPosition(&*m_gamePlan);
-		m_ball->firstMove(361);
+		m_ball->firstMove(0,141);
+
+		//m_ball->setPositionBall(sf::Vector2f(100, 800));
 
 		//Score init
-		std::cout << m_score[0] << std::endl;
 		m_score[0] = m_score[1] = 0;
 		scoreText.setString( m_score[0]+" : "+ m_score[1]);
 
@@ -230,7 +277,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 			//Ball goes to the direction of the one who marked the point
 			// 
 			// 
-			m_ball->firstMove(-180);
+			m_ball->firstMove(325,395);
 			
 		}
 		else if (m_ballHitbox->futureCollision().x > m_gamePlan->getSize().x - m_ball->getBallShape().getSize().x) {
@@ -254,19 +301,22 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 			//Ball goes to the direction of the one who marked the point
 			// 
 			// 
-			m_ball->firstMove(180);
+			m_ball->firstMove(145,215);
 		}
+
+
 		if (m_ballHitbox->futureCollision().y < 0 || m_ballHitbox->futureCollision().y > m_gamePlan->getSize().y-m_ball->getBallShape().getSize().y) {
 			m_ball->changeDirection(1, -1);
 		}
+
+
 
 		topP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
 		topP1.setPosition(m_tabPlayers[0]->display().getPosition());
 
 		botP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
-		botP1.setPosition(sf::Vector2f(m_tabPlayers[0]->display().getPosition().x, m_tabPlayers[0]->display().getSize().y+1));
+		botP1.setPosition(sf::Vector2f(m_tabPlayers[0]->display().getPosition().x+1, m_tabPlayers[0]->display().getPosition().y+100));
 		
-
 		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[0]->getHitbox())) {
 
 			if (m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
@@ -278,10 +328,47 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 				m_ball->changeDirection(-1, -1);
 			}
 			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())){
-				m_ball->setPositionBall(sf::Vector2f(100.f - 20.f, m_ball->getBallShape().getPosition().y));
-				m_ball->changeDirection(1, -1);
+				if (m_tabPlayers[0]->getMovement().y == 0) {
+					m_ball->setPositionBall(sf::Vector2f(100.f - 20.f, m_ball->getBallShape().getPosition().y));
+					m_ball->changeDirection(1, -1);
+				}
+				else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
+					m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
+				}
 			}
 			else {
+				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->changeDirection(-1, 1);
+			}
+		}
+
+		topP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[1]->display().getSize().x - 2, 1.f));
+		topP1.setPosition(m_tabPlayers[1]->display().getPosition());
+
+		botP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[1]->display().getSize().x - 2, 1.f));
+		botP1.setPosition(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x + 1, m_tabPlayers[0]->display().getPosition().y + 100));
+
+		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[1]->getHitbox())) {
+
+			if (m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
+				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->changeDirection(-1, -1);
+			}
+			else if (m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
+				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->changeDirection(-1, -1);
+			}
+			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())) {
+				if (m_tabPlayers[1]->getMovement().y == 0) {
+					m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x + 20.f, m_ball->getBallShape().getPosition().y));
+					m_ball->changeDirection(1, -1);
+				}
+				else if (m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
+					m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
+				}
+			}
+			else {
+				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, 1);
 			}
 		}
@@ -307,7 +394,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 
 		//m_gamePlan->draw(m_tabHitboxPlayers[0]->futureMovement());
 		//m_gamePlan->draw(m_ballHitbox->futureMovement());
-
+		
+		m_gamePlan->draw(*m_lineSprite);
 		m_gamePlan->draw(scoreText);
 		m_ball->draw(&*m_gamePlan);
 		m_gamePlan->draw(m_tabPlayers[0]->display());
@@ -316,7 +404,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 		m_gamePlan->display();
 
 		//Scale the sprite that got the actual texture and position in it to fit the window
-		*m_gameSprites = sf::Sprite(gamePlanUpdate);
+		*m_gameSprites = sf::Sprite(m_gamePlan->getTexture());
 		m_gameSprites->setScale(sf::Vector2f(sizeWindow.x / 1920.f, sizeWindow.y / 1080.f));
 
 		//Draw to window(to delete to be called in class DisplayWindow (return instead of window draw ?)
@@ -375,7 +463,7 @@ bool Render::parametersSaved(){
 }
 
 void Render::replayMenu() {
-
+	
 }
 
 statesGame Render::getStateGame() const{

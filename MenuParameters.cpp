@@ -268,8 +268,6 @@ void MenuParameters::displayMenu(sf::RenderWindow* window, sf::Font font, sf::Ev
 					m_configFile.saveChange(m_localWidthWindow, m_localHeightWindow, m_localFramerate, m_localVsync, m_localFullscreen, *m_localPlayerOneControl, *m_localPlayerTwoControl);
 				}
 				if (itBottomLineButtons->first == "Default") m_parametersState = DEFAULT;
-
-				std::cout << itBottomLineButtons->first << " is pressed" << std::endl;
 			}
 
 			itBottomLineButtons->second->draw(m_menuPlan);
