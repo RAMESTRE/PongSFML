@@ -2,7 +2,7 @@
 
 Ball::Ball() {
 	m_ballShape = new sf::RectangleShape(sf::Vector2f(20.f, 20.f));
-	m_speed = 1080.f;
+	m_speed = 700.f;
 	m_distanceVector = 0.f;
 	m_directionx = 1.f;
 	m_directiony = 1.f;
@@ -32,8 +32,8 @@ sf::RectangleShape Ball::getBallShape() const {
 void Ball::firstMove(int minAngle, int maxAngle) {
 	m_angle = rand() % (maxAngle - minAngle + 1) + minAngle;
 
-	if (m_angle > 35 && m_angle < 145) m_angle += 110; // For min =0 and max = 361
-	if (m_angle > 215 && m_angle < 325) m_angle += 110;
+	if (m_angle > 30 && m_angle < 150) m_angle += 120; // For min =0 and max = 361
+	if (m_angle > 210 && m_angle < 330) m_angle += 120;
 
 	m_angle *= 3.14 / 180; // Convert to degrees to radians
 }
@@ -54,4 +54,8 @@ void Ball::changeDirection(int x, int y){
 
 sf::Vector2f Ball::getMovement() {
 	return sf::Vector2f(m_directionx * cos(m_angle) * m_distanceVector, m_directiony * sin(m_angle) * m_distanceVector);
+}
+
+int Ball::getAngle() const {
+	return m_angle / 3.14 * 180;
 }

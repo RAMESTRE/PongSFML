@@ -199,7 +199,6 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 	//
 	//
 	sf::RectangleShape topP1;
-	sf::RectangleShape botP1;
 
 
 	//Switch to display differents states on scrren 
@@ -222,7 +221,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 		m_ball = new Ball();
 		m_ballHitbox = new Hitbox(*m_ball);
 		m_ball->setPosition(&*m_gamePlan);
-		m_ball->firstMove(0,141);
+		m_ball->firstMove(185,186);
 
 		//Score init
 		m_score[0] = m_score[1] = 0;
@@ -256,8 +255,8 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 		case(PVCPU):
 
 			if (m_ball->getBallShape().getPosition().x >= m_gamePlan->getSize().x / 5 * 4) { //Pretty good difficulty (if not delimited ai is impossible to win except by touching corners)
-				if (m_tabPlayers[1]->display().getPosition().y > m_ball->getBallShape().getPosition().y) m_tabPlayers[1]->moveAI(*dt, "UP");
-				else if (m_tabPlayers[1]->display().getPosition().y < m_ball->getBallShape().getPosition().y) m_tabPlayers[1]->moveAI(*dt, "DOWN");
+				if (m_tabPlayers[1]->display().getPosition().y+10 > m_ball->getBallShape().getPosition().y && m_tabPlayers[1]->display().getPosition().y + 90 > m_ball->getBallShape().getPosition().y) m_tabPlayers[1]->moveAI(*dt, "UP");
+				else if (m_tabPlayers[1]->display().getPosition().y+10 < m_ball->getBallShape().getPosition().y && m_tabPlayers[1]->display().getPosition().y + 90 < m_ball->getBallShape().getPosition().y) m_tabPlayers[1]->moveAI(*dt, "DOWN");
 				else m_tabPlayers[1]->moveAI(*dt, "NONE");
 			}
 			break;
@@ -294,7 +293,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 			//Ball goes to the direction of the one who marked the point
 			// 
 			// 
-			m_ball->firstMove(325, 395);
+			m_ball->firstMove(330, 390);
 
 		}
 		else if (m_ballHitbox->futureCollision().x > m_gamePlan->getSize().x - m_ball->getBallShape().getSize().x) {
@@ -318,7 +317,7 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 			//Ball goes to the direction of the one who marked the point
 			// 
 			// 
-			m_ball->firstMove(145, 215);
+			m_ball->firstMove(150, 210);
 		}
 
 
@@ -326,72 +325,53 @@ void Render::pongWindow(sf::RenderWindow* window, double* dt, std::map<std::stri
 			m_ball->changeDirection(1, -1);
 		}
 
+		topP1 = sf::RectangleShape(sf::Vector2f(10, 100.f));
+		topP1.setPosition(m_tabPlayers[0]->display().getPosition().x+10, m_tabPlayers[0]->display().getPosition().y);
 
-
-		topP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
-		topP1.setPosition(m_tabPlayers[0]->display().getPosition());
-
-		botP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[0]->display().getSize().x - 2, 1.f));
-		botP1.setPosition(sf::Vector2f(m_tabPlayers[0]->display().getPosition().x + 1, m_tabPlayers[0]->display().getPosition().y + 100));
-
+		//std::cout << m_ball->getAngle() << std::endl;
 		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[0]->getHitbox())) {
+			if (m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y > 0 || m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
 
-			if (m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
 				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
-				m_ball->changeDirection(-1, -1);
+				m_ball->changeDirection(-1, -1);	
 			}
-			else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
+			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds())) {
 				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
-				m_ball->changeDirection(-1, -1);
+				m_ball->changeDirection(-1, 1);
 			}
-			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())) {
-				if (m_tabPlayers[0]->getMovement().y == 0) {
-					m_ball->setPositionBall(sf::Vector2f(100.f - 20.f, m_ball->getBallShape().getPosition().y));
-					m_ball->changeDirection(1, -1);
-				}
-				else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
-					m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
-				}
+			else if (m_tabPlayers[0]->getMovement().y == 0) {
+				m_ball->setPositionBall(sf::Vector2f(100.f - 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->changeDirection(1, -1);
 			}
-			else {
+			else if (m_tabPlayers[0]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[0]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
 				m_ball->setPositionBall(sf::Vector2f(100.f + 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, 1);
 			}
 		}
 
-		topP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[1]->display().getSize().x - 2, 1.f));
 		topP1.setPosition(m_tabPlayers[1]->display().getPosition());
 
-		botP1 = sf::RectangleShape(sf::Vector2f(m_tabPlayers[1]->display().getSize().x - 2, 1.f));
-		botP1.setPosition(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x + 1, m_tabPlayers[0]->display().getPosition().y + 100));
-
 		if (m_ballHitbox->getHitbox()->intersects(*m_tabHitboxPlayers[1]->getHitbox())) {
-
-			if (m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y > 0) {
+			if (m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y > 0 || m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
 				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, -1);
 			}
-			else if (m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y < 0) {
+			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds())) {
 				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
-				m_ball->changeDirection(-1, -1);
+				m_ball->changeDirection(-1, 1);
 			}
-			else if (m_ballHitbox->getHitbox()->intersects(topP1.getGlobalBounds()) || m_ballHitbox->getHitbox()->intersects(botP1.getGlobalBounds())) {
-				if (m_tabPlayers[1]->getMovement().y == 0) {
-					m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x + 20.f, m_ball->getBallShape().getPosition().y));
-					m_ball->changeDirection(1, -1);
-				}
-				else if (m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
-					m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
-				}
+			else if (m_tabPlayers[1]->getMovement().y == 0) {
+				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x + 20.f, m_ball->getBallShape().getPosition().y));
+				m_ball->changeDirection(1, -1);
 			}
-			else {
+			else if (m_tabPlayers[1]->getMovement().y > 0 && m_ball->getMovement().y > 0 || m_tabPlayers[1]->getMovement().y < 0 && m_ball->getMovement().y < 0) {
 				m_ball->setPositionBall(sf::Vector2f(m_tabPlayers[1]->display().getPosition().x - 20.f, m_ball->getBallShape().getPosition().y));
 				m_ball->changeDirection(-1, 1);
 			}
 		}
 
 		//For me to quit game before ending an actual game (will be replaced with a quit button)
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
 
 			for (int i(0); i < m_tabPlayers.size(); i++) {
 				delete m_tabPlayers[i];

@@ -20,6 +20,7 @@ public:
 	void changeDirection(int x, int y);
 	sf::Vector2f getMovement();
 
+	int getAngle() const;
 private:
 
 	sf::RectangleShape* m_ballShape;

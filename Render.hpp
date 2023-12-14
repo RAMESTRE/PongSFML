@@ -30,8 +30,10 @@ public:
 	void startMenu(sf::RenderWindow* window);
 	void playerMenu(sf::RenderWindow* window);
 
+	//Content actual game method
 
 	void pongWindow(sf::RenderWindow* window, double* dt, std::map<std::string, sf::Keyboard::Scancode>& pOneControls, std::map<std::string, sf::Keyboard::Scancode>& pTwoControls);
+
 
 	void parametersMenu(sf::RenderWindow* window, sf::Event* evenmt);
 	bool parametersSaved();
