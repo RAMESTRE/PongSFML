@@ -8,6 +8,7 @@ Button::Button(double x, double y, double width, double height, int id, int size
 	m_hitboxButton = m_shapeButton.getGlobalBounds();
 	m_shapeButton.setOrigin(m_hitboxButton.left + m_hitboxButton.width / 2, m_hitboxButton.top + m_hitboxButton.height / 2);
 	m_shapeButton.setPosition(x, y); 
+	m_shapeButton.setFillColor(sf::Color::Transparent);
 
 	if (!m_font.loadFromFile("arial.ttf"))
 	{

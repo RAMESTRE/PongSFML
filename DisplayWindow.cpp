@@ -67,7 +67,6 @@ void DisplayWindow::runWindow() {
         switch (render.getStateGame())
         {
         case(STARTUP_MENU):
-            //render.parametersMenu(m_window);
             render.startMenu(m_window);
             break;
         case(PLAYERS_MENU):
@@ -100,6 +99,11 @@ void DisplayWindow::runWindow() {
             }
             //Here call loadFromFileGraphic when menu parameters is quitted to load new window settings
             break;
+        case(REPLAY_MENU):
+            render.replayMenu(m_window);
+            break;
+        case(QUIT_GAME):
+            m_window->close();
         }
 
         m_window->display();

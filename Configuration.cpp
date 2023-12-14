@@ -3,6 +3,7 @@
 Configuration::Configuration() {
 	defaultGraphicParameters();
 	defaultControlsParameters();
+	configFolderExist();
 }
 
 Configuration::~Configuration() {
@@ -12,7 +13,10 @@ Configuration::~Configuration() {
 
 void Configuration::saveToFileGraphic(std::string path) {
 
+	configFolderExist();
+
 	std::ofstream file(path);
+	
 
 	if (file.is_open()) {
 		file << "SIZE=" << m_widthWindow << "x" << m_heightWindow <<"\n";
@@ -33,6 +37,8 @@ void Configuration::saveToFileGraphic(std::string path) {
 
 void Configuration::loadFromFileGraphic(std::string path) {
 
+	configFolderExist();
+
 	std::ifstream flux(path);
 	std::string line;
 	std::string settings;
@@ -45,12 +51,21 @@ void Configuration::loadFromFileGraphic(std::string path) {
 			
 			if (line.substr(0, line.find('=')) == "SIZE") {
 
-				m_widthWindow = std::stoi(settings.substr(0, settings.find('x')));
-				m_heightWindow = std::stoi(settings.substr(settings.find('x') + 1));
-
+				if (correctResolutionSetting(settings)) {
+					m_widthWindow = std::stoi(settings.substr(0, settings.find('x')));
+					m_heightWindow = std::stoi(settings.substr(settings.find('x') + 1));
+				}
+				else {
+					defaultGraphicParameters();
+					break;
+				}
 			}
 			else if (line.substr(0, line.find('=')) == "FRAMERATE") {
-				m_framerate = std::stoi(settings);
+				if (correctFramerateSetting(settings))	m_framerate = std::stoi(settings);
+				else {
+					defaultGraphicParameters();
+					break;
+				}
 			}
 			else if (line.substr(0, line.find('=')) == "FULLSCREEN") {
 				m_fullscreen = (settings == "true");
@@ -58,7 +73,6 @@ void Configuration::loadFromFileGraphic(std::string path) {
 			else if (line.substr(0, line.find('=')) == "VSYNC") {
 				m_vsync = (settings == "true");
 			}
-			
 		}
 	}
 	else {
@@ -114,6 +128,8 @@ void Configuration::saveChange(int width, int height, int framerate, bool vsync,
 
 void Configuration::saveToFileKeys(std::string path) {
 
+	configFolderExist();
+
 	std::ofstream file(path);
 	std::vector<std::string> toSave{ "[Player 1]", "UP", "DOWN", "[Player 2]", "UP", "DOWN" };
 
@@ -135,8 +151,13 @@ void Configuration::saveToFileKeys(std::string path) {
 
 void Configuration::loadFromFileKeys(std::string path) {
 
+	configFolderExist();
+
 	std::map<std::string, int> tab;
-	for (int i(1); i < sf::Keyboard::Scancode::ScancodeCount; i++) { //Start at i=1 because tab[settings] return 0 if element don't exist
+	
+	//Loop limited to Scancode that can't be counted two times as the same key
+	//Start at i=1 because tab[settings] return 0 if element don't exist
+	for (int i(1); i < (sf::Keyboard::Scancode::NonUsBackslash) + 1; i++) { 
 		tab[sf::Keyboard::getDescription(sf::Keyboard::Scancode(i-1)).toAnsiString()] = i;
 	}
 
@@ -188,6 +209,7 @@ std::map<std::string, sf::Keyboard::Scancode> Configuration::getControl(int play
 
 void Configuration::defaultControlsParameters() {
 
+	std::vector<std::string> m_playerActions;
 	m_playerActions = {"UP", "DOWN"};
 
 	for (int i(0); i < m_playerActions.size(); i++) {
@@ -202,3 +224,52 @@ void Configuration::defaultControlsParameters() {
 	}
 
 }
+
+void Configuration::configFolderExist() {
+	const char* dir = "./Config";
+	struct stat metadata;
+
+	int status;
+
+	if (stat(dir, &metadata) == 0) std::cout << "Path valid" << std::endl;
+	else {
+		std::cout << "Repertory does not exist" << std::endl;
+		if (_mkdir("./Config") == 0) std::cout << "Repertory Config created" << std::endl;
+		else std::cout << "Couldn't create Config Repertory";
+	}
+	
+}
+
+bool Configuration::correctResolutionSetting(std::string res) {
+
+	std::vector<std::string> resolutions{ "854x480", "960x540", "1024x576", "1280x720", "1366x768",
+		"1600x900", "1920x1080", "2048x1152", "2560x1440", "3200x1800", "3840x2160" };
+
+	for (int i(0); i < resolutions.size(); i++) {
+		if (resolutions[i].compare(res) == 0) return true;
+		
+	}
+	return false;
+}
+	
+bool Configuration::correctFramerateSetting(std::string res) {
+
+	std::vector<std::string> framerate{ "30", "60", "120", "0" };
+
+	for (int i(0); i < framerate.size(); i++) {
+		if (framerate[i].compare(res) == 0) return true;
+	}
+	return false;
+	
+}
+
+void Configuration::checkResolutionBelowMax() {
+	if (m_widthWindow > sf::VideoMode::getDesktopMode().width || m_heightWindow > sf::VideoMode::getDesktopMode().height) {
+		m_widthWindow = sf::VideoMode::getDesktopMode().width;
+		m_heightWindow = sf::VideoMode::getDesktopMode().height;
+	}
+}
+
+
+	
+	

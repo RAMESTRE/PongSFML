@@ -15,7 +15,9 @@
 
 enum statesGame { STARTUP_MENU = 0, PLAYERS_MENU = 1, PONG_WINDOW = 2, REPLAY_MENU = 3, PARAMETERS_MENU = 4, QUIT_GAME = 5 }; //Describe the current state of the whole game(menus, pong game,...)
 
-enum statesPong {SLEEP = 0, INIT_PVP = 1, INIT_PVCPU = 2, CURRENT_GAME = 3, END_GAME = 4}; //Describe the current state of the PONG game
+enum statesPong {SLEEP = 0, INIT_GAME = 1, CURRENT_GAME = 3, END_GAME = 4}; //Describe the current state of the PONG game
+
+enum statesVs { PVP = 0, PVCPU = 1 };
 
 
 class Render {
@@ -34,7 +36,9 @@ public:
 	void parametersMenu(sf::RenderWindow* window, sf::Event* evenmt);
 	bool parametersSaved();
 
-	void replayMenu();
+	void replayMenu(sf::RenderWindow* window);
+
+	void ai();
 
 	statesGame getStateGame() const;
 
@@ -65,6 +69,7 @@ private:
 
 	statesGame m_gameState;
 	statesPong m_pongState;
+	statesVs m_vsState;
 
 	std::vector<Player*> m_tabPlayers;
 	std::vector<Hitbox*> m_tabHitboxPlayers;
@@ -73,6 +78,11 @@ private:
 	Hitbox* m_ballHitbox; // For now will work with ball hitbox delared here and not using hitbox class (cause hitbox is only compatible with player class right now)
 
 	int m_score[2];
+
+	//ReplayMenu Attributes
+	//
+	//
+	std::vector<Button*> m_buttonsReplayMenu;
 
 	//MenuParameters
 	MenuParameters parameters;

@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <sys/stat.h>
+#include <direct.h>
 #include <SFML/Graphics.hpp>
 
 class Configuration {
@@ -39,6 +41,10 @@ public:
 
 private:
 
+	bool correctResolutionSetting(std::string res);
+	void checkResolutionBelowMax();
+	bool correctFramerateSetting(std::string framerate);
+	void configFolderExist();
 
 	//Graphic Attributes
 
@@ -46,8 +52,6 @@ private:
 	bool m_vsync, m_fullscreen; 
 
 	//Controls Attributes
-
-	std::vector<std::string> m_playerActions;
 
 	std::map<std::string, sf::Keyboard::Scancode> m_playerOneControls;
 	std::map<std::string, sf::Keyboard::Scancode> m_playerTwoControls;

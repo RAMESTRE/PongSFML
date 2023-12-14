@@ -41,6 +41,24 @@ void Player::movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::S
 	else if (m_playerShape->getPosition().y > 1080 - 120 - m_playerShape->getSize().y) m_playerShape->setPosition(m_playerShape->getPosition().x, 1080 - 120 - m_playerShape->getSize().y);
 }
 
+void Player::moveAI(double& deltaTime, std::string direction) {
+	if (direction == "UP" && m_playerShape->getPosition().y > (120)) {
+		m_movement.y = -m_speed * deltaTime;
+		m_playerShape->move(0.f, m_movement.y);
+	}
+	else if (direction == "DOWN" && m_playerShape->getPosition().y < 1080 - 120 - m_playerShape->getSize().y)
+	{
+		m_movement.y = m_speed * deltaTime;
+		m_playerShape->move(0.f, m_movement.y);
+	}
+	else {
+		m_movement.y = 0;
+	}
+
+	if (m_playerShape->getPosition().y < (120)) m_playerShape->setPosition(m_playerShape->getPosition().x, 120);
+	else if (m_playerShape->getPosition().y > 1080 - 120 - m_playerShape->getSize().y) m_playerShape->setPosition(m_playerShape->getPosition().x, 1080 - 120 - m_playerShape->getSize().y);
+}
+
 sf::Vector2f Player::getMovement() const{
 	return m_movement;
 }

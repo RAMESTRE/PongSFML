@@ -17,6 +17,8 @@ public:
 	void movePlayer(double& deltaTime, std::map<std::string, sf::Keyboard::Scancode>& controls); //To modify later for player 1 and 2 to have differents controls
 	sf::Vector2f getMovement() const;
 
+	void moveAI(double& deltaTime, std::string direction);
+
 private:
 
 	sf::RectangleShape *m_playerShape;
