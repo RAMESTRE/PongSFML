@@ -1,15 +1,11 @@
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
 #include "DisplayWindow.hpp"
-//#include "Configuration.hpp"
-//#include <Windows.h>
+#include <Windows.h>
 
 int main()
 {
 
-    //HWND hwnd = GetConsoleWindow();
-    //ShowWindow(hwnd, SW_NORMAL);
+    HWND hwnd = GetConsoleWindow();
+    ShowWindow(hwnd, SW_HIDE);
 
     DisplayWindow window;
 
